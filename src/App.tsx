@@ -1,7 +1,7 @@
 import { Suspense } from 'preact/compat'
 import { Switch, Route} from 'wouter-preact';
-import Header from 'components/Header'
-import Main from 'pages/main'
+import Header from './components/Header'
+import Main from './pages/main'
 
 export default function () {
 
