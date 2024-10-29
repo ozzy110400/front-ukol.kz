@@ -4,7 +4,7 @@ import currentOrderAtom from '../../atoms/currentOrder';
 
 interface DressingProps {}
 
-const Dressing: React.FC<DressingProps> = () => {
+const Dressing = ( props: DressingProps) => {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
 
   return (

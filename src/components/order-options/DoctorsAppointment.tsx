@@ -5,7 +5,7 @@ import currentOrderAtom from '../../atoms/currentOrder';
 
 interface DoctorsAppointmentProps {}
 
-const DoctorsAppointment: React.FC<DoctorsAppointmentProps> = () => {
+const DoctorsAppointment = (props: DoctorsAppointmentProps) => {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
   const fileInputRef = useRef<HTMLInputElement>(null); // Use ref to access the hidden input
   const [fileName, setFileName] = useState('');

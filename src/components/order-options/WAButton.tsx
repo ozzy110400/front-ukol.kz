@@ -2,7 +2,7 @@ import { Box, Button, Typography } from '@mui/material';
 
 interface WAButtonProps {}
 
-const WAButton: React.FC<WAButtonProps> = () => {
+const WAButton= (props:WAButtonProps) => {
 
   const handleWhatsAppClick = () => {
     const phone = '77027776776'; // Replace with the actual phone number

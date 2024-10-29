@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 
 interface ServiceCardsCarouselProps {}
 
-const ServiceCardsCarousel: React.FC<ServiceCardsCarouselProps> = () => {
+const ServiceCardsCarousel= ( props: ServiceCardsCarouselProps ) => {
     const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
     const handleSelect = (title: string, amount: number) => {
         const currentHour = parseInt(dayjs().format('HH'), 10);

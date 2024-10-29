@@ -9,7 +9,7 @@ import dayjs, { Dayjs } from 'dayjs';
 
 interface ArrivalTimeProps {}
 
-const ArrivalTime: React.FC<ArrivalTimeProps> = () => {
+const ArrivalTime= (props:ArrivalTimeProps) => {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
   const [selectedTime, setSelectedTime] = useState<Dayjs | null>(null);
   const [activeOption, setActiveOption] = useState<'ASAP' | 'TIME'>('ASAP');

@@ -4,7 +4,7 @@ interface MainPhraseProps {
 
 }
 
-const MainPhrase: React.FC<MainPhraseProps> = () => {
+const MainPhrase = (props:MainPhraseProps) => {
     
     const handleWhatsAppClick = () => {
         const phone = '77027776776'; // Replace with the actual phone number

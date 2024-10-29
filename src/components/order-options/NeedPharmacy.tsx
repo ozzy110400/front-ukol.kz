@@ -4,7 +4,7 @@ import currentOrderAtom from '../../atoms/currentOrder';
 
 interface NeedPharmacyProps {}
 
-const NeedPharmacy: React.FC<NeedPharmacyProps> = () => {
+const NeedPharmacy = (props: NeedPharmacyProps) => {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
 
   return (

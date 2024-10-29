@@ -4,7 +4,7 @@ import currentOrderAtom from '../../atoms/currentOrder';
 
 interface PremiumDetoxicationProps {}
 
-const PremiumDetoxication: React.FC<PremiumDetoxicationProps> = () => {
+const PremiumDetoxication= (props:PremiumDetoxicationProps) => {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
 
   return (

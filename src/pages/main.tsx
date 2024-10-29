@@ -2,7 +2,7 @@ import {
   Box,
 } from '@mui/material';
 import { useAtom } from 'jotai';
-import currentOrderAtom from 'atoms/currentOrder';
+import currentOrderAtom from '../atoms/currentOrder';
 import MapComponent from '../components/Map';
 import LoginModal from '../components/LoginModal';
 import { serviceOptionsMap } from '../components/order-options/allOptionsMap';

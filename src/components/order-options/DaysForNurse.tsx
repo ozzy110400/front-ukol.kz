@@ -5,7 +5,7 @@ import currentOrderAtom from '../../atoms/currentOrder';
 
 interface DaysForNurseProps {}
 
-const DaysForNurse: React.FC<DaysForNurseProps> = () => {
+const DaysForNurse = (props: DaysForNurseProps)  => {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
   
   const handleDaysChange = (event: SelectChangeEvent<number>) => {

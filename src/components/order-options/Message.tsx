@@ -4,7 +4,7 @@ import currentOrderAtom from '../../atoms/currentOrder';
 
 interface MessageProps {}
 
-const Message: React.FC<MessageProps> = () => {
+const Message= ( props: MessageProps) => {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
 
   const handleMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {

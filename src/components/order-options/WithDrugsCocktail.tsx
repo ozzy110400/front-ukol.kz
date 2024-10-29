@@ -6,7 +6,7 @@ import currentOrderAtom from '../../atoms/currentOrder';
 interface WithDrugsCocktailProps {
 }
 
-const WithDrugsCocktail: React.FC<WithDrugsCocktailProps> = () => {
+const WithDrugsCocktail= (props:WithDrugsCocktailProps) => {
     const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
 
     return (

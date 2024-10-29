@@ -6,7 +6,7 @@ import modalsOpenAtom from '../atoms/modalsOpen';
 import authAtom from '../atoms/auth';
 import { uploadPhoto, createOrder } from '../helpers/api';
 
-const MapFooter: React.FC = () => {
+const MapFooter = () => {
   const [auth, setAuth] = useAtom(authAtom);
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
   const [amount, setAmount] = useState(currentOrder.amount);

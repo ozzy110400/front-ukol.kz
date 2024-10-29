@@ -9,8 +9,8 @@ interface ServiceCardProps {
   imageSrc: string;
 }
 
-const ServiceCard: React.FC<ServiceCardProps> = ({ title, isSelected }) => {
-    return (
+const ServiceCard = ({ title, isSelected }: ServiceCardProps) => {
+  return (
       <Card
       sx={{
         display: 'flex',
