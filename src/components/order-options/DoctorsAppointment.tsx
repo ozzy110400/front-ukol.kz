@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Box, Button, Checkbox, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
 import currentOrderAtom from '../../atoms/currentOrder';
@@ -12,11 +12,11 @@ const DoctorsAppointment: React.FC<DoctorsAppointmentProps> = () => {
 
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
+    const target = event.target as HTMLInputElement; // Cast event.target as HTMLInputElement
+    const file = target.files?.[0];
     if (file) {
       console.log('Uploaded file:', file);
-      // Update the currentOrder state with the uploaded file and its name
-      setFileName(file.name)
+      setFileName(file.name);
       setCurrentOrder(prevOrder => ({
         ...prevOrder,
         options: {

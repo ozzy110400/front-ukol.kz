@@ -2,7 +2,7 @@ import {
   Box,
 } from '@mui/material';
 import { useAtom } from 'jotai';
-import currentOrderAtom from '../atoms/currentOrder';
+import currentOrderAtom from 'atoms/currentOrder';
 import MapComponent from '../components/Map';
 import LoginModal from '../components/LoginModal';
 import { serviceOptionsMap } from '../components/order-options/allOptionsMap';
@@ -17,11 +17,11 @@ export default function Main() {
 
 
   const getOptions = () => {
-    const options = serviceOptionsMap[currentOrder.title] || [];
+    const options = currentOrder.title ? serviceOptionsMap[currentOrder.title as keyof typeof serviceOptionsMap] : [];
     
     return (
       <Box>
-        {options.map(({ component: Component, /* props*/ }, index) => (
+        {options.map(({ component: Component, /* props*/ }, index:number) => (
           <Component key={index} />
         ))}
       </Box>

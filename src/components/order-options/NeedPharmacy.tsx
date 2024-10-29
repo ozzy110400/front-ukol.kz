@@ -19,7 +19,7 @@ const NeedPharmacy: React.FC<NeedPharmacyProps> = () => {
                 ...prevOrder.options,
                 isNeedPharmacy: !prevOrder.options.isNeedPharmacy // Toggle the checkbox state
               },
-              amount: prevOrder.options.isNeedPharmacy ? Math.max(prevOrder.amount - 1000, 0) : prevOrder.amount + 1000 // Update amount accordingly
+              amount: prevOrder.options.isNeedPharmacy ? Math.max(prevOrder.amount! - 1000, 0) : prevOrder.amount! + 1000 // Update amount accordingly
             }))
           }
         />
@@ -31,7 +31,7 @@ const NeedPharmacy: React.FC<NeedPharmacyProps> = () => {
                 ...prevOrder.options,
                 isNeedPharmacy: !prevOrder.options.isNeedPharmacy // Toggle the checkbox state
               },
-              amount: prevOrder.options.isNeedPharmacy ? Math.max(prevOrder.amount - 1000, 0) : prevOrder.amount + 1000 // Update amount accordingly
+              amount: prevOrder.options.isNeedPharmacy ? Math.max(prevOrder.amount! - 1000, 0) : prevOrder.amount! + 1000 // Update amount accordingly
             }))
           }
           sx={{

@@ -19,7 +19,7 @@ const Dressing: React.FC<DressingProps> = () => {
                 ...prevOrder.options,
                 isWithDressingMaterial: !prevOrder.options.isWithDressingMaterial // Toggle the checkbox state
               },
-              amount: prevOrder.options.isWithDressingMaterial ? Math.max(prevOrder.amount - 2000, 0) : prevOrder.amount + 2000 // Update amount accordingly
+              amount: prevOrder.options.isWithDressingMaterial ? Math.max(prevOrder.amount! - 2000, 0) : prevOrder.amount! + 2000 // Update amount accordingly
             }))
           }
         />
@@ -31,7 +31,7 @@ const Dressing: React.FC<DressingProps> = () => {
                 ...prevOrder.options,
                 isWithDressingMaterial: !prevOrder.options.isWithDressingMaterial // Toggle the checkbox state
               },
-              amount: prevOrder.options.isWithDressingMaterial ? Math.max(prevOrder.amount - 2000, 0) : prevOrder.amount + 2000 // Update amount accordingly
+              amount: prevOrder.options.isWithDressingMaterial ? Math.max(prevOrder.amount! - 2000, 0) : prevOrder.amount! + 2000 // Update amount accordingly
             }))
           }
           sx={{

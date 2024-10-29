@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Button, Card, CardActions, CardContent, Typography } from '@mui/material';
 
 interface MainPhraseProps {

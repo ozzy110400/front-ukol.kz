@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Box, TextField, List, ListItem, ListItemText, Autocomplete, CircularProgress } from '@mui/material';
+import { Box, TextField, List, ListItem, ListItemText, Autocomplete, CircularProgress, ListItemButton } from '@mui/material';
 import { useAtom } from 'jotai';
 import currentOrderAtom from '../atoms/currentOrder';
 import axios from 'axios';
@@ -200,8 +200,8 @@ export default function MapComponent() {
             overflowY: 'auto',
           }}>
             {suggestions.map((suggestion) => (
-              <ListItem 
-                button 
+              <ListItemButton 
+   
                 key={suggestion.place_id} 
                 onClick={() => handleSuggestionClick(suggestion)}
                 sx={{           
@@ -210,7 +210,7 @@ export default function MapComponent() {
                 }}
               >
                 <ListItemText primary={suggestion.display_name} />
-              </ListItem>
+              </ListItemButton>
             ))}
           </List>
         )}

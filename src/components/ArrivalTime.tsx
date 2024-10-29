@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Button, ButtonGroup, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
 import currentOrderAtom from '../atoms/currentOrder';
@@ -21,7 +21,7 @@ const ArrivalTime: React.FC<ArrivalTimeProps> = () => {
 
     setCurrentOrder(prevOrder => ({
       ...prevOrder,
-      amount: prevOrder.amount + (isLateNight ? 1000 : 0),
+      amount: prevOrder.amount! + (isLateNight ? 1000 : 0),
       arrivalTime: {
         ...prevOrder.arrivalTime,
         isAlredyWithExtra: isLateNight,
@@ -48,7 +48,7 @@ const ArrivalTime: React.FC<ArrivalTimeProps> = () => {
             minutes,
             isAlredyWithExtra: shouldAddExtra,
           },
-          amount: prevOrder.amount + (shouldAddExtra ? 1000 : 0),
+          amount: prevOrder.amount! + (shouldAddExtra ? 1000 : 0),
         };
       });
     }

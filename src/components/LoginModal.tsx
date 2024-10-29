@@ -57,7 +57,7 @@ export default function LoginModal() {
   };
 
   const handleCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const inputCode = event.target.value;
+    const inputCode = (event.target as HTMLInputElement).value; 
     setCode(inputCode);
     if (/^\d{5}$/.test(inputCode)) {
       handleSubmit(inputCode);
@@ -104,7 +104,7 @@ export default function LoginModal() {
           }}
         >
           {/* Display success message instead of fields if authenticated */}
-          {authValue.user ? (
+          {authValue!.user ? (
             <Typography variant="h5" sx={{ textAlign: 'center', color: 'green' }}>
               Вы успешно авторизировались. Можете закрыть окно это. 
             </Typography>
@@ -117,7 +117,7 @@ export default function LoginModal() {
                   required
                   mask="+7 (999) 999-9999"
                   value={phone}
-                  onChange={(event) => setPhone(event.target.value)}
+                  onChange={(event) => setPhone((event.target as HTMLInputElement).value)}
                   disabled={isCodeSent}
                 >
                   {() => (

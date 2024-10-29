@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Button,Checkbox, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
 import currentOrderAtom from '../../atoms/currentOrder';
@@ -22,7 +21,7 @@ const WithDrugsCocktail: React.FC<WithDrugsCocktailProps> = () => {
                     ...prevOrder.options,
                     isWithDrugsCocktail: !prevOrder.options.isWithDrugsCocktail 
                   },
-                  amount: prevOrder.options.isWithDrugsCocktail ? Math.max(prevOrder.amount - 8000, 0) : prevOrder.amount + 8000 // Update amount accordingly
+                  amount: prevOrder.options.isWithDrugsCocktail ? Math.max(prevOrder.amount! - 8000, 0) : prevOrder.amount! + 8000 // Update amount accordingly
                 }))
               }
             />
@@ -34,7 +33,7 @@ const WithDrugsCocktail: React.FC<WithDrugsCocktailProps> = () => {
                     ...prevOrder.options,
                     isWithDrugsCocktail: !prevOrder.options.isWithDrugsCocktail 
                   },
-                  amount: prevOrder.options.isWithDrugsCocktail ? Math.max(prevOrder.amount - 8000, 0) : prevOrder.amount + 8000 // Update amount accordingly
+                  amount: prevOrder.options.isWithDrugsCocktail ? Math.max(prevOrder.amount! - 8000, 0) : prevOrder.amount! + 8000 // Update amount accordingly
                 }))
               }
             sx={{

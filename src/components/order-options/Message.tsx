@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, TextField, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
 import currentOrderAtom from '../../atoms/currentOrder';
@@ -9,12 +8,12 @@ const Message: React.FC<MessageProps> = () => {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
 
   const handleMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const message = event.target.value;
-    setCurrentOrder(prevOrder => ({
+    const message = (event.target as HTMLInputElement).value;
+    setCurrentOrder((prevOrder) => ({
       ...prevOrder,
       options: {
         ...prevOrder.options,
-        message, // Save the message to options
+        message,
       },
     }));
   };

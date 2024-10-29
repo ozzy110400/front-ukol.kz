@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
+import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
 import currentOrderAtom from '../../atoms/currentOrder';
 
@@ -8,8 +8,9 @@ interface DaysForNurseProps {}
 const DaysForNurse: React.FC<DaysForNurseProps> = () => {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
   
-  const handleDaysChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    const selectedDays = event.target.value as number;
+  const handleDaysChange = (event: SelectChangeEvent<number>) => {
+    const target = event.target as HTMLInputElement;
+    const selectedDays = target.value as unknown as number;
     setCurrentOrder(prevOrder => ({
       ...prevOrder,
       options: {
@@ -30,7 +31,7 @@ const DaysForNurse: React.FC<DaysForNurseProps> = () => {
         <Select
           value={currentOrder.options.daysForNurse || ''}
           onChange={handleDaysChange}
-          label="Количество дней"
+          label="Количество смен"
         >
           {[1, 2, 3, 4, 5, 6, 7].map((day) => (
             <MenuItem key={day} value={day} >
