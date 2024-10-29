@@ -3,7 +3,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Box, TextField, List, ListItem, ListItemText, Autocomplete, CircularProgress } from '@mui/material';
 import { useAtom } from 'jotai';
-import currentOrderAtom from 'atoms/currentOrder';
+import currentOrderAtom from '../atoms/currentOrder';
 import axios from 'axios';
 import debounce from 'lodash/debounce';
 

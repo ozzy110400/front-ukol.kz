@@ -5,7 +5,7 @@ import {
   DialogContent,
   Typography,
 } from '@mui/material';
-import modalsOpenAtom from 'atoms/modalsOpen';
+import modalsOpenAtom from '../atoms/modalsOpen';
 import { useAtom } from 'jotai';
 
 

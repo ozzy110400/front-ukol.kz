@@ -1,4 +1,4 @@
-import { TOrder } from 'atoms/currentOrder';
+import { TOrder } from '../atoms/currentOrder';
 import axios from 'axios';
 
 const baseURL = 'http://localhost:1337'; 
