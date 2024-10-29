@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, ButtonGroup, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
-import currentOrderAtom from 'atoms/currentOrder';
+import currentOrderAtom from '../atoms/currentOrder';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
