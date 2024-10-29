@@ -27,7 +27,7 @@ const ArrivalTime= (props:ArrivalTimeProps) => {
         isAlredyWithExtra: isLateNight,
       },
     }));
-  }, [currentOrder]);
+  }, []);
 
   
   const handleTimeChange = (newValue: Dayjs | null) => {

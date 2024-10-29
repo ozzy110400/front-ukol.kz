@@ -1,20 +1,9 @@
-import './index.css'
+import 'index.css'
 import { ThemeProvider, createTheme } from '@mui/material'
 import { render } from 'preact'
-import App from './App'
+import App from 'App'
 
 const theme = createTheme({
-    palette: {
-        // primary: {
-        //   main:'#7F7576FF',
-        // },
-        // secondary: {
-        //   main: '#ff3d00',
-        // },  
-        text: {
-          primary: '#3A4157', // Set default text color to black
-        },
-      },
   typography: {
     fontFamily: 'Montserrat, sans-serif',
     h1: {
