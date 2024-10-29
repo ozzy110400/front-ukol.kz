@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Box, Typography, TextField, Button, List, ListItem, ListItemText, Autocomplete, CircularProgress } from '@mui/material';
+import { Box, TextField, List, ListItem, ListItemText, Autocomplete, CircularProgress } from '@mui/material';
 import { useAtom } from 'jotai';
-import currentOrderAtom from '../atoms/currentOrder';
+import currentOrderAtom from 'atoms/currentOrder';
 import axios from 'axios';
 import debounce from 'lodash/debounce';
 
@@ -17,7 +17,6 @@ export default function MapComponent() {
   const [address, setAddress] = useState<string>(''); // State to hold the searched address
   const [suggestions, setSuggestions] = useState<any[]>([]); // State to hold autocomplete suggestions
 
-  // Get user location and set map center
   useEffect(() => {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
@@ -154,14 +153,17 @@ export default function MapComponent() {
       <div id="map" style={{ height: '400px', width: '100%' }} />
       <Box sx={{ position: 'relative',flexDirection: 'column', alignItems: 'center', margin: 2, }}>
       <Box display="flex" gap={2} sx={{ mb: 2 }}>
-        <TextField
+      <TextField
           required
           variant="outlined"
           label="Адрес"
           value={address}
           onChange={(e) => {
-            setAddress(e.target.value);
-            debouncedFetchSuggestions(e.target.value);
+            const target = e.target as HTMLInputElement; // Type assertion
+            if (target) {
+              setAddress(target.value);
+              debouncedFetchSuggestions(target.value);
+            }
           }}
           sx={{ flexGrow: 1 }} // This field takes the available space
         />
@@ -169,9 +171,13 @@ export default function MapComponent() {
           required
           label="Квартира"
           value={currentOrder.flat || ''}
-          onChange={(event) => 
-            setCurrentOrder(prevOrder => ({ ...prevOrder, flat: event.target.value }))
+          onChange={(e) => {
+            const target = e.target as HTMLInputElement; // Type assertion
+            if (target) {
+              setCurrentOrder(prevOrder => ({ ...prevOrder, flat: target.value }))
+            }
           }
+        }
           variant="outlined"
           sx={{ width: '20%' }} // Adjust the width as needed
         />

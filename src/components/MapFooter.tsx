@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
-import currentOrderAtom from '../atoms/currentOrder';
-import modalsOpenAtom from '../atoms/modalsOpen';
-import authAtom from '../atoms/auth';
-import { uploadPhoto, createOrder } from '../helpers/api';
+import currentOrderAtom from 'atoms/currentOrder';
+import modalsOpenAtom from 'atoms/modalsOpen';
+import authAtom from 'atoms/auth';
+import { uploadPhoto, createOrder } from 'helpers/api';
 
 const MapFooter: React.FC = () => {
   const [auth, setAuth] = useAtom(authAtom);

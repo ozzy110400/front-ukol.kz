@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button, Checkbox, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
-import currentOrderAtom from '../../atoms/currentOrder';
+import currentOrderAtom from 'atoms/currentOrder';
 
 interface PremiumDetoxicationProps {}
 

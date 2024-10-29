@@ -3,6 +3,7 @@ import { atom } from 'jotai'
 export type TOrder = {
     title?: string;
     streetAndBuildingNumber?: string;
+    flat?: string;
     amount?: number;
     options: {
         isNeedPharmacy: boolean,
@@ -24,6 +25,7 @@ export type TOrder = {
 export default atom<TOrder>({
     title: '',
     streetAndBuildingNumber: '',
+    flat: '',
     amount: 0,
     options : {
         isNeedPharmacy: false,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, TextField, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
-import currentOrderAtom from '../../atoms/currentOrder';
+import currentOrderAtom from 'atoms/currentOrder';
 
 interface MessageProps {}
 

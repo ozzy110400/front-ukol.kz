@@ -1,9 +1,9 @@
 import React from 'react';
-import { Box, Button, Card, CardContent, Typography } from '@mui/material';
-import { servicePriceGlobaOption } from '../helpers/default';
+import { Box, Button } from '@mui/material';
+import { servicePriceGlobaOption } from 'helpers/default';
 import ServiceCard from './ServiceCard';
 import { useAtom } from 'jotai';
-import currentOrderAtom from '../atoms/currentOrder';
+import currentOrderAtom from 'atoms/currentOrder';
 import dayjs from 'dayjs';
 
 interface ServiceCardsCarouselProps {}
