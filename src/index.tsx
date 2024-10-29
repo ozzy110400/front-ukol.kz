@@ -1,8 +1,7 @@
-import 'index.css'
+import './index.css'
 import { ThemeProvider, createTheme } from '@mui/material'
 import { render } from 'preact'
-import CssBaseline from "@material-ui/core/CssBaseline";
-import App from 'App'
+import App from './App'
 
 const theme = createTheme({
     palette: {
