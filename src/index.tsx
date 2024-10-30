@@ -37,6 +37,6 @@ const theme = createTheme({
 render(
   
     <App />
-  ,
+ ,
   document.getElementById('root') as Element
 )

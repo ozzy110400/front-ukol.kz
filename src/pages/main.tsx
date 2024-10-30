@@ -15,30 +15,40 @@ import MapFooter from '../components/MapFooter';
 export default function Main() {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
 
+
+  const getOptions = () => {
+    const options = currentOrder.title ? serviceOptionsMap[currentOrder.title as keyof typeof serviceOptionsMap] : [];
+    
+    return (
+      <Box>
+        {options.map(({ component: Component, /* props*/ }, index:number) => (
+          <Component key={index} />
+        ))}
+      </Box>
+    );
+  };
   
   return (
-    <div>blabl1214</div>
-  //   <Box sx={{ mt: '5%', backgroundColor: 'transparent' }}>
-  //     <Box sx={{ 
-  //           border: '3px solid black', 
-  //           margin: 2,
-  //           position: 'relative',
+    <Box sx={{ mt: '5%', backgroundColor: 'transparent' }}>
+      <Box sx={{ 
+            border: '3px solid black', 
+            margin: 2,
+            position: 'relative',
             
-  //         }}> 
+          }}> 
 
-  //         <MapComponent />
-  //         <ServiceCardsCarousel/>
-  //         <ArrivalTime/> 
-  //         {getOptions()}    
-  //         <MapFooter/>
+          <MapComponent />
+          <ServiceCardsCarousel/>
+          <ArrivalTime/> 
+          {getOptions()}    
+          <MapFooter/>
        
-  //     </Box>
+      </Box>
 
-  //      <MainPhrase/>
-  //      <LoginModal />
-  //      <SuccesOrderModal />
+       <MainPhrase/>
+       <LoginModal />
+       <SuccesOrderModal />
 
-  //   </Box>
-  // );
-  )
+    </Box>
+  );
 }
