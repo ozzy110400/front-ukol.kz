@@ -45,9 +45,9 @@ export default function Main() {
        
       </Box>
 
-       <MainPhrase/>
+       {/* <MainPhrase/>
        <LoginModal />
-       <SuccesOrderModal />
+       <SuccesOrderModal /> */}
 
     </Box>
   );
