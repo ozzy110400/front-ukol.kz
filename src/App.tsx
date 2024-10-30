@@ -9,9 +9,9 @@ export default function () {
     <div className="container mx-auto" >
       <Suspense fallback={<p>Loading...</p>}>
         <Header />
-        {/* <Switch>
+        <Switch>
            <Route path="/" component={Main} />
-        </Switch> */}
+        </Switch>
       </Suspense>
     </div>
   )
