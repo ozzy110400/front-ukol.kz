@@ -1,7 +1,7 @@
 import { TOrder } from '../atoms/currentOrder';
 import axios from 'axios';
 
-const baseURL = 'http://localhost:1337'; 
+const baseURL = import.meta.env['BACK_URL']; 
 
 const $api = axios.create({
     baseURL,
