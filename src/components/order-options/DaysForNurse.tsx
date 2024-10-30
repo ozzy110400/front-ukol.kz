@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
 import currentOrderAtom from '../../atoms/currentOrder';

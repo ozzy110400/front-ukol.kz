@@ -15,7 +15,6 @@ import MapFooter from '../components/MapFooter';
 export default function Main() {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
 
-
   const getOptions = () => {
     const options = currentOrder.title ? serviceOptionsMap[currentOrder.title as keyof typeof serviceOptionsMap] : [];
     
