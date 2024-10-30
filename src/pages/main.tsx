@@ -16,18 +16,17 @@ export default function Main() {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
 
 
-  const getOptions = () => {
-    const options = currentOrder.title ? serviceOptionsMap[currentOrder.title as keyof typeof serviceOptionsMap] : [];
-    if(options.length > 0){
-    return (
-      <Box>
-        {options.map(({ component: Component, /* props*/ }, index:number) => (
-          <Component key={index} />
-        ))}
-      </Box>
-    );
-     }
-  };
+  // const getOptions = () => {
+  //   const options = currentOrder.title ? serviceOptionsMap[currentOrder.title as keyof typeof serviceOptionsMap] : [];
+    
+  //   return (
+  //     <Box>
+  //       {options.map(({ component: Component, /* props*/ }, index:number) => (
+  //         <Component key={index} />
+  //       ))}
+  //     </Box>
+  //   );
+  // };
   
   return (
     <Box sx={{ mt: '5%', backgroundColor: 'transparent' }}>
@@ -41,7 +40,7 @@ export default function Main() {
           <MapComponent />
           <ServiceCardsCarousel/>
           <ArrivalTime/> 
-          {getOptions()}    
+          {/* {getOptions()}     */}
           <MapFooter/>
        
       </Box>
