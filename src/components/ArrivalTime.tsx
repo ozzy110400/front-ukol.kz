@@ -89,7 +89,7 @@ const ArrivalTime= (props:ArrivalTimeProps) => {
 
           }}
         >
-          <Typography variant="h3" sx={{ fontSize: { xs: '0.6rem', sm: '0.8rem', md: '1.0rem' } }}>
+          <Typography variant="h3" sx={{ fontSize: { xs: '0.8rem', sm: '1.0rem', md: '1.2rem' } }}>
           Приехать как можно раньше
           </Typography>
 
@@ -102,7 +102,7 @@ const ArrivalTime= (props:ArrivalTimeProps) => {
             border: '1px #88e788'
           }}
         >
-          <Typography variant="h3" sx={{ fontSize: { xs: '0.6rem', sm: '0.8rem', md: '1.0rem' } }}>
+          <Typography variant="h3" sx={{ fontSize: { xs: '0.8rem', sm: '1.0rem', md: '1.2rem' } }}>
           Выбрать время
           </Typography>
         </Button>
