@@ -16,7 +16,6 @@ $api.interceptors.request.use((config) => {
 $api.interceptors.response.use(
     (config) => config,
     async (error) => {
-        console.log(123)
         const originalRequest = error.config;
 
         if (error.response && error.response.status === 401 && !originalRequest._isRetry) {
@@ -35,7 +34,15 @@ $api.interceptors.response.use(
 
 export const createOrder = async (orderDetails: TOrder) => {
     try {
-        const response = await $api.post('/order/create', orderDetails);
+        const { streetAndBuildingNumber, flat, ...rest } = orderDetails;
+        const address = `${streetAndBuildingNumber || ''} кв. ${flat || ''}`.trim();
+
+        const orderToSend = {
+            ...rest,
+            address, 
+        };
+
+        const response = await $api.post('/order/create', orderToSend);
         return response.data;
     } catch (error) {
         console.error('Error creating order:', error);
