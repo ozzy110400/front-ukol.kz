@@ -18,7 +18,7 @@ export default function Main() {
 
   const getOptions = () => {
     const options = currentOrder.title ? serviceOptionsMap[currentOrder.title as keyof typeof serviceOptionsMap] : [];
-    
+    if(options.length > 0){
     return (
       <Box>
         {options.map(({ component: Component, /* props*/ }, index:number) => (
@@ -26,6 +26,7 @@ export default function Main() {
         ))}
       </Box>
     );
+     }
   };
   
   return (
