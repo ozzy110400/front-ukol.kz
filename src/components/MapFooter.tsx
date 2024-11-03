@@ -20,17 +20,29 @@ const MapFooter = () => {
     } else {
       try {
         // Photo upload if required
-        if (currentOrder.options.isHaveDoctorsAppointment && currentOrder.options.photo) {
+        if (currentOrder.options.isHaveDoctorsAppointment) {
           const formData = new FormData();
           formData.append('file', currentOrder.options.photo);
           const uploadResponse = await uploadPhoto(formData);
-          console.log('Photo uploaded successfully:', uploadResponse.data);
+          // Update currentOrder with the new photoURL
+          const updatedOrder = {
+            ...currentOrder,
+            options: {
+              ...currentOrder.options,
+              photoURL: uploadResponse.data,
+            },
+          };
+          setCurrentOrder(updatedOrder); // Update the state with the new order
+          // Proceed to create the order with the updated currentOrder
+          const result = await createOrder(updatedOrder);
+          setModalsOpen((prev) => ({ ...prev, isSuccesModalOpen: result.success }));
+          console.log('Order created successfully:', result);
+        } else {
+          // If no photo upload is needed, create the order directly
+          const result = await createOrder(currentOrder);
+          setModalsOpen((prev) => ({ ...prev, isSuccesModalOpen: result.success }));
+          console.log('Order created successfully:', result);
         }
-
-        // Order creation
-        const result = await createOrder(currentOrder);
-        setModalsOpen((prev) => ({ ...prev, isSuccesModalOpen: result.success }));
-        console.log('Order created successfully:', result);
       } catch (error) {
         console.error('Failed to create order:', error);
       }

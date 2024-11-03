@@ -50,16 +50,12 @@ export const createOrder = async (orderDetails: TOrder) => {
     }
 };
 
-export const uploadPhoto = async (formData: any) => {
+export const uploadPhoto = async (formData: FormData) => {
     try {
-        const uploadResponse = await $api.post('/order/uploadPhoto', formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          });  
+        const uploadResponse = await $api.post('/order/uploadPhoto', formData);
         return uploadResponse.data;
     } catch (error) {
-        console.error('Error creating order:', error);
+        console.error('Error uploading photo:', error);
         throw error;
     }
 };

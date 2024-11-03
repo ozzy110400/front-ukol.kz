@@ -22,7 +22,9 @@ const ServiceCardsCarousel= ( props: ServiceCardsCarouselProps ) => {
                 isWithDrugsCocktail: false,
                 isPremiumIntoxication: false,
                 isWithDressingMaterial: false,
-                photo: undefined,
+                isWithMaterialsPoisoning: false,
+                photoURL: '',
+                photo:undefined,
                 daysForNurse: 0,
                 message: ''  
             },

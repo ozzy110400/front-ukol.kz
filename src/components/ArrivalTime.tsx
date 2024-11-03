@@ -1,19 +1,21 @@
 import { useEffect, useState } from 'preact/hooks';
-import { Box, Button, ButtonGroup, Typography } from '@mui/material';
+import { Box, Button, ButtonGroup, TextField, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
 import currentOrderAtom from '../atoms/currentOrder';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 
 interface ArrivalTimeProps {}
 
-const ArrivalTime= (props:ArrivalTimeProps) => {
+const ArrivalTime = (props: ArrivalTimeProps) => {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
-  const [selectedTime, setSelectedTime] = useState<Dayjs | null>(null);
+  
+  // Set default time as current time + 1 hour
+  const defaultTime = dayjs().add(1, 'hour').format('HH:mm');
+  const [selectedTime, setSelectedTime] = useState<string>(defaultTime);
   const [activeOption, setActiveOption] = useState<'ASAP' | 'TIME'>('ASAP');
 
+  // Track whether the extra 1000 amount has been added
+  const [isExtraAdded, setIsExtraAdded] = useState<boolean>(false);
 
   useEffect(() => {
     const currentHour = parseInt(dayjs().format('HH'), 10);
@@ -27,31 +29,37 @@ const ArrivalTime= (props:ArrivalTimeProps) => {
         isAlredyWithExtra: isLateNight,
       },
     }));
+    setIsExtraAdded(isLateNight);  
   }, []);
 
-  
-  const handleTimeChange = (newValue: Dayjs | null) => {
-    if (newValue) {
-      const hours = newValue.format('HH');
-      const minutes = newValue.format('mm');
-      const isLateNight = hours >= '22' || hours < '06';
+  const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.value;
+    setSelectedTime(newValue);
 
-      setSelectedTime(newValue);
-      setCurrentOrder(prevOrder => {
-        const shouldAddExtra = isLateNight && !prevOrder.arrivalTime.isAlredyWithExtra;
+    const [hours, minutes] = newValue.split(':');
+    const isLateNight = parseInt(hours, 10) >= 22 || parseInt(hours, 10) < 6;
 
-        return {
-          ...prevOrder,
-          arrivalTime: {
-            ...prevOrder.arrivalTime,
-            hours,
-            minutes,
-            isAlredyWithExtra: shouldAddExtra,
-          },
-          amount: prevOrder.amount! + (shouldAddExtra ? 1000 : 0),
-        };
-      });
-    }
+    setCurrentOrder(prevOrder => {
+      let newAmount = prevOrder.amount!;
+      if (isLateNight && !isExtraAdded) {
+        newAmount += 1000;
+        setIsExtraAdded(true); // Mark that extra charge is now added
+      } else if (!isLateNight && isExtraAdded) {
+        newAmount -= 1000;
+        setIsExtraAdded(false); // Remove extra charge
+      }
+
+      return {
+        ...prevOrder,
+        arrivalTime: {
+          ...prevOrder.arrivalTime,
+          hours,
+          minutes,
+          isAlredyWithExtra: isLateNight,
+        },
+        amount: newAmount,
+      };
+    });
   };
 
   const handleOptionChange = (option: 'ASAP' | 'TIME') => {
@@ -85,40 +93,34 @@ const ArrivalTime= (props:ArrivalTimeProps) => {
           sx={{ textTransform: 'none', fontWeight: 'bold' }}
           style={{
             backgroundColor: activeOption === 'ASAP' ? '#88e788' : 'transparent',
-            border: '1px #88e788'
-
+            border: '1px #88e788',
           }}
         >
           <Typography variant="h3" sx={{ fontSize: { xs: '0.8rem', sm: '1.0rem', md: '1.2rem' } }}>
-          Приехать как можно раньше
+            Приехать как можно раньше
           </Typography>
-
         </Button>
         <Button
           onClick={() => handleOptionChange('TIME')}
           sx={{ textTransform: 'none', fontWeight: 'bold' }}
           style={{
             backgroundColor: activeOption === 'TIME' ? '#88e788' : 'transparent',
-            border: '1px #88e788'
+            border: '1px #88e788',
           }}
         >
           <Typography variant="h3" sx={{ fontSize: { xs: '0.8rem', sm: '1.0rem', md: '1.2rem' } }}>
-          Выбрать время
+            Выбрать время
           </Typography>
         </Button>
       </ButtonGroup>
 
-      {/* Display TimePicker if "Выбрать время" is selected */}
       {activeOption === 'TIME' && (
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <Box sx={{ mt: 2 }}>
-            <TimePicker
-              label="Выберите время"
-              value={selectedTime}
-              onChange={handleTimeChange}
-            />
-          </Box>
-        </LocalizationProvider>
+        <TextField
+          type="time"
+          value={selectedTime}
+          onChange={handleTimeChange}
+          sx={{ minWidth: '120px', mt: 2 }}
+        />
       )}
     </Box>
   );

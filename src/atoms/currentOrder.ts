@@ -11,6 +11,8 @@ export type TOrder = {
         isWithDrugsCocktail: boolean,
         isPremiumIntoxication: boolean,
         isWithDressingMaterial: boolean, 
+        isWithMaterialsPoisoning: boolean,
+        photoURL: string,
         photo: any,
         daysForNurse: number,
         message: string  
@@ -33,12 +35,14 @@ export default atom<TOrder>({
         isWithDrugsCocktail: false,
         isPremiumIntoxication: false,
         isWithDressingMaterial: false,
+        isWithMaterialsPoisoning: false,
+        photoURL: '',
         photo: undefined,
         daysForNurse: 0,
         message: ''  
     },
     arrivalTime: {
-        hours: dayjs().format('HH'),
+        hours: dayjs().add(1, 'hour').format('HH'),
         minutes: dayjs().format('mm'),
         isAlredyWithExtra: false,
         isNearestHour: true

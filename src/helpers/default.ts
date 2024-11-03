@@ -38,7 +38,7 @@ export const servicePriceGlobaOption = [
 
   { 
     title: 'Пищевые отравления (капельница)',
-    price: 7_000,
+    price: 15_000,
     description: 'Лечение пищевых отравлений с помощью капельницы. Цена указана от 7 000 ₸.',
     img: 'img/food_poisoning.svg',
   },

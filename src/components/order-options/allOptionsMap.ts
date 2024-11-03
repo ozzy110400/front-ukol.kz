@@ -6,6 +6,7 @@ import NeedPharmacy from "./NeedPharmacy";
 import PremiumIntoxication from "./PremiumIntoxication";
 import WAButton from "./WAButton";
 import WithDrugsCocktail from "./WithDrugsCocktail";
+import WithMaterialsPoisoning from "./WithMaterialsPoisoning";
 
 
 export const serviceOptionsMap = {
@@ -54,6 +55,9 @@ export const serviceOptionsMap = {
     'Пищевые отравления (капельница)': [
       {
         component: NeedPharmacy,
+      },
+      {
+        component: WithMaterialsPoisoning,
       },
     ],
     'Медсестра на время': [

@@ -1,39 +1,51 @@
 import { useEffect, useRef, useState, useCallback } from 'preact/hooks';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Box, TextField, List, ListItem, ListItemText, Autocomplete, CircularProgress, ListItemButton } from '@mui/material';
+import NearMeIcon from '@mui/icons-material/NearMe';
+import { Box, TextField, List, ListItem, ListItemText, Autocomplete, CircularProgress, ListItemButton, IconButton } from '@mui/material';
 import { useAtom } from 'jotai';
 import currentOrderAtom from '../atoms/currentOrder';
 import axios from 'axios';
 import debounce from 'lodash/debounce';
+import { green } from '@mui/material/colors';
 
 export default function MapComponent() {
   const mapRef = useRef<L.Map | null>(null);
-  const [center, setCenter] = useState<[number, number]>([51.505, -0.09]); // Default center
-  const [zoom, setZoom] = useState<number>(18);
+  const [center, setCenter] = useState<[number, number]>([43.238949, 76.889709]); // Default center
+  const [zoom, setZoom] = useState<number>(15);
+  
   const [isLoadingAddress, setIsLoadingAddress] = useState(false);
+  const [isLocationLoading, setIsLocationLoading] = useState(false); // New loading state for location
+
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
 
-  const [address, setAddress] = useState<string>(''); // State to hold the searched address
-  const [suggestions, setSuggestions] = useState<any[]>([]); // State to hold autocomplete suggestions
+  const [address, setAddress] = useState<string>('');
+  const [suggestions, setSuggestions] = useState<any[]>([]); 
 
-  useEffect(() => {
+  
+  const handleShareLocation = () => {
+    setIsLocationLoading(true); // Start loading
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
           setCenter([latitude, longitude]);
+          setZoom(18);
+          setIsLocationLoading(false); // Stop loading
         },
         (error) => {
+          console.error("Error getting location:", error);
           setCenter([43.238949, 76.889709]);
           setZoom(15);
-          console.error('Error getting location:', error);
-        }
+          setIsLocationLoading(false); // Stop loading on error
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
       );
     } else {
-      console.log('Geolocation is not available');
+      console.log("Geolocation is not available");
+      setIsLocationLoading(false); // Stop loading if geolocation is unavailable
     }
-  }, []);
+  };
 
   // Function to handle when the map dragging stops
   const handleMoveEnd = async () => {
@@ -98,6 +110,7 @@ export default function MapComponent() {
     setSuggestions([]); // Clear suggestions
   };
 
+
   useEffect(() => {
     if (!mapRef.current) {
       // Initialize map
@@ -151,7 +164,100 @@ export default function MapComponent() {
   return (
     <Box > 
       <div id="map" style={{ height: '400px', width: '100%' }} />
+      <IconButton
+        onClick={handleShareLocation}
+        sx={{
+          position: 'absolute',
+          top: 340,
+          right: 16,
+          backgroundColor: 'white',
+          boxShadow: 2,
+          '&:hover': {
+            backgroundColor: 'lightgray',
+          },
+          zIndex: 1000, // Ensure it stays on top
+        }}
+      >
+        {isLocationLoading ? (
+           <Box
+           sx={{
+             width: 24,
+             height: 24,
+             display: 'flex',
+             alignItems: 'center',
+             justifyContent: 'center',
+             backgroundColor: 'white',
+             borderRadius: '50%',
+           }}
+         >
+           <CircularProgress 
+              size={24}
+              sx={{     
+                color: '#88e788',
+                position: 'absolute', 
+                top: 8, 
+                right: 8 
+              }} />
+               </Box>
+        ) : (<NearMeIcon />)
+        }
+
+      </IconButton>
       <Box sx={{ position: 'relative',flexDirection: 'column', alignItems: 'center', margin: 2, }}>
+      <Box display="flex" gap={2} sx={{ mb: 2 }}>
+        <Autocomplete
+          freeSolo
+          options={suggestions || []}
+          inputValue={address}
+          getOptionLabel={(option) => option.display_name || ''}
+          filterOptions={x => x}   
+          sx={{ flexGrow: 1 }}   
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              required
+              variant="outlined"
+              label="Адрес"
+              onChange={(e) => {
+                const target = e.target as HTMLInputElement; 
+                if (target) {
+                  setAddress(target.value);
+                  debouncedFetchSuggestions(target.value);
+                }
+              }}
+            />
+          )}
+          onInputChange={(event, newInputValue) => {
+            // Clear input when clear button is pressed
+            if (event === null) {
+              setAddress(''); // Reset address
+            } else {
+              setAddress(newInputValue);
+            }
+          }}
+          onChange={(event, selectedOption) => {
+            if (selectedOption) {
+              handleSuggestionClick(selectedOption);
+            }
+          }}
+          loading={isLoadingAddress}
+        />
+        <TextField
+          required
+          label="Квартира"
+          value={currentOrder.flat || ''}
+          onChange={(e) => {
+            const target = e.target as HTMLInputElement; 
+            if (target) {
+              setCurrentOrder(prevOrder => ({ ...prevOrder, flat: target.value }))
+            }
+          }}
+          variant="outlined"
+          sx={{ width: '20%'}} 
+        />
+      </Box>
+      </Box>
+      {/* <Box sx={{ position: 'relative',flexDirection: 'column', alignItems: 'center', margin: 2, }}>
       <Box display="flex" gap={2} sx={{ mb: 2 }}>
       <TextField
           required
@@ -181,8 +287,8 @@ export default function MapComponent() {
           variant="outlined"
           sx={{ width: '20%' }} // Adjust the width as needed
         />
-      </Box>
-        {isLoadingAddress ? (
+      </Box> 
+       {isLoadingAddress ? (
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
             <CircularProgress />
           </Box>
@@ -214,7 +320,7 @@ export default function MapComponent() {
             ))}
           </List>
         )}
-      </Box>
+      </Box> */}
     </Box>
   );
 }
