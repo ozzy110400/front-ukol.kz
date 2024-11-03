@@ -29,10 +29,11 @@ const MapFooter = () => {
             ...currentOrder,
             options: {
               ...currentOrder.options,
-              photoURL: uploadResponse.data,
+              photoURL: uploadResponse.data.photoURL,
             },
           };
           setCurrentOrder(updatedOrder); // Update the state with the new order
+          console.log(currentOrder)
           // Proceed to create the order with the updated currentOrder
           const result = await createOrder(updatedOrder);
           setModalsOpen((prev) => ({ ...prev, isSuccesModalOpen: result.success }));
