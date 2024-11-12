@@ -214,10 +214,11 @@ export default function MapComponent() {
           sx={{ flexGrow: 1 }}   
           renderInput={(params) => (
             <TextField
-              {...params}
-              required
+              {...params as any} 
+              required              
               variant="outlined"
               label="Адрес"
+              
               onChange={(e) => {
                 const target = e.target as HTMLInputElement; 
                 if (target) {

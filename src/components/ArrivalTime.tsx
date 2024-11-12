@@ -33,33 +33,36 @@ const ArrivalTime = (props: ArrivalTimeProps) => {
   }, []);
 
   const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.value;
-    setSelectedTime(newValue);
-
-    const [hours, minutes] = newValue.split(':');
-    const isLateNight = parseInt(hours, 10) >= 22 || parseInt(hours, 10) < 6;
-
-    setCurrentOrder(prevOrder => {
-      let newAmount = prevOrder.amount!;
-      if (isLateNight && !isExtraAdded) {
-        newAmount += 1000;
-        setIsExtraAdded(true); // Mark that extra charge is now added
-      } else if (!isLateNight && isExtraAdded) {
-        newAmount -= 1000;
-        setIsExtraAdded(false); // Remove extra charge
-      }
-
-      return {
-        ...prevOrder,
-        arrivalTime: {
-          ...prevOrder.arrivalTime,
-          hours,
-          minutes,
-          isAlredyWithExtra: isLateNight,
-        },
-        amount: newAmount,
-      };
-    });
+    const target = event.target;
+    if (target instanceof HTMLInputElement) {
+      const newValue = target.value;
+      setSelectedTime(newValue);
+  
+      const [hours, minutes] = newValue.split(':');
+      const isLateNight = parseInt(hours, 10) >= 22 || parseInt(hours, 10) < 6;
+  
+      setCurrentOrder(prevOrder => {
+        let newAmount = prevOrder.amount!;
+        if (isLateNight && !isExtraAdded) {
+          newAmount += 1000;
+          setIsExtraAdded(true); // Mark that extra charge is now added
+        } else if (!isLateNight && isExtraAdded) {
+          newAmount -= 1000;
+          setIsExtraAdded(false); // Remove extra charge
+        }
+  
+        return {
+          ...prevOrder,
+          arrivalTime: {
+            ...prevOrder.arrivalTime,
+            hours,
+            minutes,
+            isAlredyWithExtra: isLateNight,
+          },
+          amount: newAmount,
+        };
+      });
+    }
   };
 
   const handleOptionChange = (option: 'ASAP' | 'TIME') => {

@@ -45,41 +45,6 @@ const PremiumDetoxication= (props:PremiumDetoxicationProps) => {
           <Typography variant="h3">Премиальная детоксикация (+3 препарата)</Typography>
         </Button>
       </Box>
-      {/* Additional options */}
-      {currentOrder.options.isPremiumIntoxication ? (
-        <Box sx={{ display: 'flex', alignItems: 'center', ml: 1 }}>
-          <Typography
-            variant="h1"
-            sx={{
-              fontSize: {
-                xs: '0.8rem',
-                sm: '1.0rem',
-                md: '1.2rem',
-              },
-              fontStyle: 'italic',
-            }}
-          >
-            10 препаратов
-          </Typography>
-        </Box>
-      ) :  (
-        <Box sx={{ display: 'flex', alignItems: 'center', ml: 1  }}>
-          <Typography
-            variant="h1"
-            sx={{
-              fontSize: {
-                xs: '0.8rem',
-                sm: '1.0rem',
-                md: '1.2rem',
-              },
-              fontStyle: 'italic',
-            }}
-          >
-            7 препаратов
-          </Typography>
-        </Box>
-      )
-    }
     </Box>
   );
 };

@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useAtom } from 'jotai';
-import authAtom from '../atoms/auth';
+import { authAtom } from '../atoms/auth';
 import modalsOpenAtom from '../atoms/modalsOpen';
 import InputMask from 'react-input-mask';
 import { authPhone, verifyCode } from '../helpers/api';
