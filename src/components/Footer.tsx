@@ -16,7 +16,7 @@ export default function Footer() {
   }, [location]);
 
   // Handle navigation and state update
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+  const handleChange = (event: Event, newValue: string) => {
     setValue(newValue);
     setLocation(newValue); // Navigate to the new route
   };
