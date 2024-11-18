@@ -105,14 +105,6 @@ const MapFooter = () => {
         </Typography>
       </Button>
     </Box>
-    <Typography sx={{ 
-        fontSize: { xs: '0.6rem', sm: '0.8rem', md: '1.0rem' }, 
-        fontWeight: '1500',
-        textAlign: 'center', // Center the text for better alignment
-        fontStyle: 'italic',
-      }}>
-        *Препараты, материалы и другие расходники не входят в стоимость услуг
-      </Typography>
     </Box>
   );
 };

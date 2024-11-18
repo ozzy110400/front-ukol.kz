@@ -8,9 +8,7 @@ import currentOrderAtom from '../atoms/currentOrder';
 import axios from 'axios';
 import debounce from 'lodash/debounce';
 import { green } from '@mui/material/colors';
-
-
-//const API_KEY = 'AIzaSyBmqGEz5vwReY9rhYrOf2IOIU01zTIPOEY';
+import { addressByLatLng, autocompleteMap, geocodeByPlaceID, verifyCode } from 'helpers/api';
 
 export default function MapComponent() {
   const mapRef = useRef<L.Map | null>(null);
@@ -57,13 +55,10 @@ export default function MapComponent() {
       const lat = currentCenter.lat;
       const lng = currentCenter.lng;
       try {
-        const response = await axios.get(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`);
-        let address;
-        if (response.data.address.house_number) {
-          address = `${response.data.address.road} ${response.data.address.house_number}`;
-        } else {
-          address = response.data.address.road;
-        }
+        const response = await addressByLatLng(lat, lng);
+       console.log(3)
+       console.log(response)
+        let address = response.formatted_address;
         setAddress(address)
         setCurrentOrder((prevOrder) => ({ ...prevOrder, streetAndBuildingNumber: address }));
         setSuggestions([])
@@ -78,8 +73,8 @@ export default function MapComponent() {
     if (input.length > 2) {
       setIsLoadingAddress(true);
       try {
-        const response = await axios.get(`https://nominatim.openstreetmap.org/search?q=${input}&format=json`);
-        setSuggestions(response.data);
+        const response = await autocompleteMap(input);
+        setSuggestions(response.predictions);
       } catch (error) {
         console.error('Error fetching suggestions:', error);
       } finally {
@@ -96,23 +91,30 @@ export default function MapComponent() {
   );
 
   // Handle selection of an address suggestion
-  const handleSuggestionClick = (suggestion: any) => {
+  const handleSuggestionClick = async (suggestion: any) => {
+   console.log(444)
+   console.log(suggestion)
+   console.log(suggestion.place_id)
 
-    const { lat, lon } = suggestion;
-    const newCenter: [number, number] = [parseFloat(lat), parseFloat(lon)];
+   const response = await geocodeByPlaceID(suggestion.place_id);
+
+
+   console.log( response)
+
+  //console.log( {lat, lng})
+
+  const {lat, lng} = response.geocode
+
+    //const { lat, lon } = suggestion;
+    const newCenter: [number, number] = [parseFloat(lat), parseFloat(lng)];
     setCenter(newCenter);
     mapRef.current?.setView(newCenter, zoom);
-    let address;
-    if (suggestion.data.address.house_number) {
-    address = `${suggestion.data.address.road} ${suggestion.data.address.house_number}`;
-    } else {
-    address = suggestion.data.address.road;
-    }
+    let address = response.description;
     setZoom(18)
     setAddress(address); // Set address to input field
     setSuggestions([]); // Clear suggestions
   };
-
+  
 
   useEffect(() => {
     if (!mapRef.current) {
@@ -129,7 +131,7 @@ export default function MapComponent() {
       }).addTo(mapRef.current);
 
       const markerIcon = L.divIcon({
-        className: 'custom-marker',
+        className: 'custom-marker', 
         html: `
           <div style="position: relative; display: flex; flex-direction: column; align-items: center;">
             <!-- Circle with Red Cross -->
@@ -171,8 +173,8 @@ export default function MapComponent() {
         onClick={handleShareLocation}
         sx={{
           position: 'absolute',
-          top: 340,
-          right: 16,
+          top: 390,
+          right: 8,
           backgroundColor: 'white',
           boxShadow: 2,
           '&:hover': {
@@ -212,7 +214,7 @@ export default function MapComponent() {
           freeSolo
           options={suggestions || []}
           inputValue={address}
-          getOptionLabel={(option) => option.display_name || ''}
+          getOptionLabel={(option) => option.description || ''}
           filterOptions={x => x}   
           sx={{ flexGrow: 1 }}   
           renderInput={(params) => (

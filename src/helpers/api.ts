@@ -82,6 +82,37 @@ export const verifyCode = async (phoneNumber: string, code: string) => {
     }
 };  
 
+export const autocompleteMap = async (input: string,) => {
+    try {
+        const response = await $api.get(`/map/autocomplete?input=${input}`);
+        return response.data
+    } catch (error) {
+        console.error('Error verifying code:', error);
+        throw error;
+    }
+}; 
+
+export const geocodeByPlaceID = async (placeID: string) => {
+    try {
+        const response = await $api.get(`/map/geocode?place_id=${placeID}`);
+        return response.data
+    } catch (error) {
+        console.error('Error verifying code:', error);
+        throw error;
+    }
+}; 
+
+export const addressByLatLng = async (lat: number, lng:number) => {
+    try {
+        const response = await $api.get(`/map/latlng?lat=${lat}&lng=${lng}`);
+        return response.data
+    } catch (error) {
+        console.error('Error verifying code:', error);
+        throw error;
+    }
+}; 
+
+
 export const refresh = async () => {
   try {
       const response = await $api.get('/auth/refresh');

@@ -2,10 +2,11 @@ import './index.css'
 import { ThemeProvider, createTheme } from '@mui/material'
 import { render } from 'preact/compat'
 import App from './App'
+import Footer from 'components/Footer'
 
 const theme = createTheme({
   typography: {
-    fontFamily: 'Montserrat, sans-serif',
+    fontFamily: 'Tilt Neon, sans-serif',
     h1: {
       fontSize: '3rem',
       fontWeight: 1100, // Increase font weight for h1
