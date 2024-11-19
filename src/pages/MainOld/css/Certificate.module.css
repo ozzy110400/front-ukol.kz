@@ -1,0 +1,38 @@
+.certificate{
+    margin-top: 50px;
+}
+
+.mobile-cert{
+    display: none;
+}
+
+.main-certificate{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cert-image{
+    width: 400px;
+    height: 600px;
+}
+
+.next{
+    margin-right: 10px;
+    width: 35px;
+}
+
+.prev{
+    margin-left: 10px;
+    width: 35px;
+}
+
+@media (max-width : 600px){
+    .cert-image{
+        width: 300px;
+        height: 500px;
+    }
+    .main-certificate{display: none;}
+    .mobile-cert{display: flex;flex-direction: column;align-items: center;}
+
+}
