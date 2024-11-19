@@ -13,7 +13,7 @@ import SuccesOrderModal from '../components/SuccesOrderModal';
 import MainPhrase from '../components/MainPhrase';
 import MapFooter from '../components/MapFooter';
 
-export default function Map() {
+export default function Order() {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
 
   const getOptions = () => {

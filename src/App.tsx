@@ -1,10 +1,10 @@
 import { Suspense } from 'preact/compat'
 import { Switch, Route} from 'wouter-preact';
 import Header from './components/Header'
-import Footer from 'components/Footer';
-import Main from 'pages/Main';
-import Order from 'pages/Order';
-import Account from 'pages/Account';
+import Footer from './components/Footer';
+import Main from './pages/Main';
+import Order from './pages/Order';
+import Account from './pages/Account';
 
 export default function () {
 
