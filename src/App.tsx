@@ -5,7 +5,7 @@ import Footer from './components/Footer';
 import Main from './pages/Main';
 import Order from './pages/Order';
 import Account from './pages/Account';
-import MainOld from './pages/MainOld/MainOld';
+//import MainOld from './pages/MainOld/MainOld';
 
 export default function () {
 
