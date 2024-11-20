@@ -1,20 +1,19 @@
 import {
   Box,
   Button,
+  Divider,
   Typography,
 } from '@mui/material';
 import { useAtom } from 'jotai';
 import currentOrderAtom from '../atoms/currentOrder';
-import MapComponent from '../components/MapNew';
+import MapComponent from '../components/Map';
 import LoginModal from '../components/LoginModal';
 import { serviceOptionsMap } from '../components/order-options/allOptionsMap';
 import ArrivalTime from '../components/ArrivalTime';
-import ServiceCardsCarousel from '../components/ServiceCardsCarousel';
 import SuccesOrderModal from '../components/SuccesOrderModal';
-import MainPhrase from '../components/MainPhrase';
 import MapFooter from '../components/MapFooter';
 import { useLocation } from 'wouter-preact';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ServiceCardsList from 'components/ServiceCardsList';
 
 export default function Order() {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
@@ -53,18 +52,20 @@ export default function Order() {
           border: '3px solid black',
           borderRadius: '140px',
           margin: 2,
+
         }}
       >
-        <Typography variant="h5" sx={{ fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' } }}>
+        <Typography variant="h5" sx={{ fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' },  padding:1, }}>
           назад
         </Typography>
       </Button>
       </Box>  
-      <MapComponent />
-
-          <ServiceCardsCarousel/>
+          <MapComponent />
+          <ServiceCardsList/>
+          <Divider /> 
+          {getOptions()}   
+          <Divider /> 
           <ArrivalTime/> 
-          {getOptions()}    
           <MapFooter/>
        
        <LoginModal />

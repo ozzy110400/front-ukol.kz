@@ -14,16 +14,16 @@ export default function () {
   useEffect(() => {
     switch (location) {
       case '/':
-        document.title = 'Главная страница';
+        document.title = 'Вызов опытной медсестры на дом';
         break;
       case '/order':
-        document.title = 'Заказ медсотрудника';
+        document.title = 'Вызов опытной медсестры на дом';
         break;
       case '/account':
-        document.title = 'Личный кабинет';
+        document.title = 'Вызов опытной медсестры на дом';
         break;
       default:
-        document.title = 'Ukol';
+        document.title = 'Вызов опытной медсестры на дом';
     }
   }, [location]); 
 

@@ -82,6 +82,7 @@ const ArrivalTime = (props: ArrivalTimeProps) => {
         variant="contained"
         fullWidth
         sx={{
+          border: '3px solid black', borderRadius: '8px',
           gap: 0,
           '& .MuiButtonGroup-grouped': {
             backgroundColor: activeOption === 'ASAP' ? '#88e7883' : 'transparent',
@@ -93,7 +94,8 @@ const ArrivalTime = (props: ArrivalTimeProps) => {
       >
         <Button
           onClick={() => handleOptionChange('ASAP')}
-          sx={{ textTransform: 'none', fontWeight: 'bold' }}
+          sx={{ textTransform: 'none', 
+            fontWeight: 'bold' }}
           style={{
             backgroundColor: activeOption === 'ASAP' ? '#88e788' : 'transparent',
             border: '1px #88e788',
@@ -118,12 +120,21 @@ const ArrivalTime = (props: ArrivalTimeProps) => {
       </ButtonGroup>
 
       {activeOption === 'TIME' && (
+          <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            mt: 2,
+          }}
+        >
         <TextField
           type="time"
           value={selectedTime}
           onChange={handleTimeChange}
           sx={{ minWidth: '120px', mt: 2 }}
         />
+        </Box>
       )}
     </Box>
   );

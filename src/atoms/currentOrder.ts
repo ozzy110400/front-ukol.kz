@@ -6,6 +6,7 @@ export type TOrder = {
     lat?: number,
     lng?: number,
     flat?: string;
+    floor?: string;
     amount?: number;
     options: {
         isNeedPharmacy: boolean,
@@ -30,6 +31,7 @@ export default atom<TOrder>({
     title: '',
     streetAndBuildingNumber: '',
     flat: '',
+    floor: '',
     amount: 0,
     options : {
         isNeedPharmacy: false,

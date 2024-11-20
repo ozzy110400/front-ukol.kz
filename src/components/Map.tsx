@@ -2,17 +2,22 @@ import { useEffect, useRef, useState, useCallback } from 'preact/hooks';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import NearMeIcon from '@mui/icons-material/NearMe';
-import { Box, TextField, List, ListItem, ListItemText, Autocomplete, CircularProgress, ListItemButton, IconButton } from '@mui/material';
+import {
+  Box,
+  TextField,
+  Autocomplete,
+  CircularProgress,
+  IconButton,
+} from '@mui/material';
 import { useAtom } from 'jotai';
 import currentOrderAtom from '../atoms/currentOrder';
-import axios from 'axios';
 import debounce from 'lodash/debounce';
+import { addressByLatLng, autocompleteMap, geocodeByPlaceID } from 'helpers/api';
 import { green } from '@mui/material/colors';
 
-
-//const API_KEY = 'AIzaSyBmqGEz5vwReY9rhYrOf2IOIU01zTIPOEY';
-
 export default function MapComponent() {
+  console.log("MapComponent rendered");
+
   const mapRef = useRef<L.Map | null>(null);
   const [center, setCenter] = useState<[number, number]>([43.238949, 76.889709]); // Default center
   const [zoom, setZoom] = useState<number>(15);
@@ -25,7 +30,7 @@ export default function MapComponent() {
   const [address, setAddress] = useState<string>('');
   const [suggestions, setSuggestions] = useState<any[]>([]); 
 
-  
+
   const handleShareLocation = () => {
     setIsLocationLoading(true); // Start loading
     if ('geolocation' in navigator) {
@@ -57,15 +62,11 @@ export default function MapComponent() {
       const lat = currentCenter.lat;
       const lng = currentCenter.lng;
       try {
-        const response = await axios.get(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`);
-        let address;
-        if (response.data.address.house_number) {
-          address = `${response.data.address.road} ${response.data.address.house_number}`;
-        } else {
-          address = response.data.address.road;
-        }
+        const response = await addressByLatLng(lat, lng);
+
+        let address = response.formatted_address;
         setAddress(address)
-        setCurrentOrder((prevOrder) => ({ ...prevOrder, streetAndBuildingNumber: address, lat:lat, lng:lng }));
+        setCurrentOrder((prevOrder) => ({ ...prevOrder, streetAndBuildingNumber: address,  lat:lat, lng:lng }));
         setSuggestions([])
       } catch (error) {
         console.error('Error fetching address:', error);
@@ -78,8 +79,9 @@ export default function MapComponent() {
     if (input.length > 2) {
       setIsLoadingAddress(true);
       try {
-        const response = await axios.get(`https://nominatim.openstreetmap.org/search?q=${input}&format=json`);
-        setSuggestions(response.data);
+        const response = await autocompleteMap(input);
+        setSuggestions(response.predictions);
+        
       } catch (error) {
         console.error('Error fetching suggestions:', error);
       } finally {
@@ -96,25 +98,20 @@ export default function MapComponent() {
   );
 
   // Handle selection of an address suggestion
-  const handleSuggestionClick = (suggestion: any) => {
+  const handleSuggestionClick = async (suggestion: any) => {
+   const response = await geocodeByPlaceID(suggestion.place_id);
 
-    const { lat, lon } = suggestion;
-    const newCenter: [number, number] = [parseFloat(lat), parseFloat(lon)];
+   const {lat, lng} = response.geocode
+
+    const newCenter: [number, number] = [parseFloat(lat), parseFloat(lng)];
     setCenter(newCenter);
-    mapRef.current?.setView(newCenter, zoom);
-    let address;
-    if (suggestion.data.address.house_number) {
-    address = `${suggestion.data.address.road} ${suggestion.data.address.house_number}`;
-    } else {
-    address = suggestion.data.address.road;
-    }
+     mapRef.current?.setView(newCenter, zoom);
+    let address = response.description;
     setZoom(18)
     setAddress(address); // Set address to input field
-    setCurrentOrder((prevOrder) => ({ ...prevOrder, streetAndBuildingNumber: address, lat:lat, lng:lon }));
-
     setSuggestions([]); // Clear suggestions
   };
-
+  
 
   useEffect(() => {
     if (!mapRef.current) {
@@ -131,7 +128,7 @@ export default function MapComponent() {
       }).addTo(mapRef.current);
 
       const markerIcon = L.divIcon({
-        className: 'custom-marker',
+        className: 'custom-marker', 
         html: `
           <div style="position: relative; display: flex; flex-direction: column; align-items: center;">
             <!-- Circle with Red Cross -->
@@ -166,63 +163,94 @@ export default function MapComponent() {
     }
   }, [center, zoom]);
 
+  useEffect(() => {
+    const requestLocation = () => {
+      setIsLocationLoading(true); // Start loading
+  
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            setCenter([latitude, longitude]); // Update map center
+            setZoom(18); // Zoom to user's location
+            setIsLocationLoading(false); // Stop loading
+          },
+          (error) => {
+            console.error("Error getting location:", error);
+            setIsLocationLoading(false); // Stop loading on error
+          },
+          { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        );
+      } else {
+        console.error("Geolocation is not available");
+        setIsLocationLoading(false); // Stop loading if geolocation is unavailable
+      }
+    };
+  
+    // Ask for location on component mount
+    requestLocation();
+  }, []); 
+
+
   return (
-    <Box > 
+    <Box>
       <div id="map" style={{ height: '400px', width: '100%' }} />
       <IconButton
         onClick={handleShareLocation}
         sx={{
           position: 'absolute',
-          top: 340,
-          right: 16,
+          top: 390,
+          right: 12,
           backgroundColor: 'white',
           boxShadow: 2,
-          '&:hover': {
-            backgroundColor: 'lightgray',
-          },
-          zIndex: 1000, // Ensure it stays on top
+          '&:hover': { backgroundColor: 'lightgray' },
+          zIndex: 1000,
         }}
       >
         {isLocationLoading ? (
-           <Box
-           sx={{
-             width: 24,
-             height: 24,
-             display: 'flex',
-             alignItems: 'center',
-             justifyContent: 'center',
-             backgroundColor: 'white',
-             borderRadius: '50%',
-           }}
-         >
-           <CircularProgress 
-              size={24}
-              sx={{     
-                color: '#88e788',
-                position: 'absolute', 
-                top: 8, 
-                right: 8 
-              }} />
-               </Box>
-        ) : (<NearMeIcon />)
-        }
-
+          <CircularProgress size={24} sx={{ color: green[400] }} />
+        ) : (
+          <NearMeIcon />
+        )}
       </IconButton>
-      <Box sx={{ position: 'relative',flexDirection: 'column', alignItems: 'center', margin: 2, }}>
-      <Box display="flex" gap={2} sx={{ mb: 2 }}>
+      <Box sx={{ p: 2 }}>
         <Autocomplete
           freeSolo
-          options={suggestions || []}
+          options={suggestions}
           inputValue={address}
-          getOptionLabel={(option) => option.display_name || ''}
-          filterOptions={x => x}   
-          sx={{ flexGrow: 1 }}   
+          getOptionLabel={(option) => option.description || ''}
+          filterOptions={(x) => x}
+          onInputChange={(event, value) => {
+            setAddress(value);
+            debouncedFetchSuggestions(value);
+          }}
+          onChange={(event, selectedOption) =>
+            selectedOption && handleSuggestionClick(selectedOption)
+          }
+          loading={isLoadingAddress}
           renderInput={(params) => (
             <TextField
               {...params as any} 
               required              
-              variant="outlined"
+              variant="standard"
               label="Адрес"
+              sx={{
+                '& .MuiInputLabel-root.Mui-focused': {
+                    color: 'darkgray', // Focused color of the label
+                  },
+                '& .MuiInput-underline:before': {
+                  borderBottomWidth: '3px', // Thickness of the underline
+                  borderBottomColor: 'darkgray',
+                },
+                '& .MuiInput-underline:after': {
+                  borderBottomWidth: '3px', // Thickness after focus
+                  borderBottomColor: 'darkgray',
+                },
+                '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
+                  borderBottomWidth: '3px', // Thickness on hover
+                  borderBottomColor: 'darkgray',
+                },
+              }}
               
               onChange={(e) => {
                 const target = e.target as HTMLInputElement; 
@@ -233,35 +261,65 @@ export default function MapComponent() {
               }}
             />
           )}
-          onInputChange={(event, newInputValue) => {
-            // Clear input when clear button is pressed
-            if (event === null) {
-              setAddress(''); // Reset address
-            } else {
-              setAddress(newInputValue);
-            }
-          }}
-          onChange={(event, selectedOption) => {
-            if (selectedOption) {
-              handleSuggestionClick(selectedOption);
-            }
-          }}
-          loading={isLoadingAddress}
         />
-        <TextField
-          required
-          label="Квартира"
-          value={currentOrder.flat || ''}
-          onChange={(e) => {
-            const target = e.target as HTMLInputElement; 
-            if (target) {
-              setCurrentOrder(prevOrder => ({ ...prevOrder, flat: target.value }))
-            }
-          }}
-          variant="outlined"
-          sx={{ width: '20%'}} 
-        />
-      </Box>
+        <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
+          <TextField
+            label="Квартира"
+            value={currentOrder.flat || ''}
+            sx={{
+              '& .MuiInputLabel-root.Mui-focused': {
+                  color: 'darkgray', // Focused color of the label
+                },
+              '& .MuiInput-underline:before': {
+                borderBottomWidth: '3px', // Thickness of the underline
+                borderBottomColor: 'darkgray',
+              },
+              '& .MuiInput-underline:after': {
+                borderBottomWidth: '3px', // Thickness after focus
+                borderBottomColor: 'darkgray',
+              },
+              '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
+                borderBottomWidth: '3px', // Thickness on hover
+                borderBottomColor: 'darkgray',
+              },
+            }}
+            onChange={(e) => {
+              const target = e.target as HTMLInputElement | null;
+              if (target) {
+                setCurrentOrder((prev) => ({ ...prev, flat: target.value }));
+              }
+            }}
+            variant="standard"
+          />
+          <TextField
+            label="Этаж"
+            value={currentOrder.floor || ''}
+            sx={{
+              '& .MuiInputLabel-root.Mui-focused': {
+                  color: 'darkgray', // Focused color of the label
+                },
+              '& .MuiInput-underline:before': {
+                borderBottomWidth: '3px', // Thickness of the underline    
+                borderBottomColor: 'darkgray',
+              },
+              '& .MuiInput-underline:after': {
+                borderBottomWidth: '3px', // Thickness after focus
+                borderBottomColor: 'darkgray',
+              },
+              '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
+                borderBottomWidth: '3px', // Thickness on hover
+                borderBottomColor: 'darkgray',
+              },
+            }}
+            onChange={(e) => {
+              const target = e.target as HTMLInputElement | null;
+              if (target) {
+                setCurrentOrder((prev) => ({ ...prev, floor: target.value }));
+              }
+            }}
+            variant="standard"
+          />
+        </Box>
       </Box>
     </Box>
   );
