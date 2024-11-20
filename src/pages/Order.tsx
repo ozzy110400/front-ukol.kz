@@ -48,6 +48,9 @@ export default function Order() {
   if (authValue.haveActualOrder) {
     return (
       <Box sx={{ mt: '5%', textAlign: 'center', backgroundColor: 'transparent' }}>
+        <Typography variant="h5" sx={{ textAlign: 'center', color: 'green' }}>
+          Заказ успешно создан
+        </Typography>
         <Typography
           sx={{
             fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' },
@@ -56,7 +59,7 @@ export default function Order() {
             mb: 2,
           }}
         >
-          У вас уже есть текущий заказ. Дождитесь его выполнения или отмените текущий заказ.
+          Что бы сделать еще один заказ дождитесь выполнения текущего или же отмените созданный
         </Typography>
         <Button
           variant="contained"
