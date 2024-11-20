@@ -30,6 +30,84 @@ export default function MapComponent() {
   const [address, setAddress] = useState<string>('');
   const [suggestions, setSuggestions] = useState<any[]>([]); 
 
+  useEffect(() => {
+
+    if (!mapRef.current) {
+
+      // Initialize map
+      mapRef.current = L.map('map', {
+        attributionControl: false,
+        center,
+        zoom,
+        zoomControl: false,
+      });
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '',
+      }).addTo(mapRef.current);
+
+      const markerIcon = L.divIcon({
+        className: 'custom-marker', 
+        html: `
+          <div style="position: relative; display: flex; flex-direction: column; align-items: center;">
+            <!-- Circle with Red Cross -->
+            <div style="width: 30px; height: 30px; background-color: white; border-radius: 50%; border: 2px solid red; display: flex; justify-content: center; align-items: center;">
+              <div style="width: 16px; height: 2px; background-color: red; position: absolute;"></div>
+              <div style="width: 2px; height: 16px; background-color: red; position: absolute;"></div>
+            </div>
+            <!-- Stick -->
+            <div style="width: 2px; height: 30px; background-color: black;"></div>
+          </div>`,
+        iconSize: [30, 60], 
+        iconAnchor: [15, 60], 
+      });
+
+      const centerMarker = L.marker(center, {
+        icon: markerIcon,
+        interactive: false, // Keep marker non-interactive
+      }).addTo(mapRef.current);
+
+      // Update marker to always be in the center on map move
+      mapRef.current.on('move', () => {
+        const currentCenter = mapRef.current?.getCenter();
+        if (currentCenter) {
+          centerMarker.setLatLng(currentCenter);
+        }
+      });
+      mapRef.current.on('moveend', handleMoveEnd);
+    } else {
+      mapRef.current.setView(center, zoom);
+    }
+  }, [center, zoom]);
+
+  useEffect(() => {
+    const requestLocation = () => {
+      setIsLocationLoading(true); // Start loading
+  
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            setCenter([latitude, longitude]); // Update map center
+            setZoom(18); // Zoom to user's location
+            setIsLocationLoading(false); // Stop loading
+          },
+          (error) => {
+            console.error("Error getting location:", error);
+            setIsLocationLoading(false); // Stop loading on error
+          },
+          { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        );
+      } else {
+        console.error("Geolocation is not available");
+        setIsLocationLoading(false); // Stop loading if geolocation is unavailable
+      }
+    };
+  
+    // Ask for location on component mount
+    requestLocation();
+  }, []); 
+
 
   const handleShareLocation = () => {
     setIsLocationLoading(true); // Start loading
@@ -99,99 +177,20 @@ export default function MapComponent() {
 
   // Handle selection of an address suggestion
   const handleSuggestionClick = async (suggestion: any) => {
-   const response = await geocodeByPlaceID(suggestion.place_id);
 
+   const response = await geocodeByPlaceID(suggestion.place_id);
    const {lat, lng} = response.geocode
 
     const newCenter: [number, number] = [parseFloat(lat), parseFloat(lng)];
     setCenter(newCenter);
      mapRef.current?.setView(newCenter, zoom);
-    let address = response.description;
+    let address = suggestion.description;
     setZoom(18)
-    setAddress(address); // Set address to input field
-    setSuggestions([]); // Clear suggestions
+    setAddress(address); 
+    setSuggestions([]); 
   };
+
   
-
-  useEffect(() => {
-    if (!mapRef.current) {
-      // Initialize map
-      mapRef.current = L.map('map', {
-        attributionControl: false,
-        center,
-        zoom,
-        zoomControl: false,
-      });
-
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '',
-      }).addTo(mapRef.current);
-
-      const markerIcon = L.divIcon({
-        className: 'custom-marker', 
-        html: `
-          <div style="position: relative; display: flex; flex-direction: column; align-items: center;">
-            <!-- Circle with Red Cross -->
-            <div style="width: 30px; height: 30px; background-color: white; border-radius: 50%; border: 2px solid red; display: flex; justify-content: center; align-items: center;">
-              <div style="width: 16px; height: 2px; background-color: red; position: absolute;"></div>
-              <div style="width: 2px; height: 16px; background-color: red; position: absolute;"></div>
-            </div>
-            <!-- Stick -->
-            <div style="width: 2px; height: 30px; background-color: black;"></div>
-          </div>`,
-        iconSize: [30, 60], 
-        iconAnchor: [15, 60], 
-      });
-
-      const centerMarker = L.marker(center, {
-        icon: markerIcon,
-        interactive: false, // Keep marker non-interactive
-      }).addTo(mapRef.current);
-
-      // Update marker to always be in the center on map move
-      mapRef.current.on('move', () => {
-        const currentCenter = mapRef.current?.getCenter();
-        if (currentCenter) {
-          centerMarker.setLatLng(currentCenter);
-        }
-      });
-
-      // Detect when map movement ends
-      mapRef.current.on('moveend', handleMoveEnd);
-    } else {
-      mapRef.current.setView(center, zoom);
-    }
-  }, [center, zoom]);
-
-  useEffect(() => {
-    const requestLocation = () => {
-      setIsLocationLoading(true); // Start loading
-  
-      if ('geolocation' in navigator) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const { latitude, longitude } = position.coords;
-            setCenter([latitude, longitude]); // Update map center
-            setZoom(18); // Zoom to user's location
-            setIsLocationLoading(false); // Stop loading
-          },
-          (error) => {
-            console.error("Error getting location:", error);
-            setIsLocationLoading(false); // Stop loading on error
-          },
-          { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-        );
-      } else {
-        console.error("Geolocation is not available");
-        setIsLocationLoading(false); // Stop loading if geolocation is unavailable
-      }
-    };
-  
-    // Ask for location on component mount
-    requestLocation();
-  }, []); 
-
-
   return (
     <Box>
       <div id="map" style={{ height: '400px', width: '100%' }} />
