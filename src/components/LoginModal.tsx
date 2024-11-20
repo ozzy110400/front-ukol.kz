@@ -40,7 +40,8 @@ export default function LoginModal() {
     try {
       const response = await verifyCode(formattedPhone, inputCode);
        setAuthValue({
-          user: response.user
+          user: response.user,
+          haveActualOrder: response.haveActualOrder
        }
      )
      localStorage.setItem('accessToken', response.accessToken);

@@ -8,14 +8,14 @@ import { useAtom } from 'jotai';
 import currentOrderAtom from '../atoms/currentOrder';
 import MapComponent from '../components/Map';
 import LoginModal from '../components/LoginModal';
+import NotUnderstand from '../components/Notunderstand';
 import { serviceOptionsMap } from '../components/order-options/allOptionsMap';
 import ArrivalTime from '../components/ArrivalTime';
 import SuccesOrderModal from '../components/SuccesOrderModal';
 import MapFooter from '../components/MapFooter';
 import { useLocation } from 'wouter-preact';
-import ServiceCardsList from 'components/ServiceCardsList';
+import ServiceCardsList from '../components/ServiceCardsList';
 import { authAtom } from 'atoms/auth';
-import NotUnderstand from 'components/Notunderstand';
 
 export default function Order() {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
