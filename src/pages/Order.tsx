@@ -112,20 +112,28 @@ export default function Order() {
           Обратите внимание! Препараты, материалы и другие расходники не входят в стоимость услуг
         </Typography>
         <Button
-        variant="contained"
-        onClick={() => navigate('/')} 
-         sx={{
-          backgroundColor: '#88e788',
-          border: '3px solid black',
-          borderRadius: '140px',
-          margin: 2,
-
-        }}
-      >
-        <Typography variant="h5" sx={{ fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' },  padding:1, }}>
-          на главную
-        </Typography>
-      </Button>
+            variant="contained"
+            onClick={() => navigate('/')} 
+            sx={{
+              backgroundColor: '#88e788',
+              border: '3px solid black',
+              borderRadius: '140px',
+              margin: 1,
+              minWidth: '120px', // Ensures enough width for the text
+              padding: '4px 16px', // Adjust padding for better fit
+            }}
+          >
+            <Typography 
+              variant="h5" 
+              sx={{ 
+                fontSize: { xs: '0.8rem', sm: '1rem', md: '1.2rem' }, 
+                whiteSpace: 'nowrap', 
+                textAlign: 'center' // Ensures text is centered 
+              }}
+            >
+              на главную
+            </Typography>
+          </Button>
       </Box>  
           <MapComponent />
           <ServiceCardsList/>
