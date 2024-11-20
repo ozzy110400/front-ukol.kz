@@ -37,7 +37,7 @@ export default function Order() {
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
         <Typography
           sx={{
-            ml: 5,
+            ml: 2,
             fontSize: { xs: '0.8rem', sm: '1.0rem', md: '1.2rem' },
             fontWeight: '1500',
             textAlign: 'center',
@@ -57,7 +57,6 @@ export default function Order() {
       >
         <Typography variant="h5" sx={{ fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' } }}>
           назад
-        <ArrowForwardIosIcon sx={{ fontSize: '1rem', ml: 0.5 }} />
         </Typography>
       </Button>
       </Box>  
