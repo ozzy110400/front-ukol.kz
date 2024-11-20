@@ -74,11 +74,10 @@ const ServiceCardsList = () => {
         >
           <ListItemText
             primary={option.title}
-    
           />
           <ListItemSecondaryAction>
             <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
-              {option.price} ₸
+              от {option.price} ₸
             </Typography>
           </ListItemSecondaryAction>
         </ListItem>

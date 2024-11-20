@@ -16,6 +16,9 @@ export const serviceOptionsMap = {
       },
       {
         component: NeedPharmacy,
+      },
+      {
+        component: Message,
       }
     ],
     'Капельница': [
@@ -24,6 +27,9 @@ export const serviceOptionsMap = {
       },
       {
         component: NeedPharmacy,
+      },
+      {
+        component: Message,
       }
     ],
     'Укол + Капельница': [
@@ -32,17 +38,26 @@ export const serviceOptionsMap = {
       },
       {
         component: NeedPharmacy,
+      },
+      {
+        component: Message,
       }
       ],
     'Детоксикация': [
         {
         component: PremiumIntoxication,
         },
+        {
+          component: Message,
+        }
     ],  
     'Золушка (коктейли)': [
         {
         component: WithDrugsCocktail,
         },
+        {
+          component: Message,
+        }
     ],  
     'Перевязки': [
         {
@@ -50,6 +65,9 @@ export const serviceOptionsMap = {
         },
         {
           component: NeedPharmacy,
+        },
+        {
+          component: Message,
         }
     ],
     'Пищевые отравления (капельница)': [
@@ -59,6 +77,9 @@ export const serviceOptionsMap = {
       {
         component: WithMaterialsPoisoning,
       },
+      {
+        component: Message,
+      }
     ],
     'Медсестра на время': [
       {

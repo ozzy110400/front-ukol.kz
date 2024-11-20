@@ -20,8 +20,10 @@ const Message= ( props: MessageProps) => {
 
   return (
     <Box sx={{ m: 2, mb: 1 }}>
-      <Typography variant="h5" sx={{ mb: 2 }}>
-        Опишите проблему с которой вам необходима помощь и нажмите кнопку "заказать"
+      <Typography variant="h5" sx={{ mb: 2,
+
+      }}>
+        Опишите проблему с которой вам необходима помощь 
       </Typography>
       <TextField
         fullWidth
@@ -31,6 +33,18 @@ const Message= ( props: MessageProps) => {
         placeholder="Введите ваше сообщение"
         value={currentOrder.options.message || ''} // Display the saved message or an empty string
         onChange={handleMessageChange}
+        sx={{
+
+          "& .MuiOutlinedInput-root": {
+          "&.Mui-focused": {
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderColor: 'black',
+              borderWidth: "3px",
+            },
+          },
+         
+        },
+        }}
       />
     </Box>
   );
