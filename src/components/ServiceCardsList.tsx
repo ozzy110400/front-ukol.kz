@@ -74,16 +74,7 @@ const ServiceCardsList = () => {
         >
           <ListItemText
             primary={option.title}
-            secondary={option.description}
-            sx={{
-              '& .MuiListItemText-secondary': {
-                // display: 'inline-block',
-                // whiteSpace: 'nowrap',
-                // overflow: 'hidden',
-                // textOverflow: 'ellipsis',
-                maxWidth: '80%', // Adjust this value as needed
-              },
-            }}
+    
           />
           <ListItemSecondaryAction>
             <Typography variant="body2" sx={{ fontWeight: 'bold' }}>

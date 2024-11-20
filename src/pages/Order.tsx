@@ -14,10 +14,24 @@ import SuccesOrderModal from '../components/SuccesOrderModal';
 import MapFooter from '../components/MapFooter';
 import { useLocation } from 'wouter-preact';
 import ServiceCardsList from 'components/ServiceCardsList';
+import { authAtom } from 'atoms/auth';
+import NotUnderstand from 'components/Notunderstand';
 
 export default function Order() {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
+  const [authValue, setAuthValue] = useAtom(authAtom);
+
+  const handleWhatsAppClick = () => {
+    const phone = '77027776776'; // Replace with the actual phone number
+    const message = 'Здравствуйте! Хочу отменить заказ, это ещё возможно сделать?'; // The message you want to send
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`;
+    
+    window.open(whatsappUrl, '_blank'); // Open in a new tab
+  };
+
   const [, navigate] = useLocation();
+
+  console.log(authValue)
 
   const getOptions = () => {
     const options = currentOrder.title ? serviceOptionsMap[currentOrder.title as keyof typeof serviceOptionsMap] : [];
@@ -30,6 +44,59 @@ export default function Order() {
       </Box>
     );
   };
+
+  if (authValue.haveActualOrder) {
+    return (
+      <Box sx={{ mt: '5%', textAlign: 'center', backgroundColor: 'transparent' }}>
+        <Typography
+          sx={{
+            fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' },
+            fontWeight: 'bold',
+            color: 'dark',
+            mb: 2,
+          }}
+        >
+          У вас уже есть текущий заказ. Дождитесь его выполнения или отмените текущий заказ.
+        </Typography>
+        <Button
+          variant="contained"
+          onClick={() => navigate('/')}
+          sx={{
+            backgroundColor: '#88e788',
+            border: '3px solid black',
+            borderRadius: '140px',
+            padding: 1,
+           mr:2
+          }}
+        >
+          <Typography
+            variant="h5"
+            sx={{ fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' } }}
+          >
+            На главную
+          </Typography>
+        </Button>
+        <Button
+          variant="contained"
+          onClick={handleWhatsAppClick}
+          sx={{
+            backgroundColor: '#ff8585',
+            border: '3px solid black',
+            borderRadius: '140px',
+            padding: 1,
+             ml:2
+          }}
+        >
+          <Typography
+            variant="h5"
+            sx={{ fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' } }}
+          >
+            Отменить
+          </Typography>
+        </Button>
+      </Box>
+    );
+  }
   
   return (
     <Box sx={{ mt: '5%', backgroundColor: 'transparent' }}>
@@ -56,7 +123,7 @@ export default function Order() {
         }}
       >
         <Typography variant="h5" sx={{ fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' },  padding:1, }}>
-          назад
+          на главную
         </Typography>
       </Button>
       </Box>  
@@ -67,6 +134,8 @@ export default function Order() {
           <Divider /> 
           <ArrivalTime/> 
           <MapFooter/>
+
+          <NotUnderstand/>
        
        <LoginModal />
        <SuccesOrderModal />
