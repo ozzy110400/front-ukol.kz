@@ -65,7 +65,7 @@ export default function MapComponent() {
           address = response.data.address.road;
         }
         setAddress(address)
-        setCurrentOrder((prevOrder) => ({ ...prevOrder, streetAndBuildingNumber: address }));
+        setCurrentOrder((prevOrder) => ({ ...prevOrder, streetAndBuildingNumber: address, lat:lat, lng:lng }));
         setSuggestions([])
       } catch (error) {
         console.error('Error fetching address:', error);
@@ -110,6 +110,8 @@ export default function MapComponent() {
     }
     setZoom(18)
     setAddress(address); // Set address to input field
+    setCurrentOrder((prevOrder) => ({ ...prevOrder, streetAndBuildingNumber: address, lat:lat, lng:lon }));
+
     setSuggestions([]); // Clear suggestions
   };
 

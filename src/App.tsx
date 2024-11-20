@@ -43,7 +43,7 @@ export default function () {
             path="/" 
             component={() => (
               <iframe 
-                src="/static/ukol.html" 
+                src="https://ukol.kz"
                 style={{
                   width: '100%',
                   height: '100%',
@@ -58,7 +58,7 @@ export default function () {
         </Switch>
       </Suspense>    
       {/* You can add Footer if needed */}
-      <Footer/>
+      {/* <Footer/> */}
     </div>
   )
 }

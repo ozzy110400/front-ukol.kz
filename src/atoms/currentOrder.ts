@@ -3,6 +3,8 @@ import { atom } from 'jotai'
 export type TOrder = {
     title?: string;
     streetAndBuildingNumber?: string;
+    lat?: number,
+    lng?: number,
     flat?: string;
     amount?: number;
     options: {

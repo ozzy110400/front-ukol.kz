@@ -56,11 +56,10 @@ export default function MapComponent() {
       const lng = currentCenter.lng;
       try {
         const response = await addressByLatLng(lat, lng);
-       console.log(3)
-       console.log(response)
+
         let address = response.formatted_address;
         setAddress(address)
-        setCurrentOrder((prevOrder) => ({ ...prevOrder, streetAndBuildingNumber: address }));
+        setCurrentOrder((prevOrder) => ({ ...prevOrder, streetAndBuildingNumber: address,  lat:lat, lng:lng }));
         setSuggestions([])
       } catch (error) {
         console.error('Error fetching address:', error);
