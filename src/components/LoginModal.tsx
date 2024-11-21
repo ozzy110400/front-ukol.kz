@@ -110,7 +110,7 @@ export default function LoginModal() {
             </Typography>
           ) : (
             <>
-              <Typography variant="h3">Ваш телефонный номер</Typography>
+            
 
               <Box sx={{ mt: '2%', alignItems: 'center' }}>
                 <InputMask
@@ -123,7 +123,7 @@ export default function LoginModal() {
                   {() => (
                     <TextField
                       label="Номер телефона"
-                      variant="outlined"
+                      variant="standard"
                       fullWidth
                       disabled={isCodeSent}
                     />
@@ -149,7 +149,7 @@ export default function LoginModal() {
                 <Box sx={{ mt: 4 }}>
                   <TextField
                     label="Введите код"
-                    variant="outlined"
+                    variant="standard"
                     fullWidth
                     value={code}
                     error={codeMessage.hasError}

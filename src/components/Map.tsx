@@ -14,152 +14,78 @@ import currentOrderAtom from '../atoms/currentOrder';
 import debounce from 'lodash/debounce';
 import { addressByLatLng, autocompleteMap, geocodeByPlaceID } from 'helpers/api';
 import { green } from '@mui/material/colors';
+import axios from 'axios';
+
 
 export default function MapComponent() {
-  console.log("MapComponent rendered");
-
   const mapRef = useRef<L.Map | null>(null);
   const [center, setCenter] = useState<[number, number]>([43.238949, 76.889709]); // Default center
   const [zoom, setZoom] = useState<number>(15);
-  
   const [isLoadingAddress, setIsLoadingAddress] = useState(false);
-  const [isLocationLoading, setIsLocationLoading] = useState(false); // New loading state for location
-
+  const [isLocationLoading, setIsLocationLoading] = useState(false);
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
-
   const [address, setAddress] = useState<string>('');
-  const [suggestions, setSuggestions] = useState<any[]>([]); 
+  const [suggestions, setSuggestions] = useState<any[]>([]);
 
-  useEffect(() => {
-
-    if (!mapRef.current) {
-
-      // Initialize map
-      mapRef.current = L.map('map', {
-        attributionControl: false,
-        center,
-        zoom,
-        zoomControl: false,
-      });
-
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '',
-      }).addTo(mapRef.current);
-
-      const markerIcon = L.divIcon({
-        className: 'custom-marker', 
-        html: `
-          <div style="position: relative; display: flex; flex-direction: column; align-items: center;">
-            <!-- Circle with Red Cross -->
-            <div style="width: 30px; height: 30px; background-color: white; border-radius: 50%; border: 2px solid red; display: flex; justify-content: center; align-items: center;">
-              <div style="width: 16px; height: 2px; background-color: red; position: absolute;"></div>
-              <div style="width: 2px; height: 16px; background-color: red; position: absolute;"></div>
-            </div>
-            <!-- Stick -->
-            <div style="width: 2px; height: 30px; background-color: black;"></div>
-          </div>`,
-        iconSize: [30, 60], 
-        iconAnchor: [15, 60], 
-      });
-
-      const centerMarker = L.marker(center, {
-        icon: markerIcon,
-        interactive: false, // Keep marker non-interactive
-      }).addTo(mapRef.current);
-
-      // Update marker to always be in the center on map move
-      mapRef.current.on('move', () => {
-        const currentCenter = mapRef.current?.getCenter();
-        if (currentCenter) {
-          centerMarker.setLatLng(currentCenter);
-        }
-      });
-      mapRef.current.on('moveend', handleMoveEnd);
-    } else {
-      mapRef.current.setView(center, zoom);
-    }
-  }, [center, zoom]);
-
-  useEffect(() => {
-    const requestLocation = () => {
-      setIsLocationLoading(true); // Start loading
-  
-      if ('geolocation' in navigator) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const { latitude, longitude } = position.coords;
-            setCenter([latitude, longitude]); // Update map center
-            setZoom(18); // Zoom to user's location
-            setIsLocationLoading(false); // Stop loading
-          },
-          (error) => {
-            console.error("Error getting location:", error);
-            setIsLocationLoading(false); // Stop loading on error
-          },
-          { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-        );
-      } else {
-        console.error("Geolocation is not available");
-        setIsLocationLoading(false); // Stop loading if geolocation is unavailable
-      }
-    };
-  
-    // Ask for location on component mount
-    requestLocation();
-  }, []); 
-
-
+  // Share location using browser geolocation
   const handleShareLocation = () => {
-    setIsLocationLoading(true); // Start loading
+    setIsLocationLoading(true);
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
           setCenter([latitude, longitude]);
           setZoom(18);
-          setIsLocationLoading(false); // Stop loading
+          setIsLocationLoading(false);
         },
         (error) => {
           console.error("Error getting location:", error);
-          setCenter([43.238949, 76.889709]);
-          setZoom(15);
-          setIsLocationLoading(false); // Stop loading on error
+          setIsLocationLoading(false);
         },
-        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        { enableHighAccuracy: true, timeout: 10000 }
       );
     } else {
       console.log("Geolocation is not available");
-      setIsLocationLoading(false); // Stop loading if geolocation is unavailable
+      setIsLocationLoading(false);
     }
   };
 
-  // Function to handle when the map dragging stops
-  const handleMoveEnd = async () => {
+  // Reverse geocode to fetch address based on map center
+  const handleMoveEnd = useCallback(async () => {
     if (mapRef.current) {
       const currentCenter = mapRef.current.getCenter();
       const lat = currentCenter.lat;
       const lng = currentCenter.lng;
       try {
-        const response = await addressByLatLng(lat, lng);
+        const response = await axios.get(
+          `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`
+        );
+        const data = response.data;
+        const road = data.address?.road || '';
+        const houseNumber = data.address?.house_number || '';
+        const fullAddress = houseNumber ? `${road} ${houseNumber}` : road;
 
-        let address = response.formatted_address;
-        setAddress(address)
-        setCurrentOrder((prevOrder) => ({ ...prevOrder, streetAndBuildingNumber: address,  lat:lat, lng:lng }));
-        setSuggestions([])
+        setAddress(fullAddress);
+        setCurrentOrder((prev) => ({
+          ...prev,
+          streetAndBuildingNumber: fullAddress,
+        }));
+        setSuggestions([]);
       } catch (error) {
         console.error('Error fetching address:', error);
       }
     }
-  };
+  }, [setCurrentOrder]);
 
-  // Fetch address suggestions when the user types
+  // Fetch address suggestions for autocompletion
   const fetchSuggestions = async (input: string) => {
     if (input.length > 2) {
       setIsLoadingAddress(true);
       try {
-        const response = await autocompleteMap(input);
-        setSuggestions(response.predictions);
-        
+        const response = await axios.get(
+          `https://nominatim.openstreetmap.org/search?q=${input}&format=json`
+        );
+        setSuggestions(response.data);
       } catch (error) {
         console.error('Error fetching suggestions:', error);
       } finally {
@@ -169,27 +95,65 @@ export default function MapComponent() {
       setSuggestions([]);
     }
   };
-  
+
   const debouncedFetchSuggestions = useCallback(
     debounce((input: string) => fetchSuggestions(input), 500),
     []
   );
 
-  // Handle selection of an address suggestion
-  const handleSuggestionClick = async (suggestion: any) => {
-
-   const response = await geocodeByPlaceID(suggestion.place_id);
-   const {lat, lng} = response.geocode
-
-    const newCenter: [number, number] = [parseFloat(lat), parseFloat(lng)];
+  // Handle suggestion selection
+  const handleSuggestionClick = (suggestion: any) => {
+    const { lat, lon, display_name } = suggestion;
+    const newCenter: [number, number] = [parseFloat(lat), parseFloat(lon)];
     setCenter(newCenter);
-     mapRef.current?.setView(newCenter, zoom);
-    let address = suggestion.description;
-    setZoom(18)
-    setAddress(address); 
-    setSuggestions([]); 
+    setZoom(18);
+    setAddress(display_name);
+    setSuggestions([]);
   };
 
+  useEffect(() => {
+    if (!mapRef.current) {
+      // Initialize the map
+      mapRef.current = L.map('map', {
+        attributionControl: false,
+        center,
+        zoom,
+        zoomControl: false,
+      });
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(mapRef.current);
+
+      const markerIcon = L.divIcon({
+        className: 'custom-marker',
+        html: `
+          <div style="position: relative; display: flex; flex-direction: column; align-items: center;">
+            <div style="width: 30px; height: 30px; background-color: white; border-radius: 50%; border: 2px solid red; display: flex; justify-content: center; align-items: center;">
+              <div style="width: 16px; height: 2px; background-color: red; position: absolute;"></div>
+              <div style="width: 2px; height: 16px; background-color: red; position: absolute;"></div>
+            </div>
+            <div style="width: 2px; height: 30px; background-color: black;"></div>
+          </div>`,
+        iconSize: [30, 60],
+        iconAnchor: [15, 60],
+      });
+
+      const centerMarker = L.marker(center, {
+        icon: markerIcon,
+        interactive: false,
+      }).addTo(mapRef.current);
+
+      mapRef.current.on('move', () => {
+        const currentCenter = mapRef.current?.getCenter();
+        if (currentCenter) {
+          centerMarker.setLatLng(currentCenter);
+        }
+      });
+
+      mapRef.current.on('moveend', handleMoveEnd);
+    } else {
+      mapRef.current.setView(center, zoom);
+    }
+  }, [center, zoom, handleMoveEnd]);
   
   return (
     <Box>
@@ -217,7 +181,7 @@ export default function MapComponent() {
           freeSolo
           options={suggestions}
           inputValue={address}
-          getOptionLabel={(option) => option.description || ''}
+          getOptionLabel={(option) => option.display_name || ''}
           filterOptions={(x) => x}
           onInputChange={(event, value) => {
             setAddress(value);
