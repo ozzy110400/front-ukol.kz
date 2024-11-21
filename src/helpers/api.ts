@@ -82,6 +82,17 @@ export const verifyCode = async (phoneNumber: string, code: string) => {
     }
 };  
 
+export const cancelOrder = async (orderID: string, ) => {
+    try {
+        const body = { orderID };
+        const response = await $api.post('/order/cancel', body);
+        return response.data
+    } catch (error) {
+        console.error('Error verifying code:', error);
+        throw error;
+    }
+};  
+
 export const autocompleteMap = async (input: string,) => {
     try {
         const response = await $api.get(`/map/autocomplete?input=${input}`);

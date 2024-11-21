@@ -11,27 +11,38 @@ import LoginModal from '../components/LoginModal';
 import NotUnderstand from '../components/Notunderstand';
 import { serviceOptionsMap } from '../components/order-options/allOptionsMap';
 import ArrivalTime from '../components/ArrivalTime';
-import SuccesOrderModal from '../components/SuccesOrderModal';
 import MapFooter from '../components/MapFooter';
 import { useLocation } from 'wouter-preact';
 import ServiceCardsList from '../components/ServiceCardsList';
 import { authAtom } from 'atoms/auth';
+import { cancelOrder } from 'helpers/api';
+import { useEffect } from 'preact/hooks';
 
 export default function Order() {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
   const [authValue, setAuthValue] = useAtom(authAtom);
 
-  const handleWhatsAppClick = () => {
-    const phone = '77027776776'; // Replace with the actual phone number
-    const message = 'Здравствуйте! Хочу отменить заказ, это ещё возможно сделать?'; // The message you want to send
-    const whatsappUrl = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`;
-    
-    window.open(whatsappUrl, '_blank'); // Open in a new tab
+  const handleCancelOrder = async () => {
+
+    const res  = await cancelOrder(currentOrder!._id!)
+
+    if(!res.success){
+      const phone = '77027776776'; // Replace with the actual phone number
+      const message = 'Здравствуйте! Хочу отменить заказ, это ещё возможно сделать?'; // The message you want to send
+      const whatsappUrl = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`;
+      
+      window.open(whatsappUrl, '_blank'); // Open in a new tab
+    } else {
+      setCurrentOrder((prevOrder) => ({
+        ...prevOrder,
+        status: 'cancel',
+      })) 
+    }
+
   };
 
   const [, navigate] = useLocation();
 
-  console.log(authValue)
 
   const getOptions = () => {
     const options = currentOrder.title ? serviceOptionsMap[currentOrder.title as keyof typeof serviceOptionsMap] : [];
@@ -45,7 +56,17 @@ export default function Order() {
     );
   };
 
-  if (authValue.haveActualOrder) {
+  useEffect(() => {
+    // Log or handle updates to authValue
+    console.log("authValue updated:", authValue);
+    if (currentOrder?.status === 'cancelled') {
+      console.log("Order was cancelled.");
+    }
+  }, [currentOrder.status]);
+
+
+
+  if (currentOrder.status == 'waiting') {
     return (
       <Box sx={{ mt: '5%', textAlign: 'center', backgroundColor: 'transparent' }}>
         <Typography variant="h5" sx={{ textAlign: 'center', color: 'green' }}>
@@ -81,7 +102,7 @@ export default function Order() {
         </Button>
         <Button
           variant="contained"
-          onClick={handleWhatsAppClick}
+          onClick={handleCancelOrder}
           sx={{
             backgroundColor: '#ff8585',
             border: '3px solid black',
@@ -149,7 +170,6 @@ export default function Order() {
           <NotUnderstand/>
        
        <LoginModal />
-       <SuccesOrderModal />
 
     </Box>
   );

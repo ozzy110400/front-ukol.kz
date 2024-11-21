@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { atom } from 'jotai'
 export type TOrder = {
+    _id?: string,
     title?: string;
     streetAndBuildingNumber?: string;
     lat?: number,
@@ -26,8 +27,10 @@ export type TOrder = {
         isAlredyWithExtra: boolean
         isNearestHour: boolean
     },
+    status: string
 }
 export default atom<TOrder>({
+    _id: '',
     title: '',
     streetAndBuildingNumber: '',
     flat: '',
@@ -51,5 +54,6 @@ export default atom<TOrder>({
         isAlredyWithExtra: false,
         isNearestHour: true
     },
+    status: ''
 
 })

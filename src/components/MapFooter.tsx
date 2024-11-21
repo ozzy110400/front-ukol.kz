@@ -42,9 +42,13 @@ const MapFooter = () => {
           // If no photo upload is needed, create the order directly
           const result = await createOrder(currentOrder);
           setModalsOpen((prev) => ({ ...prev, isSuccesModalOpen: result.success }));
-          setAuth((prevAuth) => ({
+          console.log(11)
+          console.log(result)
+
+          setCurrentOrder((prevAuth) => ({
             ...prevAuth,
-            haveActualOrder: true,
+            _id: result.data._id,
+            status: result.data.status
           }));
   
           console.log('Order created successfully:', result);
