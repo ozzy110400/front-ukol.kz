@@ -69,6 +69,8 @@ export default function MapComponent() {
         setCurrentOrder((prev) => ({
           ...prev,
           streetAndBuildingNumber: fullAddress,
+          lat: lat,
+          lng: lng,
         }));
         setSuggestions([]);
       } catch (error) {
@@ -108,6 +110,12 @@ export default function MapComponent() {
     setCenter(newCenter);
     setZoom(18);
     setAddress(display_name);
+    setCurrentOrder((prev) => ({
+      ...prev,
+      streetAndBuildingNumber: display_name,
+      lat: lat,
+      lng: lon,
+    }));
     setSuggestions([]);
   };
 

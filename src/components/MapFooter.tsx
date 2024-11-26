@@ -20,7 +20,7 @@ const MapFooter = () => {
     } else {
       try {
         // Photo upload if required
-        if (currentOrder.options.isHaveDoctorsAppointment) {
+        if (currentOrder.options.isHaveDoctorsAppointment && currentOrder.options.photo) {
           const formData = new FormData();
           formData.append('file', currentOrder.options.photo);
           const uploadResponse = await uploadPhoto(formData);

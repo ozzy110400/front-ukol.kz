@@ -35,6 +35,9 @@ export default function () {
       display: 'flex', // Use flexbox to manage the content
       flexDirection: 'column', // Arrange the layout vertically
     }}>   
+     
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WL4BHDZW"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
        <Suspense fallback={<p>Loading...</p>}>
         {/* You can enable Header if needed */}
         {/* <Header /> */}

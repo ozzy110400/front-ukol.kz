@@ -7,6 +7,9 @@ import {
   DialogContent,
   TextField,
   Typography,
+  Checkbox,
+  FormControlLabel,
+  Link,
 } from '@mui/material';
 import { useAtom } from 'jotai';
 import { authAtom } from '../atoms/auth';
@@ -20,6 +23,8 @@ export default function LoginModal() {
   const [modalsOpen, setModalsOpen] = useAtom(modalsOpenAtom);
   const [authValue, setAuthValue] = useAtom(authAtom);
   const [phone, setPhone] = useState('');
+  const [isPolicyChecked, setIsPolicyChecked] = useState(false); // Track checkbox state
+
   
   const [codeMessage, setCodeMessage] = useState({
     message: 'Код отправлен на WhatsApp по указаному номеру',
@@ -29,13 +34,15 @@ export default function LoginModal() {
   const [code, setCode] = useState('');
   const [isCodeSent, setIsCodeSent] = useState(false);
 
+  const [timer, setTimer] = useState(0); // Countdown timer
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false); // Button disable state
+
   const handleClose = () => {
     setModalsOpen((prev) => ({ ...prev, isLoginModalOpen: false }));
   };
 
 
   const handleSubmit = async (inputCode: string) => {
-    console.log('Submitting code verification...');
     const formattedPhone = formatPhoneNumber(phone);
     try {
       const response = await verifyCode(formattedPhone, inputCode);
@@ -76,12 +83,27 @@ export default function LoginModal() {
   const handleSendCode = async () => {
     const formattedPhone = formatPhoneNumber(phone);
     try {
-      const result = await authPhone(formattedPhone); 
+      const result = await authPhone(formattedPhone);
       console.log('Code sent:', result);
+      setIsCodeSent(true);
+
+      // Start 30-second timer
+      setIsButtonDisabled(true);
+      setTimer(30);
+      const interval = setInterval(() => {
+        setTimer((prev) => {
+          if (prev === 1) {
+            clearInterval(interval);
+            setIsButtonDisabled(false); // Re-enable button after countdown
+            setIsCodeSent(false)
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
     } catch (error) {
       console.error('Failed to send code:', error);
     }
-    setIsCodeSent(true); 
   };
 
   return (
@@ -130,19 +152,36 @@ export default function LoginModal() {
                   )}
                 </InputMask>
 
-                <Button
-                  variant="contained"
-                  onClick={handleSendCode}
-                  sx={{
-                    backgroundColor: '#88e788',
-                    border: '3px solid black',
-                    borderRadius: '140px',
-                    marginTop: 2,
-                  }}
-                  disabled={isCodeSent}
-                >
-                  <Typography variant="h5">Получить код</Typography>
-                </Button>
+
+                <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={isPolicyChecked}
+                        onChange={(e) => setIsPolicyChecked((e.target as HTMLInputElement).checked)}
+                      />
+                    }
+                    label={
+                      <Typography variant="body2">
+                        Согласен(а) с политикой конфиденциальности и договором оферты
+                      </Typography>
+                    }
+                  />
+
+                   <Button
+                    variant="contained"
+                    onClick={handleSendCode}
+                    sx={{
+                      backgroundColor: '#88e788',
+                      border: '3px solid black',
+                      borderRadius: '140px',
+                      marginTop: 2,
+                    }}
+                    disabled={!isPolicyChecked || isCodeSent || isButtonDisabled}
+                  >
+                    <Typography variant="h5">
+                      {isButtonDisabled ? `Повтор через ${timer} сек` : 'Получить код'}
+                    </Typography>
+                  </Button>
               </Box>
 
               {isCodeSent && (

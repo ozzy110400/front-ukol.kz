@@ -23,12 +23,12 @@ const Message= ( props: MessageProps) => {
       <Typography variant="h5" sx={{ mb: 2,
 
       }}>
-        Опишите проблему с которой вам необходима помощь 
+        Комментарии (если есть) 
       </Typography>
       <TextField
         fullWidth
         multiline
-        rows={4} // Define number of visible lines
+        rows={1} // Define number of visible lines
         variant="outlined"
         placeholder="Введите ваше сообщение"
         value={currentOrder.options.message || ''} // Display the saved message or an empty string
