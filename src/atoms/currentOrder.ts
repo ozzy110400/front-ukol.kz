@@ -26,7 +26,7 @@ export type TOrder = {
         minutes: string,
         isAlredyWithExtra: boolean
         isNearestHour: boolean
-        date: string | null;
+        date: string;
     },
     status: string
 }

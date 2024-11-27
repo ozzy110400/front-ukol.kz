@@ -37,6 +37,7 @@ const ServiceCardsList = () => {
         minutes: dayjs().format('mm'),
         isAlredyWithExtra,
         isNearestHour: true,
+        date: dayjs().format('YYYY-MM-DD')
       },
     }));
   };

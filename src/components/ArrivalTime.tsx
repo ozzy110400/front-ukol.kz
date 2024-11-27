@@ -74,7 +74,7 @@ const ArrivalTime = (props: ArrivalTimeProps) => {
       ...prevOrder,
       arrivalTime: {
         ...prevOrder.arrivalTime,
-        date: newDate ? newDate.format('YYYY-MM-DD') : null,
+        date: newDate ? newDate.format('YYYY-MM-DD') : defaultDate.format('YYYY-MM-DD'),
       },
     }));
   };

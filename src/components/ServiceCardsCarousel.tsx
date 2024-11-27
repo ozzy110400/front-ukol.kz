@@ -32,7 +32,8 @@ const ServiceCardsCarousel= ( props: ServiceCardsCarouselProps ) => {
                 hours: dayjs().format('HH'),
                 minutes: dayjs().format('mm'),
                 isAlredyWithExtra,
-                isNearestHour: true
+                isNearestHour: true,
+                date: dayjs().format('YYYY-MM-DD')
             },
              }));
       };
