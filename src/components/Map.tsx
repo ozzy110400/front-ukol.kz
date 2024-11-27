@@ -58,8 +58,9 @@ export default function MapComponent() {
       const lng = currentCenter.lng;
       try {
         const response = await axios.get(
-          `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`
+          `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&lang=ru`
         );
+        
         const data = response.data;
         const road = data.address?.road || '';
         const houseNumber = data.address?.house_number || '';
@@ -85,8 +86,8 @@ export default function MapComponent() {
       setIsLoadingAddress(true);
       try {
         const response = await axios.get(
-          `https://nominatim.openstreetmap.org/search?q=${input}&format=json`
-        );
+          `https://nominatim.openstreetmap.org/search?q=${input}&format=json&lang=ru`
+        );        
         setSuggestions(response.data);
       } catch (error) {
         console.error('Error fetching suggestions:', error);
@@ -202,7 +203,7 @@ export default function MapComponent() {
           renderInput={(params) => (
             <TextField
               {...params as any} 
-              required              
+              required    
               variant="standard"
               label="Адрес"
               sx={{
