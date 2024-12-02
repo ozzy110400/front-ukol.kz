@@ -15,7 +15,7 @@ import MapFooter from '../components/MapFooter';
 import { useLocation } from 'wouter-preact';
 import ServiceCardsList from '../components/ServiceCardsList';
 import { authAtom } from 'atoms/auth';
-import { cancelOrder } from 'helpers/api';
+import { cancelOrder, checkOrder } from 'helpers/api';
 import { useEffect } from 'preact/hooks';
 
 export default function Order() {
@@ -64,9 +64,26 @@ export default function Order() {
     }
   }, [currentOrder.status]);
 
+  useEffect(() => {
+    const fetchOrder = async () => {
+      try {
+        const res = await checkOrder();
+        setCurrentOrder((prevOrder) => ({
+          ...prevOrder,
+          _id: res.order._id,
+          status: res.order.status,
+        }));
+      } catch (error) {
+        console.error('Error fetching order:', error);
+      }
+    };
+  
+    fetchOrder();
+  }, []);
 
 
-  if (currentOrder.status == 'waiting') {
+
+  if (currentOrder.status == 'waiting' ||  currentOrder.status == 'taken') {
     return (
       <Box sx={{ mt: '5%', textAlign: 'center', backgroundColor: 'transparent' }}>
         <Typography variant="h5" sx={{ textAlign: 'center', color: 'green' }}>

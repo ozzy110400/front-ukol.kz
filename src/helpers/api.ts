@@ -93,6 +93,16 @@ export const cancelOrder = async (orderID: string, ) => {
     }
 };  
 
+export const checkOrder = async () => {
+    try {
+        const response = await $api.get('/order/check');
+        return response.data
+    } catch (error) {
+        console.error('Error verifying code:', error);
+        throw error;
+    }
+};  
+
 export const autocompleteMap = async (input: string,) => {
     try {
         const response = await $api.get(`/map/autocomplete?input=${input}`);

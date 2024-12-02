@@ -99,7 +99,7 @@ const MapFooter = () => {
         </Typography>
       </Button>
       <Button
-        disabled={!currentOrder.title}
+        disabled={!currentOrder.title || !currentOrder.streetAndBuildingNumber}
         variant="contained"
         onClick={handleSubmit}
         sx={{

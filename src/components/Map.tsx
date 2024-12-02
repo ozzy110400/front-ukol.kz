@@ -50,6 +50,10 @@ export default function MapComponent() {
     }
   };
 
+  useEffect(() => {
+    handleShareLocation();
+  }, []);
+
   // Reverse geocode to fetch address based on map center
   const handleMoveEnd = useCallback(async () => {
     if (mapRef.current) {
@@ -86,7 +90,7 @@ export default function MapComponent() {
       setIsLoadingAddress(true);
       try {
         const response = await axios.get(
-          `https://nominatim.openstreetmap.org/search?q=${input}&format=json&lang=ru`
+          `https://nominatim.openstreetmap.org/search?q=${input}&format=json&lang=ru&countrycodes=KZ`
         );        
         setSuggestions(response.data);
       } catch (error) {
