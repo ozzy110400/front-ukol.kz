@@ -23,7 +23,7 @@ const Message= ( props: MessageProps) => {
       <Typography variant="h5" sx={{ mb: 2,
 
       }}>
-        Комментарии (если есть) 
+       Что-то еще что должен знать специалист? 
       </Typography>
       <TextField
         fullWidth

@@ -57,6 +57,8 @@ const MapFooter = () => {
         console.error('Failed to create order:', error);
       }
     }
+    window.clarity("set", "order", { timestamp: new Date().toISOString() });
+
   };
 
   // Effect to close the login modal and submit order if authentication succeeds

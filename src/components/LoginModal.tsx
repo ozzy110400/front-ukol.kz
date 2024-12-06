@@ -104,6 +104,7 @@ export default function LoginModal() {
     } catch (error) {
       console.error('Failed to send code:', error);
     }
+    window.clarity("set", "phone_entered", { phone: formattedPhone });
   };
 
   return (

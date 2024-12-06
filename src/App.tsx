@@ -7,6 +7,13 @@ import Order from './pages/Order';
 import Account from './pages/Account';
 //import MainOld from './pages/MainOld/MainOld';
 
+
+declare global {
+  interface Window {
+    clarity: (action: string, event: string, data: any) => void; // Add this line
+  }
+}
+
 export default function () {
 
   const [location] = useLocation(); // Get the current route

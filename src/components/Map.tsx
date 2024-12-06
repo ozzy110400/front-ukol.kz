@@ -78,6 +78,7 @@ export default function MapComponent() {
           lng: lng,
         }));
         setSuggestions([]);
+        window.clarity('set', 'address_entered', { method: "map_selection" });
       } catch (error) {
         console.error('Error fetching address:', error);
       }
@@ -101,6 +102,9 @@ export default function MapComponent() {
     } else {
       setSuggestions([]);
     }
+
+    window.clarity('set', 'address_entered',  { method: "manual" });
+
   };
 
   const debouncedFetchSuggestions = useCallback(

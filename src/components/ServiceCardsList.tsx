@@ -40,6 +40,9 @@ const ServiceCardsList = () => {
         date: dayjs().format('YYYY-MM-DD')
       },
     }));
+
+    window.clarity("set", "item_selected", { product: title });
+
   };
 
   return (
