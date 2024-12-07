@@ -2,7 +2,7 @@ import './index.css'
 import { ThemeProvider, createTheme } from '@mui/material'
 import { render } from 'preact/compat'
 import App from './App'
-import Footer from 'components/Footer'
+//import Footer from './order/components/Footer'
 
 const theme = createTheme({
   typography: {

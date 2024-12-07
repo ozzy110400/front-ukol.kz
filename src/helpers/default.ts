@@ -1,7 +1,7 @@
 export const servicePriceGlobaOption = [
   { 
     title: 'Укол',
-    price: 5_000, 
+    price: 5000, 
     description: 'Профессиональное введение инъекций на дому. Цена указана от 5 000 ₸.',
     img: 'img/injection.svg',
   },
@@ -19,7 +19,7 @@ export const servicePriceGlobaOption = [
   },
   { 
     title: 'Детоксикация',
-    price: 30_000,
+    price: 25_000,
     description: '!Предоплата обязательна! Детоксикация: стандарт (7 препаратов) от 30 000 ₸, элит (10 препаратов) от 60 000 ₸.',
     img: 'img/detox.svg',
   },

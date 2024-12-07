@@ -1,11 +1,8 @@
 import { Suspense, useEffect } from 'preact/compat'
 import { Switch, Route, useLocation } from 'wouter-preact';
-import Header from './components/Header'
-import Footer from './components/Footer';
 import Main from './pages/Main';
 import Order from './pages/Order';
 import Account from './pages/Account';
-//import MainOld from './pages/MainOld/MainOld';
 
 
 declare global {
@@ -49,7 +46,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         {/* You can enable Header if needed */}
         {/* <Header /> */}
         <Switch>
-          <Route 
+          {/* <Route 
             path="/" 
             component={() => (
               <iframe 
@@ -61,8 +58,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 }} 
               />
             )}
-          />
+          /> */}
           {/* Add other routes if necessary */}
+          <Route path="/" component={Main} />
           <Route path="/order" component={Order} />
           <Route path="/account" component={Account} />
         </Switch>

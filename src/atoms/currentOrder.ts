@@ -24,7 +24,6 @@ export type TOrder = {
     arrivalTime: {
         hours: string,
         minutes: string,
-        isAlredyWithExtra: boolean
         isNearestHour: boolean
         date: string;
     },
@@ -53,7 +52,6 @@ export default atom<TOrder>({
         hours: dayjs().add(1, 'hour').format('HH'),
         minutes: dayjs().format('mm'),
         date: dayjs().format('YYYY-MM-DD'),
-        isAlredyWithExtra: false,
         isNearestHour: true
     },
     status: ''

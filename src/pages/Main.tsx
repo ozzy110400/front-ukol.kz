@@ -6,11 +6,14 @@ import {
 import { useAtom } from 'jotai';
 import currentOrderAtom from '../atoms/currentOrder';
 
-import MainPhrase from '../components/MainPhrase';
-import FAQ from 'components/FAQ';
+import MainPhrase from '../components/main/MainPhrase';
+import FAQ from '../components/main/FAQ';
+import Header from 'components/main/Header';
+import Help from 'components/main/Help';
+import WeOffer from 'components/main/WeOffer';
+import Contact from 'components/main/Contacts';
 
 export default function Main() {
-  const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
 
   const handleWhatsAppClick = () => {
     const phone = '77027776776'; // Replace with the actual phone number
@@ -21,10 +24,15 @@ export default function Main() {
   };
 
   return (
-    <Box sx={{ mt: '5%', backgroundColor: 'transparent' , justifyContent: 'center', textAlign: 'center',}}>
+    <Box sx={{ backgroundColor: 'transparent' , justifyContent: 'center', textAlign: 'center',}}>
+      <Header/>
       <MainPhrase/>
+      <Help/>
+      <WeOffer/>
+      <FAQ/>
+      <Contact/>
 
-      <Typography variant="h5">
+      {/* <Typography variant="h5">
         Нужна помощь? 
       </Typography>
       <Button
@@ -57,8 +65,8 @@ export default function Main() {
              }}>
           Нажмите для консультация 
         </Typography>
-          </Button>
-          <FAQ/>
+          </Button> 
+          <FAQ/>*/}
     </Box>
   );
 }
