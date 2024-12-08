@@ -9,6 +9,7 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'preact/hooks';
+import logoImg from "/img/logo.png";
 
 const options = [
   { label: 'Наши услуги', target: 'services' },
@@ -32,7 +33,7 @@ function Header() {
         <Toolbar disableGutters>
           <Box sx={{ display: { xs: 'flex', md: 'flex' }, mr: 1 }}>
             <img
-              src="/img/logo.png" 
+              src={logoImg} 
               alt="Logo"
               style={{ maxHeight: '80px', width: 'auto' }} 
             />
