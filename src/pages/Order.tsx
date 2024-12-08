@@ -83,7 +83,9 @@ export default function Order() {
 
 
 
-  if (currentOrder.status == 'waiting' ||  currentOrder.status == 'taken') {
+  if ((currentOrder.status == 'waiting' ||  currentOrder.status == 'taken') 
+    && authValue.user.phoneNumber != '77012111030' ) {
+    //&& authValue.user.phoneNumber != '79958319208' ) {
     return (
       <Box sx={{ mt: '5%', textAlign: 'center', backgroundColor: 'transparent' }}>
         <Typography variant="h5" sx={{ textAlign: 'center', color: 'green' }}>
