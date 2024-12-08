@@ -27,11 +27,11 @@ export default function WeOffer() {
       <Typography
         variant="h6"
         sx={{
-          paddingTop: '120px',
+          paddingTop: '15%',
           textAlign: 'center',
           textTransform: 'uppercase',
           fontWeight: 700,
-          fontSize: '35px',
+          fontSize: '30px',
         }}
       >
         Мы предлагаем <br /> ЛУЧШИЕ условия
@@ -47,6 +47,7 @@ export default function WeOffer() {
               sx={{
                 backgroundColor: '#88e788',
                 padding: '10px',
+                marginX: '1px',
                 borderRadius: 2,
                 boxShadow: 1,
                 textAlign: 'center',
@@ -70,7 +71,7 @@ export default function WeOffer() {
               <Typography
                 variant="h6"
                 sx={{
-                  fontSize: '16px',
+                  fontSize: '14px',
                   marginBottom: '16px',
                 }}
                 dangerouslySetInnerHTML={{ __html: service.subText }}

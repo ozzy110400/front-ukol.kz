@@ -69,12 +69,12 @@ export default function Contact() {
           />
         </Box>
         <Box>
-          <Typography variant="h1"  sx={{ fontWeight: 700, marginBottom: 4, fontSize: '35px' }}>
+          <Typography variant="h1"  sx={{ fontWeight: 700, marginBottom: 4, fontSize: '30px' }}>
             НАШИ КОНТАКТЫ
           </Typography>
           
           <Box display="flex" alignItems="center" justifyContent="center" mb={2}>
-            <img   src={phoneIcon} alt="Phone" style={{ marginRight: 8, width:'30px', height:'30px', }} />
+            <img   src={phoneIcon} alt="Phone" style={{  marginRight: 8, width:'30px', height:'30px', }} />
             <Link
               href="https://api.whatsapp.com/send?phone=77027776776"
               underline="hover"
@@ -101,8 +101,8 @@ export default function Contact() {
           <Box
             sx={{
                 position: 'relative',
-                width: { xs: '400px', sm: '600px' },
-                margin: '0 auto',
+                width: { xs: '350px', sm: '600px' },
+                margin: '',
             }}
             >
             <img

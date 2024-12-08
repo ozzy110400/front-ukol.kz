@@ -36,7 +36,7 @@ const Help = () => {
           textAlign: 'center',
           textTransform: 'uppercase',
           fontWeight: 700,
-          fontSize:'40px' ,
+          fontSize:'30px' ,
           marginBottom: '40px',
         }}
       >
@@ -59,7 +59,7 @@ const Help = () => {
               backgroundColor: 'transparent',
               borderRadius: 2,
               textAlign: 'center',
-              padding: 3,
+              padding: 1,
               width: '400px',
               transition: 'transform 0.3s ease',
             }}
@@ -71,16 +71,15 @@ const Help = () => {
               sx={{
                 width: 40,
                 height: 40,
-                marginBottom: 2,
                 display: 'block',
                 marginLeft: 'auto',
                 marginRight: 'auto',
               }}
             />
-            <Typography variant="h6" sx={{ fontSize: '30px', fontWeight: 700, marginBottom: 1 }}>
+            <Typography variant="h6" sx={{ fontSize: '25px', fontWeight: 700 }}>
               {service.title}
             </Typography>
-            <Typography sx={{ fontSize: '18px',fontWeight: 800, color: '#555' }}>{service.description}</Typography>
+            <Typography sx={{ fontSize: '16px',fontWeight: 800, color: '#555' }}>{service.description}</Typography>
           </Box>
         ))}
       </Box>

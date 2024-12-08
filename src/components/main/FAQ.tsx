@@ -31,8 +31,8 @@ export default function FAQ() {
   ];
 
   return (
-    <Box sx={{ marginTop: '10%', marginX: '10%' }}>
-      <Typography variant="h1" sx={{ fontWeight: 700, marginBottom: 4, fontSize: '35px',textAlign: 'left' }}>
+    <Box sx={{ marginTop: '10%', marginX: '5%' }}>
+      <Typography variant="h1" sx={{ fontWeight: 700, marginBottom: 4, fontSize: '30px',textAlign: 'left' }}>
         Часто задаваемые вопросы
       </Typography>
       {faqItems.map((item, index) => (
@@ -42,7 +42,7 @@ export default function FAQ() {
             aria-controls={`panel${index}-content`}
             id={`panel${index}-header`}
           >
-            <Typography variant="h6" sx={{ fontWeight: 700 }}>
+            <Typography variant="h6" sx={{ fontWeight: 700,fontSize: '20px', }}>
               {index + 1}. {item.question}
             </Typography>
           </AccordionSummary>

@@ -22,8 +22,8 @@ const MainPhrase = (props: MainPhraseProps) => {
               variant="h1"
               sx={{
                 fontWeight: 700,
-                marginBottom: '10px',
-                fontSize: '45px' , // Adjust font size for responsiveness
+                marginBottom: '15%',
+                fontSize: '40px' , // Adjust font size for responsiveness
               }}
             >
               Ukol.kz <br /> это медицина <br /> на дом!
@@ -32,6 +32,7 @@ const MainPhrase = (props: MainPhraseProps) => {
               variant="h5"
               sx={{
                 textAlign: 'center',
+                fontSize: '17px' , 
               }}
             >
               Мы предоставляем квалифицированные <br /> медицинские услуги с выездом на дом! <br />
