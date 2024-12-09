@@ -116,7 +116,7 @@ const MapFooter = () => {
       basePrice += 5000; 
     }
     if (currentOrder.options.isWithDrugsCocktail) {
-      basePrice += 8000; 
+      basePrice += currentHour >= 7 && currentHour < 20 ? 8000 : 10000;
     }
     if (currentOrder.options.isPremiumIntoxication) {
       basePrice += 30000;

@@ -69,9 +69,6 @@ export const serviceOptionsMap = {
     ],
     'Пищевые отравления (капельница)': [
       {
-        component: NeedPharmacy,
-      },
-      {
         component: WithMaterialsPoisoning,
       },
       {
