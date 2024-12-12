@@ -7,10 +7,9 @@ import Account from './pages/Account';
 
 declare global {
   interface Window {
-    clarity: (action: string, event: string, data: any) => void; // Add this line
+    clarity: (action: string, event: string) => void; // Add this line
   }
 }
-
 export default function () {
 
   const [location] = useLocation(); // Get the current route

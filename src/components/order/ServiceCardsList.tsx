@@ -13,8 +13,6 @@ const ServiceCardsList = () => {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
 
   const handleSelect = (title: string, amount: number) => {
-    const currentHour = parseInt(dayjs().format('HH'), 10);
-
     setCurrentOrder((prevOrder) => ({
       ...prevOrder,
       title,
@@ -39,7 +37,7 @@ const ServiceCardsList = () => {
       },
     }));
 
-    window.clarity("set", "item_selected", { product: title });
+    window.clarity("set", "item_selected");
   };
 
   return (
@@ -75,6 +73,7 @@ const ServiceCardsList = () => {
         >
           <ListItemText
             primary={option.title}
+            data-clarity-unmask
           />
           <ListItemSecondaryAction>
             <Typography variant="body2" sx={{ fontWeight: 'bold' }}>

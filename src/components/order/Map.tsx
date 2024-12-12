@@ -78,7 +78,7 @@ export default function MapComponent() {
           lng: lng,
         }));
         setSuggestions([]);
-        window.clarity('set', 'address_entered', { method: "map_selection" });
+        window.clarity('set', 'address_entered_by_map');
       } catch (error) {
         console.error('Error fetching address:', error);
       }
@@ -103,7 +103,7 @@ export default function MapComponent() {
       setSuggestions([]);
     }
 
-    window.clarity('set', 'address_entered',  { method: "manual" });
+    window.clarity('set', 'address_entered_by_text');
 
   };
 

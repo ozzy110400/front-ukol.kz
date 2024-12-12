@@ -59,7 +59,7 @@ const MapFooter = () => {
         console.error('Failed to create order:', error);
       }
     }
-    window.clarity("set", "order", { timestamp: new Date().toISOString() });
+    window.clarity("set", "order");
 
   };
 
