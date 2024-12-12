@@ -55,6 +55,7 @@ const ServiceCardsList = () => {
       {servicePriceGlobaOption.map((option, index) => (
         <ListItem
           key={option.title}
+          data-clarity-mask="true"
           onClick={() => {
             handleSelect(option.title, option.price)
             window.clarity("set", "item_selected")
@@ -75,7 +76,6 @@ const ServiceCardsList = () => {
         >
           <ListItemText
             primary={option.title}
-            data-clarity-mask="true"
           />
           <ListItemSecondaryAction>
             <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
