@@ -36,8 +36,6 @@ const ServiceCardsList = () => {
         date: dayjs().format('YYYY-MM-DD')
       },
     }));
-
-    window.clarity("set", "item_selected");
   };
 
   return (
@@ -57,7 +55,11 @@ const ServiceCardsList = () => {
       {servicePriceGlobaOption.map((option, index) => (
         <ListItem
           key={option.title}
-          onClick={() => handleSelect(option.title, option.price)}
+          onClick={() => {
+            handleSelect(option.title, option.price)
+            window.clarity("set", "item_selected")
+          }
+          }
           selected={currentOrder.title === option.title}
           sx={{
             backgroundColor: currentOrder.title === option.title ? '#88e788' : 'transparent',
@@ -73,7 +75,7 @@ const ServiceCardsList = () => {
         >
           <ListItemText
             primary={option.title}
-            data-clarity-unmask
+            data-clarity-mask="true"
           />
           <ListItemSecondaryAction>
             <Typography variant="body2" sx={{ fontWeight: 'bold' }}>

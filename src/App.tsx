@@ -5,15 +5,7 @@ import Order from './pages/Order';
 import Account from './pages/Account';
 import { clarity } from 'react-microsoft-clarity';
 
-
-
-declare global {
-  interface Window {
-    clarity: (action: string, event: string) => void; // Add this line
-  }
-}
 export default function () {
-  clarity.init('p4q0cmpk2w');
 
   const [location] = useLocation(); // Get the current route
 
