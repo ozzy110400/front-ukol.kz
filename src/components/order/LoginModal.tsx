@@ -16,6 +16,7 @@ import { authAtom } from '../../atoms/auth';
 import modalsOpenAtom from '../../atoms/modalsOpen';
 import InputMask from 'react-input-mask';
 import { authPhone, verifyCode } from '../../helpers/api';
+import { trackClarityEvent } from 'App';
 
 
 
@@ -104,7 +105,7 @@ export default function LoginModal() {
     } catch (error) {
       console.error('Failed to send code:', error);
     }
-    window.clarity("set", "phone_entered");
+    trackClarityEvent("phone_entered")
   };
 
   return (

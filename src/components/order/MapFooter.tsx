@@ -6,6 +6,7 @@ import modalsOpenAtom from '../../atoms/modalsOpen';
 import { authAtom }  from '../../atoms/auth';
 import { uploadPhoto, createOrder } from '../../helpers/api';
 import dayjs from 'dayjs';
+import { trackClarityEvent } from 'App';
 
 const MapFooter = () => {
   const [auth, setAuth] = useAtom(authAtom);
@@ -59,8 +60,7 @@ const MapFooter = () => {
         console.error('Failed to create order:', error);
       }
     }
-    window.clarity("set", "order");
-
+    trackClarityEvent('order')
   };
 
   // Effect to close the login modal and submit order if authentication succeeds

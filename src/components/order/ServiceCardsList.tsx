@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import currentOrderAtom from '../../atoms/currentOrder';
 import { servicePriceGlobaOption } from '../../helpers/default';
 import dayjs from 'dayjs';
+import { trackClarityEvent } from 'App';
 
 const ServiceCardsList = () => {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
@@ -36,7 +37,7 @@ const ServiceCardsList = () => {
         date: dayjs().format('YYYY-MM-DD')
       },
     }));
-    window.clarity("set", "item_selected")
+    trackClarityEvent('item_selected')
   };
 
   return (

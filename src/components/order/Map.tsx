@@ -15,6 +15,7 @@ import debounce from 'lodash/debounce';
 import { addressByLatLng, autocompleteMap, geocodeByPlaceID } from 'helpers/api';
 import { green } from '@mui/material/colors';
 import axios from 'axios';
+import { trackClarityEvent } from 'App';
 
 
 export default function MapComponent() {
@@ -78,7 +79,7 @@ export default function MapComponent() {
           lng: lng,
         }));
         setSuggestions([]);
-        window.clarity('set', 'address_entered_by_map');
+        trackClarityEvent('address_entered_by_map')
       } catch (error) {
         console.error('Error fetching address:', error);
       }
@@ -102,9 +103,7 @@ export default function MapComponent() {
     } else {
       setSuggestions([]);
     }
-
-    window.clarity('set', 'address_entered_by_text');
-
+    trackClarityEvent('address_entered_by_map')
   };
 
   const debouncedFetchSuggestions = useCallback(

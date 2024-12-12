@@ -6,13 +6,26 @@ import Account from './pages/Account';
 
 declare global {
   interface Window {
-    clarity: (action: string, event: string) => void; // Add this line
+    clarity: (action: string, event: string) => void; 
   }
 }
 
+export const trackClarityEvent = (eventName: string) => {
+  try {
+    if (window.clarity) {
+      console.log('Tracking Clarity event:', eventName); // Debug log
+      window.clarity('event', eventName);
+    } else {
+      console.warn('Clarity not initialized');
+    }
+  } catch (error) {
+    console.error('Error tracking Clarity event:', error);
+  }
+};
+
 export default function () {
 
-  const [location] = useLocation(); // Get the current route
+  const [location] = useLocation(); 
 
   useEffect(() => {
     switch (location) {
@@ -39,8 +52,8 @@ export default function () {
       flexDirection: 'column', // Arrange the layout vertically
     }}>   
      
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WL4BHDZW"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WL4BHDZW"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
        <Suspense fallback={<p>Loading...</p>}>
         {/* <Header /> */}
         <Switch>
