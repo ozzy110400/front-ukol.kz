@@ -3,6 +3,8 @@ import { Switch, Route, useLocation } from 'wouter-preact';
 import Main from './pages/Main';
 import Order from './pages/Order';
 import Account from './pages/Account';
+import { clarity } from 'react-microsoft-clarity';
+
 
 
 declare global {
@@ -11,6 +13,7 @@ declare global {
   }
 }
 export default function () {
+  clarity.init('p4q0cmpk2w');
 
   const [location] = useLocation(); // Get the current route
 

@@ -32,6 +32,7 @@
     "preact": "^10.24.3",
     "preact-router": "^4.1.2",
     "react-input-mask": "^2.0.4",
+    "react-microsoft-clarity": "^2.0.0",
     "react-router-dom": "^6.28.0",
     "wouter": "^3.3.5",
     "wouter-preact": "^3.3.5"
