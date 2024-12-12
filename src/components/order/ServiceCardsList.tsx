@@ -36,6 +36,7 @@ const ServiceCardsList = () => {
         date: dayjs().format('YYYY-MM-DD')
       },
     }));
+    window.clarity("set", "item_selected")
   };
 
   return (
@@ -56,11 +57,7 @@ const ServiceCardsList = () => {
         <ListItem
           key={option.title}
           data-clarity-mask="true"
-          onClick={() => {
-            handleSelect(option.title, option.price)
-            window.clarity("set", "item_selected")
-          }
-          }
+          onClick={() => handleSelect(option.title, option.price)}
           selected={currentOrder.title === option.title}
           sx={{
             backgroundColor: currentOrder.title === option.title ? '#88e788' : 'transparent',
