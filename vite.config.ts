@@ -2,16 +2,9 @@ import { defineConfig, Plugin } from 'vite'
 import preact from '@preact/preset-vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { visualizer } from 'rollup-plugin-visualizer'
-import compression from 'vite-plugin-compression';
 
 export default defineConfig({
-  plugins: [
-    preact(),
-    tsconfigPaths(), 
-    compression({
-        algorithm: 'gzip', // or 'brotliCompress'
-        ext: '.gz', // or '.br' for Brotli
-      }),],
+  plugins: [preact(),tsconfigPaths()],
   resolve: {
     alias: {
       'react': 'preact/compat',
