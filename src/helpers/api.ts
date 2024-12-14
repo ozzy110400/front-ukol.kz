@@ -88,7 +88,7 @@ export const cancelOrder = async (orderID: string, ) => {
         const response = await $api.post('/order/cancel', body);
         return response.data
     } catch (error) {
-        console.error('Error verifying code:', error);
+        console.error('Error cancel order:', error);
         throw error;
     }
 };  
@@ -98,7 +98,7 @@ export const checkOrder = async () => {
         const response = await $api.get('/order/check');
         return response.data
     } catch (error) {
-        console.error('Error verifying code:', error);
+        console.error('Error check order:', error);
         throw error;
     }
 };  

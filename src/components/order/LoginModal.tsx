@@ -87,7 +87,6 @@ export default function LoginModal() {
       const result = await authPhone(formattedPhone);
       console.log('Code sent:', result);
       setIsCodeSent(true);
-
       // Start 30-second timer
       setIsButtonDisabled(true);
       setTimer(30);
@@ -96,8 +95,7 @@ export default function LoginModal() {
           if (prev === 1) {
             clearInterval(interval);
             setIsButtonDisabled(false); // Re-enable button after countdown
-            setIsCodeSent(false)
-            return 0;
+            return 0; 
           }
           return prev - 1;
         });
@@ -134,22 +132,20 @@ export default function LoginModal() {
             </Typography>
           ) : (
             <>
-            
-
               <Box sx={{ mt: '2%', alignItems: 'center' }}>
                 <InputMask
                   required
                   mask="+7 (999) 999-9999"
                   value={phone}
                   onChange={(event) => setPhone((event.target as HTMLInputElement).value)}
-                  disabled={isCodeSent}
+                  disabled={isButtonDisabled}
                 >
                   {() => (
                     <TextField
                       label="Номер телефона"
                       variant="standard"
                       fullWidth
-                      disabled={isCodeSent}
+                      disabled={isButtonDisabled}
                     />
                   )}
                 </InputMask>
@@ -178,7 +174,7 @@ export default function LoginModal() {
                       borderRadius: '140px',
                       marginTop: 2,
                     }}
-                    disabled={!isPolicyChecked || isCodeSent || isButtonDisabled}
+                    disabled={!isPolicyChecked || isButtonDisabled}
                   >
                     <Typography variant="h5">
                       {isButtonDisabled ? `Повтор через ${timer} сек` : 'Получить код'}
