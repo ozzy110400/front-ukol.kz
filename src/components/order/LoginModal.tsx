@@ -87,7 +87,6 @@ export default function LoginModal() {
       const result = await authPhone(formattedPhone);
       console.log('Code sent:', result);
       setIsCodeSent(true);
-      // Start 30-second timer
       setIsButtonDisabled(true);
       setTimer(30);
       const interval = setInterval(() => {

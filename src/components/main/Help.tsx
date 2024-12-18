@@ -9,20 +9,44 @@ import HandHoldingHeartIcon from '/img/hand-holding-heart-solid.svg';
 import CocktailIcon from '/img/cocktail-solid.svg';
 import PillsIcon from '/img/pills-solid.svg';
 import BandAidIcon from '/img/bandage-solid.svg';
+import { useLocation } from 'wouter-preact';
+import { useAtom } from 'jotai';
+import currentOrderAtom from '../../atoms/currentOrder';
+import { trackClarityEvent } from 'App';
+
 
 const Help = () => {
+  const [, navigate] = useLocation();
+  const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
+
+
   const serviceDescriptions = [
-    { title: 'Уколы на дому', description: 'Удобные и безопасные инъекции прямо у вас дома.', icon: SyringeIcon },
-    { title: 'Капельницы на дому', description: 'Эффективное лечение капельницами в уютной домашней обстановке.', icon: DropletIcon },
-    { title: 'Удобство и комфорт', description: 'Ваше здоровье в центре внимания.', icon: BedIcon },
-    { title: 'Пищевые отравления', description: 'Быстрая помощь при пищевых отравлениях.', icon: UtensilsIcon },
-    { title: 'Желудочные зонды', description: 'Профессиональное введение желудочных зондов.', icon: StethoscopeIcon },
-    { title: 'Уход за пожилыми на дому', description: 'Чуткий и заботливый уход за пожилыми людьми.', icon: UserAltIcon },
-    { title: 'Бережные процедуры', description: 'Аккуратный и безопасный уход.', icon: HandHoldingHeartIcon },
-    { title: 'Коктейли', description: 'Золушка (Синдерелла), Коктейли для Спортсменов, Лаеннек (Laennec) — Плацентарная терапия', icon: CocktailIcon },
-    { title: 'Вывод из запоя на дому', description: 'Капельница от интоксикации, Детокс терапия, Дезинтоксикация', icon: PillsIcon },
-    { title: 'Перевязки', description: 'Качественные перевязочные процедуры.', icon: BandAidIcon },
+    { title: 'Уколы на дому', short_name: 'Укол', msg:'', description: 'Удобные и безопасные инъекции прямо у вас дома.', icon: SyringeIcon },
+    { title: 'Капельницы на дому', short_name: 'Капельница', msg:'', description: 'Эффективное лечение капельницами в уютной домашней обстановке.', icon: DropletIcon },
+    { title: 'Удобство и комфорт', short_name: 'Другое', msg:'Нужен присмотр от медспециалиста', description: 'Ваше здоровье в центре внимания.', icon: BedIcon },
+    { title: 'Пищевые отравления', short_name: 'Детоксикация', msg:'У меня пищевое отправление, нужна помощь', description: 'Быстрая помощь при пищевых отравлениях.', icon: UtensilsIcon },
+    { title: 'Желудочные зонды', short_name: 'Детоксикация',  msg:'Нужно сделать желудочный зонд', description: 'Профессиональное введение желудочных зондов.', icon: StethoscopeIcon },
+    { title: 'Уход за пожилыми на дому', short_name: 'Другое', msg:'Нужен уход за пожилым человеком',  description: 'Чуткий и заботливый уход за пожилыми людьми.', icon: UserAltIcon },
+    { title: 'Бережные процедуры', short_name: 'Другое', msg:'Нужно помочь сделать ...', description: 'Аккуратный и безопасный уход.', icon: HandHoldingHeartIcon },
+    { title: 'Коктейли', short_name: 'Другое', msg:'Мне нужнен коктейль ...', description: 'Золушка (Синдерелла), Коктейли для Спортсменов, Лаеннек (Laennec) — Плацентарная терапия', icon: CocktailIcon },
+    { title: 'Вывод из запоя на дому', short_name: 'Другое', msg:'Нужно вывести человека из запоя', description: 'Капельница от интоксикации, Детокс терапия, Дезинтоксикация', icon: PillsIcon },
+    { title: 'Перевязки', short_name: 'Другое', msg:'Нужна помощь с перевязкой', description: 'Качественные перевязочные процедуры.', icon: BandAidIcon },
   ];
+
+  const handleCardClick = (shortName: string, msg: string) => {    // Set the current order details in the atom or context if needed
+    setCurrentOrder((prevOrder) => ({
+      ...prevOrder,
+      title: shortName,
+      options: {
+        ...prevOrder.options,
+        message: msg,
+      },
+    }));
+
+    trackClarityEvent('redirect_from_lending_we_help')
+
+    navigate('/order');
+  };
 
   return (
     <section id="services" >
@@ -55,6 +79,7 @@ const Help = () => {
         {serviceDescriptions.map((service, index) => (
           <Box
             key={index}
+            onClick={() => handleCardClick(service.short_name, service.msg)}
             sx={{
               backgroundColor: 'transparent',
               borderRadius: 2,

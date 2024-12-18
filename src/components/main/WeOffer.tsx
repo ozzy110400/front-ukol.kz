@@ -1,7 +1,11 @@
 import { Box, Typography } from '@mui/material';
 import conditionImg from "/img/second.png";
+import { trackClarityEvent } from 'App';
+import { useLocation } from 'wouter-preact';
 
 export default function WeOffer() {
+  const [, navigate] = useLocation();
+  
   const services = [
     {
       headingText: "БЫСТРЫЙ ВЫЕЗД",
@@ -42,7 +46,11 @@ export default function WeOffer() {
         {/* Service Information */}
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
           {services.map((service, index) => (
-            <Box
+              <Box
+              onClick={() => {
+                trackClarityEvent('redirect_from_lending_we_offer');
+                navigate('/order');
+              }}
               key={index}
               sx={{
                 backgroundColor: '#88e788',

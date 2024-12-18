@@ -26,9 +26,22 @@ const MainPhrase = (props: MainPhraseProps) => {
                 fontSize: '40px' , // Adjust font size for responsiveness
               }}
             >
-              Ukol.kz <br /> это медицина <br /> на дом!
+              Ukol.kz <br /> это медспециалист <br /> на дом!
             </Typography>
             <Typography
+              variant="h5"
+              sx={{
+                textAlign: 'center',
+                fontSize: '25px' , 
+              }}
+            >    
+              Приезжаем в течении 1 часа <br /> <br />
+
+              Онлайн заказы принимаются 24/7 опытными специалистами со стажем <br /> <br />
+
+              Наши услуги и цены можно посмотреть нажав кнопку ниже <br />
+            </Typography>
+            {/* <Typography
               variant="h5"
               sx={{
                 textAlign: 'center',
@@ -38,7 +51,7 @@ const MainPhrase = (props: MainPhraseProps) => {
               Мы предоставляем квалифицированные <br /> медицинские услуги с выездом на дом! <br />
               Стаж наших специалистов свыше 7 лет. <br />
               Доверьте свое здоровье настоящим <br /> профессионалам, вам не нужно никуда <br /> ехать!
-            </Typography>
+            </Typography> */}
             <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
               <LinkToMakeOrderButton />
             </Box>

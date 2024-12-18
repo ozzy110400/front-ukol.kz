@@ -1,4 +1,4 @@
-import { Accordion, AccordionSummary, AccordionDetails, Typography, Box } from '@mui/material';
+import { Accordion, AccordionSummary, AccordionDetails, Typography, Box, Link } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export default function FAQ() {
@@ -7,6 +7,18 @@ export default function FAQ() {
       question: 'Через сколько времени медсестра приедет на дом?',
       answer:
         'Медсестры Ukol.kz обычно приезжают в течение 30-40 минут после подтверждения вашего заказа. Точное время зависит от загруженности и расстояния до вашего адреса.',
+    },
+    {
+      question: 'У вас есть ночной выезд?',
+      answer: (
+        <>
+          Ночные вызовы осуществляются, только через{' '}
+          <Link href="/order" color="#88e788" underline="always">
+            страницу онлайн заказа
+          </Link>
+          , если на линии есть специалисты, то ваш заказ обязательно будет принят и выполнен
+        </>
+      ),
     },
     {
       question: 'Какие состояния требуют капельницы или уколов, которые вы предлагаете?',

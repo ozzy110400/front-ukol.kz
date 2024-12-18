@@ -46,7 +46,6 @@ export default function Order() {
 
   const getOptions = () => {
     const options = currentOrder.title ? serviceOptionsMap[currentOrder.title as keyof typeof serviceOptionsMap] : [];
-    
     return (
       <Box>
         {options.map(({ component: Component, /* props*/ }, index:number) => (
@@ -180,9 +179,7 @@ export default function Order() {
       </Box>  
           <MapComponent />
           <ServiceCardsList/>
-          <Divider /> 
-          {getOptions()}   
-          <Divider /> 
+          {getOptions()}             
           <ArrivalTime/> 
           <MapFooter/>
 

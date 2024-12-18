@@ -49,7 +49,7 @@ const ServiceCardsList = () => {
         background: 'none',
         position: 'relative',
         overflow: 'auto',
-        maxHeight: 300,
+        maxHeight: 340,
         '& ul': { padding: 0 },
       }}
       subheader={<li />}

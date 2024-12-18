@@ -28,7 +28,9 @@ export default function NotUnderstand() {
           mb: 2,
         }}
       >
-        Есть вопросы? Ничего не понятно?
+        Есть вопросы? Ничего не понятно? <br/>
+        Поддержка на связи c 8.00 до 23.00
+
       </Typography>
       <Button
         variant="contained"

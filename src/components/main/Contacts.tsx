@@ -98,6 +98,9 @@ export default function Contact() {
               instagram.com/ukolkz
             </Link>
           </Box>
+          <Typography >
+              наши менеджеры на связи с 8.00 до 23.00 <br/><br/>
+          </Typography>
           <Box
             sx={{
                 position: 'relative',

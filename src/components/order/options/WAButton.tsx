@@ -14,30 +14,10 @@ const WAButton= (props:WAButtonProps) => {
 
   return (
     <Box sx={{ m: 2, mb: 1 }}>
-    <Typography variant="h5" sx={{ mb: 2 }}>
-        Или сразу напишите нашему менеджеру
-      </Typography>
-      <Button
-        variant="contained"
-        onClick={handleWhatsAppClick}
-        sx={{ 
-            textTransform: 'none',
-            backgroundColor: '#88e788', 
-            border: '3px solid black', 
-            borderRadius: '140px',
-            margin: 2,
-         }}
-      >
-        <Typography variant="h5"  sx={{
-              fontSize: {
-                xs: '1rem',   // Font size for small screens
-                sm: '1.2rem',     // Font size for medium screens
-                md: '1.4rem',   // Font size for large screens
-              },
-             }}>
-        Консультация в WhatsApp
-        </Typography>
-      </Button>
+    <Typography sx={{ mb: 2 }}>
+     У нас идивидуальный подход к каждому клиенту, из-за этого мы не можем вам назвать точную цену, так как каждый вызов идивидуальный.
+      Опишите, пожалуйста, с чем вам нужна помощь в поле выше. И после нажатия кнопки "заказать" с вами свяжется наш менеджер в WhatsApp для уточнения деталей    
+    </Typography>   
     </Box>
   );
 };
