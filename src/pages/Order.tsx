@@ -6,7 +6,7 @@ import {
 } from '@mui/material';
 import { useAtom } from 'jotai';
 import currentOrderAtom from '../atoms/currentOrder';
-import MapComponent from '../components/order/Map';
+import Map from '../components/order/MapG';
 import LoginModal from '../components/order/LoginModal';
 import NotUnderstand from '../components/order/Notunderstand';
 import { serviceOptionsMap } from '../components/order/options/allOptionsMap';
@@ -177,7 +177,7 @@ export default function Order() {
             </Typography>
           </Button>
       </Box>  
-          <MapComponent />
+          <Map />
           <ServiceCardsList/>
           {getOptions()}             
           <ArrivalTime/> 
