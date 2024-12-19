@@ -26,7 +26,7 @@ const MainPhrase = (props: MainPhraseProps) => {
                 fontSize: '40px' , // Adjust font size for responsiveness
               }}
             >
-              Ukol.kz <br /> это медспециалист <br /> на дом!
+              Ukol.kz <br /> это медспециалисты <br /> на дом!
             </Typography>
             <Typography
               variant="h5"
