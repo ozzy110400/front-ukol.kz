@@ -33,7 +33,7 @@ export default function AddressInput() {
         fullWidth
         sx={{
           '& .MuiInputLabel-root.Mui-focused': {
-            color: !isAddressValid ? 'red' :'#88e788', // Focused color of the label
+            color: !isAddressValid ? 'red' :'darkgray', // Focused color of the label
           },
           '& .MuiInput-underline:before': {
             borderBottomWidth: '3px', // Thickness of the underline
