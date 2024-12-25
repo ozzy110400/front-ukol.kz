@@ -6,7 +6,6 @@ import debounce from 'lodash/debounce';
 import currentOrderAtom from '../../atoms/currentOrder';
 import { trackClarityEvent } from 'App';
 
-
 export default function MapComponent() {
   const mapRef = useRef<google.maps.Map | null>(null);
   const markerRef = useRef<google.maps.Marker | null>(null); // Store marker reference
@@ -27,8 +26,8 @@ export default function MapComponent() {
           visibility: 'off',
         },
       ],
-    },    
-  ]
+    },
+  ];
 
   // Initialize the map and services
   useEffect(() => {
@@ -38,7 +37,7 @@ export default function MapComponent() {
         zoom: 18,
         disableDefaultUI: true,
         styles: mapStyle,
-        gestureHandling: 'greedy', 
+        gestureHandling: 'greedy',
       });
 
       // Initialize autocomplete and geocoder services
@@ -52,7 +51,7 @@ export default function MapComponent() {
         icon: {
           url: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png',
           scaledSize: new google.maps.Size(40, 40),
-        },  // Use the custom HTML marker directly
+        }, // Use the custom HTML marker directly
         draggable: true, // Allow dragging of marker
       });
 
@@ -92,16 +91,16 @@ export default function MapComponent() {
     if (geocoderRef.current && mapRef.current) {
       const center = mapRef.current.getCenter();
       if (!center) return;
-  
+
       geocoderRef.current.geocode(
-        { location: center.toJSON(), language: 'ru' },  // Specify the language
+        { location: center.toJSON(), language: 'ru' }, // Specify the language
         (results, status) => {
           if (status === 'OK' && results?.[0]) {
             let formattedAddress = results[0].formatted_address;
-            
+
             // Remove Plus Code part (if present)
             formattedAddress = formattedAddress.replace(/\+([A-Za-z0-9]+)/g, '').trim();
-  
+
             setAddress(formattedAddress);
             setCurrentOrder((prev) => ({
               ...prev,
@@ -109,42 +108,45 @@ export default function MapComponent() {
               lat: center.lat(),
               lng: center.lng(),
             }));
-            trackClarityEvent('address_entered_by_map')
+            trackClarityEvent('address_entered_by_map');
           }
         }
       );
     }
   }, [setCurrentOrder]);
+
   // Fetch autocomplete suggestions
   const fetchSuggestions = useCallback(
     debounce((input: string) => {
       if (autocompleteServiceRef.current && input.length > 2) {
         autocompleteServiceRef.current.getPlacePredictions(
-          { 
-            input, 
+          {
+            input,
             language: 'ru', // You can set the language as needed
             componentRestrictions: { country: 'KZ' }, // Restrict to Kazakhstan
           },
           (predictions, status) => {
-            if (status === 'OK') setSuggestions(predictions || []);
+            if (status === 'OK') {
+              setSuggestions(predictions || []);
+            }
           }
         );
       } else {
         setSuggestions([]);
       }
-      trackClarityEvent('address_entered_by_text')
+      trackClarityEvent('address_entered_by_text');
     }, 500),
     []
   );
-  
+
   const handleSuggestionClick = (suggestion: google.maps.places.AutocompletePrediction) => {
     if (geocoderRef.current) {
       geocoderRef.current.geocode(
-        { 
-          placeId: suggestion.place_id, 
+        {
+          placeId: suggestion.place_id,
           language: 'ru', // You can set the language as needed
           region: 'KZ', // Restrict geocoding to Kazakhstan
-        }, 
+        },
         (results, status) => {
           if (status === 'OK' && results?.[0]) {
             const location = results[0].geometry.location;
@@ -164,7 +166,6 @@ export default function MapComponent() {
       );
     }
   };
-  
 
   useEffect(() => {
     if (mapRef.current) {
@@ -226,8 +227,8 @@ export default function MapComponent() {
             value={currentOrder.flat || ''}
             sx={{
               '& .MuiInputLabel-root.Mui-focused': {
-                  color: 'darkgray', // Focused color of the label
-                },
+                color: 'darkgray', // Focused color of the label
+              },
               '& .MuiInput-underline:before': {
                 borderBottomWidth: '3px', // Thickness of the underline
                 borderBottomColor: 'darkgray',
@@ -254,10 +255,10 @@ export default function MapComponent() {
             value={currentOrder.floor || ''}
             sx={{
               '& .MuiInputLabel-root.Mui-focused': {
-                  color: 'darkgray', // Focused color of the label
-                },
+                color: 'darkgray', // Focused color of the label
+              },
               '& .MuiInput-underline:before': {
-                borderBottomWidth: '3px', // Thickness of the underline    
+                borderBottomWidth: '3px', // Thickness of the underline
                 borderBottomColor: 'darkgray',
               },
               '& .MuiInput-underline:after': {

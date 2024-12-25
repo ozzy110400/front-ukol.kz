@@ -13,7 +13,7 @@ export default function NotUnderstand() {
     <Box
       sx={{
         mt: 4,
-        p: 2,
+        p: 1,
         textAlign: 'center',
         backgroundColor: 'transparent',
         borderRadius: 2,
@@ -38,12 +38,11 @@ export default function NotUnderstand() {
         sx={{
           backgroundColor: '#88e788', // WhatsApp green color
           color: '#fff',
-          padding: '10px 20px',
-          fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
+          fontSize: { xs: '0.8rem', sm: '0.9rem', md: '1.0rem' },
           fontWeight: 'bold',
           borderRadius: '50px',
           textTransform: 'none',
-          border: '3px solid black',
+          border: '2px solid black',
           '&:hover': {
             backgroundColor: '#1da851',
           },

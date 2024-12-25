@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'preact/hooks';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Typography, CircularProgress } from '@mui/material';
 import { useAtom } from 'jotai';
 import currentOrderAtom from '../../atoms/currentOrder';
 import modalsOpenAtom from '../../atoms/modalsOpen';
@@ -13,9 +13,18 @@ const MapFooter = () => {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
   const [amount, setAmount] = useState(currentOrder.amount);
   const [modalsOpen, setModalsOpen] = useAtom(modalsOpenAtom);
-  const [isPendingOrder, setIsPendingOrder] = useState(false); 
+  const [isPendingOrder, setIsPendingOrder] = useState(false);
+  const [loading, setLoading] = useState(false); // State to handle loading
 
   const handleSubmit = async () => {
+    setLoading(true); // Set loading state to true when the button is clicked
+    console.log(currentOrder)
+    if(!currentOrder.title || !currentOrder.streetAndBuildingNumber ){
+      alert('Введите адрес и выбирите услугу')
+      setLoading(false);
+      return
+    }
+
     if (!auth.user) {
         setIsPendingOrder(true);
         setModalsOpen((prev) => ({ ...prev, isLoginModalOpen: true }));
@@ -25,7 +34,7 @@ const MapFooter = () => {
           ...prevOrder,
           amount: amount!,
         }));
-        currentOrder.amount = amount!
+        currentOrder.amount = amount!;
 
         if (currentOrder.options.isHaveDoctorsAppointment && currentOrder.options.photo) {
           const formData = new FormData();
@@ -39,7 +48,7 @@ const MapFooter = () => {
               photoURL: uploadResponse.data.photoURL,
             },
           };
-          setCurrentOrder(updatedOrder); 
+          setCurrentOrder(updatedOrder);
 
           const result = await createOrder(updatedOrder);
           setModalsOpen((prev) => ({ ...prev, isSuccesModalOpen: result.success }));
@@ -60,7 +69,8 @@ const MapFooter = () => {
         console.error('Failed to create order:', error);
       }
     }
-    trackClarityEvent('order')
+    setLoading(false); // Reset loading state after the operation
+    trackClarityEvent('order');
   };
 
   // Effect to close the login modal and submit order if authentication succeeds
@@ -138,46 +148,51 @@ const MapFooter = () => {
 
   return (
     <Box>
-    <Box
-      sx={{
-        display: 'flex',
-        width: '100%',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: 0,
-        backgroundColor: 'transparent',
-      }}
-    >
-      <Button
-        disabled
-        variant="contained"
+      <Box
         sx={{
-          backgroundColor: '#88e788',
-          border: '3px solid black',
-          borderRadius: '140px',
-          margin: 2,
+          display: 'flex',
+          width: '100%',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: 0,
+          backgroundColor: 'transparent',
         }}
       >
-        <Typography variant="h5" sx={{ fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' } }}>
-          {amount}₸
-        </Typography>
-      </Button>
-      <Button
-        disabled={!currentOrder.title || !currentOrder.streetAndBuildingNumber}
-        variant="contained"
-        onClick={handleSubmit}
-        sx={{
-          backgroundColor: '#88e788',
-          border: '3px solid black',
-          borderRadius: '140px',
-          margin: 2,
-        }}
-      >
-        <Typography variant="h5" sx={{ fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' } }}>
-          Заказать
-        </Typography>
-      </Button>
-    </Box>
+        <Button
+          disabled
+          variant="contained"
+          sx={{
+            backgroundColor: '#88e788',
+            border: '3px solid black',
+            borderRadius: '140px',
+            margin: 2,
+          }}
+        >
+          <Typography variant="h5" sx={{ fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' } }}>
+            {amount}₸
+          </Typography>
+        </Button>
+        <Button
+          // disabled={!currentOrder.title || !currentOrder.streetAndBuildingNumber } // Disable button while loading
+          variant="contained"
+          onClick={handleSubmit}
+          sx={{
+            backgroundColor: '#88e788',
+            border: '3px solid black',
+            borderRadius: '140px',
+            margin: 2,
+            position: 'relative',
+          }}
+        >
+          {loading ? (
+            <CircularProgress size={24}  /> // Show loader if loading is true
+          ) : (
+            <Typography variant="h5" sx={{ fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' } }}>
+              Заказать
+            </Typography>
+          )}
+        </Button>
+      </Box>
     </Box>
   );
 };

@@ -1,12 +1,12 @@
 import {
   Box,
   Button,
-  Divider,
   Typography,
+  CircularProgress,
 } from '@mui/material';
 import { useAtom } from 'jotai';
 import currentOrderAtom from '../atoms/currentOrder';
-import Map from '../components/order/MapG';
+import Map from '../components/order/MapN';
 import LoginModal from '../components/order/LoginModal';
 import NotUnderstand from '../components/order/Notunderstand';
 import { serviceOptionsMap } from '../components/order/options/allOptionsMap';
@@ -16,17 +16,20 @@ import { useLocation } from 'wouter-preact';
 import ServiceCardsList from '../components/order/ServiceCardsList';
 import { authAtom } from 'atoms/auth';
 import { cancelOrder, checkOrder } from 'helpers/api';
-import { useEffect } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
+import dayjs from 'dayjs';
 
 export default function Order() {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
   const [authValue, setAuthValue] = useAtom(authAtom);
+  const [isCancelling, setIsCancelling] = useState(false);  // Track the loading state for cancel
 
   const handleCancelOrder = async () => {
+    setIsCancelling(true);  // Start loading when cancel is initiated
 
-    const res  = await cancelOrder(currentOrder!._id!)
+    const res = await cancelOrder(currentOrder!._id!);
 
-    if(!res.success){
+    if (!res.success) {
       const phone = '77027776776'; // Replace with the actual phone number
       const message = 'Здравствуйте! Хочу отменить заказ, это ещё возможно сделать?'; // The message you want to send
       const whatsappUrl = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`;
@@ -35,20 +38,43 @@ export default function Order() {
     } else {
       setCurrentOrder((prevOrder) => ({
         ...prevOrder,
-        status: 'cancel',
-      })) 
+        title: '',
+        amount: 0,
+        streetAndBuildingNumber: '',
+        flat: '',
+        floor: '',
+        options: {
+          isNeedPharmacy: false,
+          isHaveDoctorsAppointment: false,
+          isWithDrugsCocktail: false,
+          isPremiumIntoxication: false,
+          isWithDressingMaterial: false,
+          isWithMaterialsPoisoning: false,
+          photoURL: '',
+          photo: undefined,
+          daysForNurse: 0,
+          message: '',
+        },
+        arrivalTime: {
+          hours: dayjs().format('HH'),
+          minutes: dayjs().format('mm'),
+          isNearestHour: true,
+          date: dayjs().format('YYYY-MM-DD')
+        },  
+        status: "cancel"
+      }));
     }
 
+    setIsCancelling(false);  // Stop loading when the cancellation process is done
   };
 
   const [, navigate] = useLocation();
-
 
   const getOptions = () => {
     const options = currentOrder.title ? serviceOptionsMap[currentOrder.title as keyof typeof serviceOptionsMap] : [];
     return (
       <Box>
-        {options.map(({ component: Component, /* props*/ }, index:number) => (
+        {options.map(({ component: Component, /* props*/ }, index: number) => (
           <Component key={index} />
         ))}
       </Box>
@@ -80,11 +106,7 @@ export default function Order() {
     fetchOrder();
   }, []);
 
-
-
-  if ((currentOrder.status == 'waiting' ||  currentOrder.status == 'taken') 
-    && authValue.user.phoneNumber != '77012111030' ) {
-    //&& authValue.user.phoneNumber != '79958319208' ) {
+  if ((currentOrder.status == 'waiting' || currentOrder.status == 'taken') && authValue.user.phoneNumber != '77012111030') {
     return (
       <Box sx={{ mt: '5%', textAlign: 'center', backgroundColor: 'transparent' }}>
         <Typography variant="h5" sx={{ textAlign: 'center', color: 'green' }}>
@@ -108,7 +130,7 @@ export default function Order() {
             border: '3px solid black',
             borderRadius: '140px',
             padding: 1,
-           mr:2
+            mr: 2
           }}
         >
           <Typography
@@ -126,20 +148,24 @@ export default function Order() {
             border: '3px solid black',
             borderRadius: '140px',
             padding: 1,
-             ml:2
+            ml: 2
           }}
         >
-          <Typography
-            variant="h5"
-            sx={{ fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' } }}
-          >
-            Отменить
-          </Typography>
+          {isCancelling ? (
+            <CircularProgress size={24} color="primary" />  // Show the spinner while cancelling
+          ) : (
+            <Typography
+              variant="h5"
+              sx={{ fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' } }}
+            >
+              Отменить
+            </Typography>
+          )}
         </Button>
       </Box>
     );
   }
-  
+
   return (
     <Box sx={{ mt: '5%', backgroundColor: 'transparent' }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
@@ -154,39 +180,36 @@ export default function Order() {
           Обратите внимание! Препараты, материалы и другие расходники не входят в стоимость услуг
         </Typography>
         <Button
-            variant="contained"
-            onClick={() => navigate('/')} 
+          variant="contained"
+          onClick={() => navigate('/')}
+          sx={{
+            backgroundColor: '#88e788',
+            border: '3px solid black',
+            borderRadius: '140px',
+            margin: 1,
+            minWidth: '120px', // Ensures enough width for the text
+            padding: '4px 16px', // Adjust padding for better fit
+          }}
+        >
+          <Typography
+            variant="h5"
             sx={{
-              backgroundColor: '#88e788',
-              border: '3px solid black',
-              borderRadius: '140px',
-              margin: 1,
-              minWidth: '120px', // Ensures enough width for the text
-              padding: '4px 16px', // Adjust padding for better fit
+              fontSize: { xs: '0.8rem', sm: '1rem', md: '1.2rem' },
+              whiteSpace: 'nowrap',
+              textAlign: 'center' // Ensures text is centered
             }}
           >
-            <Typography 
-              variant="h5" 
-              sx={{ 
-                fontSize: { xs: '0.8rem', sm: '1rem', md: '1.2rem' }, 
-                whiteSpace: 'nowrap', 
-                textAlign: 'center' // Ensures text is centered 
-              }}
-            >
-              на главную
-            </Typography>
-          </Button>
-      </Box>  
-          <Map />
-          <ServiceCardsList/>
-          {getOptions()}             
-          <ArrivalTime/> 
-          <MapFooter/>
-
-          <NotUnderstand/>
-       
-       <LoginModal />
-
+            на главную
+          </Typography>
+        </Button>
+      </Box>
+      <Map />
+      <ServiceCardsList />
+      {getOptions()}
+      <ArrivalTime />
+      <MapFooter />
+      <NotUnderstand />
+      <LoginModal />
     </Box>
   );
 }

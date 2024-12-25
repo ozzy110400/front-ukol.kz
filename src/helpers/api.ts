@@ -34,15 +34,7 @@ $api.interceptors.response.use(
 
 export const createOrder = async (orderDetails: TOrder) => {
     try {
-        const { streetAndBuildingNumber, flat, floor, ...rest } = orderDetails;
-        const address = `${streetAndBuildingNumber || ''} кв. ${flat || 'не указана'} этаж ${floor || 'не указан'}`.trim();
-
-        const orderToSend = {
-            ...rest,
-            address, 
-        };
-
-        const response = await $api.post('/order/create', orderToSend);
+        const response = await $api.post('/order/create', orderDetails);
         return response.data;
     } catch (error) {
         console.error('Error creating order:', error);

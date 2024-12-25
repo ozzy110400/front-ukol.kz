@@ -164,7 +164,6 @@ export default function MapComponent() {
           centerMarker.setLatLng(currentCenter);
         }
       });
-
       mapRef.current.on('moveend', handleMoveEnd);
     } else {
       mapRef.current.setView(center, zoom);

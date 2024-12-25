@@ -4,8 +4,6 @@ export type TOrder = {
     _id?: string,
     title?: string;
     streetAndBuildingNumber?: string;
-    lat?: number,
-    lng?: number,
     flat?: string;
     floor?: string;
     amount?: number;
