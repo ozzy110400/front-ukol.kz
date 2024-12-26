@@ -18,60 +18,125 @@ const MapFooter = () => {
 
   const handleSubmit = async () => {
     setLoading(true); // Set loading state to true when the button is clicked
-    console.log(currentOrder)
-    if(!currentOrder.title || !currentOrder.streetAndBuildingNumber ){
-      alert('Введите адрес и выбирите услугу')
-      setLoading(false);
-      return
-    }
-
-    if (!auth.user) {
-        setIsPendingOrder(true);
-        setModalsOpen((prev) => ({ ...prev, isLoginModalOpen: true }));
-    } else {
-      try {
-        setCurrentOrder(prevOrder => ({
-          ...prevOrder,
-          amount: amount!,
-        }));
-        currentOrder.amount = amount!;
-
-        if (currentOrder.options.isHaveDoctorsAppointment && currentOrder.options.photo) {
-          const formData = new FormData();
-          formData.append('file', currentOrder.options.photo);
-          const uploadResponse = await uploadPhoto(formData);
-
-          const updatedOrder = {
-            ...currentOrder,
-            options: {
-              ...currentOrder.options,
-              photoURL: uploadResponse.data.photoURL,
-            },
-          };
-          setCurrentOrder(updatedOrder);
-
-          const result = await createOrder(updatedOrder);
-          setModalsOpen((prev) => ({ ...prev, isSuccesModalOpen: result.success }));
-          console.log('Order created successfully:', result);
-        } else {
-          const result = await createOrder(currentOrder);
-          setModalsOpen((prev) => ({ ...prev, isSuccesModalOpen: result.success }));
-
-          setCurrentOrder((prevAuth) => ({
-            ...prevAuth,
-            _id: result.data._id,
-            status: result.data.status
-          }));
   
-          console.log('Order created successfully:', result);
-        }
-      } catch (error) {
-        console.error('Failed to create order:', error);
-      }
+    // Validate essential fields
+    if (!currentOrder.title || !currentOrder.streetAndBuildingNumber) {
+      alert('Введите адрес и выбирите услугу');
+      setLoading(false);
+      return;
     }
-    setLoading(false); // Reset loading state after the operation
-    trackClarityEvent('order');
+  
+    // Check authentication
+    if (!auth.user) {
+      setIsPendingOrder(true);
+      setModalsOpen((prev) => ({ ...prev, isLoginModalOpen: true }));
+      setLoading(false); // Ensure loading is reset here
+      return;
+    }
+  
+    try {
+      // Update the currentOrder with the amount
+      setCurrentOrder((prevOrder) => ({
+        ...prevOrder,
+        amount: amount!,
+      }));
+  
+      const updatedOrder = {
+        ...currentOrder,
+        amount: amount!,
+      };
+  
+      if (updatedOrder.options.isHaveDoctorsAppointment && updatedOrder.options.photo) {
+        // Handle photo upload if required
+        const formData = new FormData();
+        formData.append('file', updatedOrder.options.photo);
+  
+        const uploadResponse = await uploadPhoto(formData);
+  
+        updatedOrder.options.photoURL = uploadResponse.data.photoURL;
+      }
+  
+      // Create the order
+      const result = await createOrder(updatedOrder);
+  
+      // Update the current order state with response data
+      setCurrentOrder((prevOrder) => ({
+        ...prevOrder,
+        _id: result.data._id,
+        status: result.data.status,
+      }));
+  
+      // Show success modal if the operation was successful
+      setModalsOpen((prev) => ({ ...prev, isSuccesModalOpen: result.success }));
+      console.log('Order created successfully:', result);
+    } catch (error) {
+      console.error('Failed to create order:', error);
+    } finally {
+      setLoading(false); // Always reset loading state
+      trackClarityEvent('order'); // Track event
+    }
   };
+  
+  // const handleSubmit = async () => {
+  //   setLoading(true); // Set loading state to true when the button is clicked
+  //   if(!currentOrder.title || !currentOrder.streetAndBuildingNumber ){
+  //     alert('Введите адрес и выбирите услугу')
+  //     setLoading(false);
+  //     return
+  //   }
+
+  //   if (!auth.user) {
+  //       setIsPendingOrder(true);
+  //       setModalsOpen((prev) => ({ ...prev, isLoginModalOpen: true }));
+  //   } else {
+  //     try {
+  //       setCurrentOrder(prevOrder => ({
+  //         ...prevOrder,
+  //         amount: amount!,
+  //       }));
+  //       currentOrder.amount = amount!;
+
+  //       if (currentOrder.options.isHaveDoctorsAppointment && currentOrder.options.photo) {
+  //         const formData = new FormData();
+  //         formData.append('file', currentOrder.options.photo);
+  //         const uploadResponse = await uploadPhoto(formData);
+
+  //         const updatedOrder = {
+  //           ...currentOrder,
+  //           options: {
+  //             ...currentOrder.options,
+  //             photoURL: uploadResponse.data.photoURL,
+  //           },
+  //         };
+  //         setCurrentOrder(updatedOrder);
+
+  //         const result = await createOrder(updatedOrder);
+  //         setCurrentOrder((prevAuth) => ({
+  //           ...prevAuth,
+  //           _id: result.data._id,
+  //           status: result.data.status
+  //         }));
+  //         setModalsOpen((prev) => ({ ...prev, isSuccesModalOpen: result.success }));
+  //         console.log('Order created successfully:', result);
+  //       } else {
+  //         const result = await createOrder(currentOrder);
+  //         setModalsOpen((prev) => ({ ...prev, isSuccesModalOpen: result.success }));
+
+  //         setCurrentOrder((prevAuth) => ({
+  //           ...prevAuth,
+  //           _id: result.data._id,
+  //           status: result.data.status
+  //         }));
+  
+  //         console.log('Order created successfully:', result);
+  //       }
+  //     } catch (error) {
+  //       console.error('Failed to create order:', error);
+  //     }
+  //   }
+  //   setLoading(false); // Reset loading state after the operation
+  //   trackClarityEvent('order');
+  // };
 
   // Effect to close the login modal and submit order if authentication succeeds
   useEffect(() => {

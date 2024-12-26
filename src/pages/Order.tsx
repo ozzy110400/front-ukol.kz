@@ -61,7 +61,7 @@ export default function Order() {
           isNearestHour: true,
           date: dayjs().format('YYYY-MM-DD')
         },  
-        status: "cancel"
+        status: ''
       }));
     }
 
