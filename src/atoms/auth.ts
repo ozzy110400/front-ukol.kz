@@ -1,5 +1,5 @@
 import { atom } from 'jotai';
-import { refresh } from '../helpers/api';
+import { refresh } from '../helpers/api/apiClient';
 
 export type AuthValue = {
   user: any | null;

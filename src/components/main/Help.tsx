@@ -13,6 +13,7 @@ import { useLocation } from 'wouter-preact';
 import { useAtom } from 'jotai';
 import currentOrderAtom from '../../atoms/currentOrder';
 import { trackClarityEvent } from 'App';
+import { TOrder } from 'atoms/currentOrder';
 
 
 const Help = () => {
@@ -24,12 +25,12 @@ const Help = () => {
     { title: 'Уколы на дому', short_name: 'Укол', msg:'', description: 'Удобные и безопасные инъекции прямо у вас дома.', icon: SyringeIcon },
     { title: 'Капельницы на дому', short_name: 'Капельница', msg:'', description: 'Эффективное лечение капельницами в уютной домашней обстановке.', icon: DropletIcon },
     { title: 'Удобство и комфорт', short_name: 'Другое', msg:'Нужен присмотр от медспециалиста', description: 'Ваше здоровье в центре внимания.', icon: BedIcon },
-    { title: 'Пищевые отравления', short_name: 'Детоксикация', msg:'У меня пищевое отправление, нужна помощь', description: 'Быстрая помощь при пищевых отравлениях.', icon: UtensilsIcon },
-    { title: 'Желудочные зонды', short_name: 'Детоксикация',  msg:'Нужно сделать желудочный зонд', description: 'Профессиональное введение желудочных зондов.', icon: StethoscopeIcon },
+    { title: 'Пищевые отравления', short_name: 'Капельница', msg:'У меня пищевое отправление, нужна помощь', description: 'Быстрая помощь при пищевых отравлениях.', icon: UtensilsIcon },
+    { title: 'Желудочные зонды', short_name: 'Другое',  msg:'Нужно сделать желудочный зонд', description: 'Профессиональное введение желудочных зондов.', icon: StethoscopeIcon },
     { title: 'Уход за пожилыми на дому', short_name: 'Другое', msg:'Нужен уход за пожилым человеком',  description: 'Чуткий и заботливый уход за пожилыми людьми.', icon: UserAltIcon },
     { title: 'Бережные процедуры', short_name: 'Другое', msg:'Нужно помочь сделать ...', description: 'Аккуратный и безопасный уход.', icon: HandHoldingHeartIcon },
     { title: 'Коктейли', short_name: 'Другое', msg:'Мне нужнен коктейль ...', description: 'Золушка (Синдерелла), Коктейли для Спортсменов, Лаеннек (Laennec) — Плацентарная терапия', icon: CocktailIcon },
-    { title: 'Вывод из запоя на дому', short_name: 'Другое', msg:'Нужно вывести человека из запоя', description: 'Капельница от интоксикации, Детокс терапия, Дезинтоксикация', icon: PillsIcon },
+    { title: 'Вывод из запоя на дому', short_name: 'Детоксикация', msg:'Нужно вывести человека из запоя', description: 'Капельница от интоксикации, Детокс терапия, Дезинтоксикация', icon: PillsIcon },
     { title: 'Перевязки', short_name: 'Другое', msg:'Нужна помощь с перевязкой', description: 'Качественные перевязочные процедуры.', icon: BandAidIcon },
   ];
 

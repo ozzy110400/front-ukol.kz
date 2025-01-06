@@ -1,23 +1,31 @@
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
+import {
+  Box,
+  Button,
+  Typography,
+  CircularProgress,
+  AppBar,
+  MenuItem,
+} from '@mui/material';
+import { useAtom } from 'jotai';
+import { useLocation } from 'wouter-preact';
 import { useState } from 'preact/hooks';
 import logoImg from "/img/logo.png";
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import IconButton from '@mui/material/IconButton';
+import Container from '@mui/material/Container';
+import Toolbar from '@mui/material/Toolbar';
 
 const options = [
   { label: 'Наши услуги', target: 'services' },
   { label: 'О нас', target: 'about' },
   { label: 'Отзывы', target: 'reviews' },
+  { label: 'Медикам', target: 'spec' },
 ];
+
 function Header() {
   const [openNav, setOpenNav] = useState(false);
+  const [, navigate] = useLocation();
 
   const handleOpenNavMenu = () => {
     setOpenNav(true);
@@ -27,15 +35,29 @@ function Header() {
     setOpenNav(false);
   };
 
+  const handleMenuItemClick = (target: string, label: string) => {
+    if (label === 'Медикам') {
+      // Redirect to spec.ukol.kz when 'Медикам' is clicked
+      window.location.href = 'https://spec.ukol.kz';
+    } else {
+      // Scroll to the corresponding section
+      document.getElementById(target)?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+    handleCloseNavMenu();
+  };
+
   return (
-    <AppBar position="static" sx={{ backgroundColor: 'transparent', mt: 2, mr: 2 }} elevation={0} >
+    <AppBar position="static" sx={{ backgroundColor: 'transparent', mt: 2, mr: 2 }} elevation={0}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ display: { xs: 'flex', md: 'flex' }, mr: 1 }}>
             <img
-              src={logoImg} 
+              src={logoImg}
               alt="Logo"
-              style={{ maxHeight: '80px', width: 'auto' }} 
+              style={{ maxHeight: '80px', width: 'auto' }}
             />
           </Box>
           <Typography
@@ -49,49 +71,38 @@ function Header() {
           >
             UKOL.KZ
           </Typography>
-         
+
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
             {options.map((option) => (
               <Button
                 key={option.target}
-                onClick={() => {
-                  document.getElementById(option.target)?.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start',
-                  });
-                  handleCloseNavMenu();
-                }}
-                sx={{ 
+                onClick={() => handleMenuItemClick(option.target, option.label)}
+                sx={{
                   my: 2,
-                  display: 'block', 
+                  display: 'block',
                   flex: 1,
-                  outline: 'none', // Remove the focus outline
-                  boxShadow: 'none', // Remove the box shadow when clicked
+                  outline: 'none',
+                  boxShadow: 'none',
                   '&:focus': {
-                    outline: 'none', // Remove focus outline
-                    boxShadow: 'none', // Remove box shadow on focus
+                    outline: 'none',
+                    boxShadow: 'none',
                   },
                   '&:hover': {
-                    backgroundColor: 'transparent', // Remove hover background color (if any)
-                    boxShadow: 'none', // Remove box shadow on hover
+                    backgroundColor: 'transparent',
+                    boxShadow: 'none',
                   },
                   '&:active': {
-                    backgroundColor: 'transparent', // Remove active background color (if any)
-                    boxShadow: 'none', // Remove box shadow on active state
+                    backgroundColor: 'transparent',
+                    boxShadow: 'none',
                   },
                   '& .MuiTouchRipple-root': {
-                    display: 'none', // Remove the ripple effect
+                    display: 'none',
                   },
-                 }}
+                }}
               >
-                <Typography variant="h5">
-                  {option.label}
-                </Typography>
+                <Typography variant="h5">{option.label}</Typography>
               </Button>
             ))}
-          </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-
           </Box>
           <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -100,7 +111,7 @@ function Header() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color='primary'
+              color="primary"
               sx={{ color: '#000' }}
             >
               <MenuIcon sx={{ fontSize: '2.5rem', fontWeight: 'bold' }} />
@@ -122,16 +133,12 @@ function Header() {
             >
               {options.map((option) => (
                 <MenuItem
-                key={option.target}
-                onClick={() => {
-                  document.getElementById(option.target)?.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start',
-                  });
-                  handleCloseNavMenu();
-                }}
-              >
-                  <Typography  variant='h5' sx={{ textAlign: 'center' }}>{option.label}</Typography>
+                  key={option.target}
+                  onClick={() => handleMenuItemClick(option.target, option.label)}
+                >
+                  <Typography variant="h5" sx={{ textAlign: 'center' }}>
+                    {option.label}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>

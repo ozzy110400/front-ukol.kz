@@ -1,5 +1,5 @@
 import { useState } from 'preact/hooks';
-import { TextField, Box } from '@mui/material';
+import { TextField, Box, FormHelperText } from '@mui/material';
 import currentOrderAtom from '../../atoms/currentOrder';
 import { useAtom } from 'jotai';
 
@@ -49,6 +49,9 @@ export default function AddressInput() {
           },
         }}
       />
+      <FormHelperText sx={{ color: !isAddressValid ? 'red' : 'inherit', marginTop: 1 }}>
+        {!isAddressValid ? "Обязательное поле" : ""}
+      </FormHelperText>
 
       <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
         {/* Flat Field */}
@@ -82,6 +85,7 @@ export default function AddressInput() {
             },
           }}
         />
+
 
         {/* Floor Field */}
         <TextField

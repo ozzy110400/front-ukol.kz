@@ -3,6 +3,7 @@ import { Switch, Route, useLocation } from 'wouter-preact';
 import Main from './pages/Main';
 import Order from './pages/Order';
 import Account from './pages/Account';
+import Waiting from 'pages/Waiting';
 
 declare global {
   interface Window {
@@ -60,6 +61,7 @@ export default function () {
           <Route path="/" component={Main} />
           <Route path="/order" component={Order} />
           <Route path="/account" component={Account} />
+          <Route path="/waiting" component={Waiting} />
         </Switch>
       </Suspense>    
       {/* <Footer/> */}

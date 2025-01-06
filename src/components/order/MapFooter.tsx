@@ -4,7 +4,7 @@ import { useAtom } from 'jotai';
 import currentOrderAtom from '../../atoms/currentOrder';
 import modalsOpenAtom from '../../atoms/modalsOpen';
 import { authAtom }  from '../../atoms/auth';
-import { uploadPhoto, createOrder } from '../../helpers/api';
+import { uploadPhoto, createOrder } from '../../helpers/api/apiClient';
 import dayjs from 'dayjs';
 import { trackClarityEvent } from 'App';
 
@@ -21,7 +21,7 @@ const MapFooter = () => {
   
     // Validate essential fields
     if (!currentOrder.title || !currentOrder.streetAndBuildingNumber) {
-      alert('Введите адрес и выбирите услугу');
+      alert('Пожалуйста, введите адрес и выберите нужную вам услугу');
       setLoading(false);
       return;
     }
@@ -152,27 +152,29 @@ const MapFooter = () => {
     const currentHour = selectedTime ? parseInt(selectedTime, 10) : parseInt(dayjs().format('HH'), 10);
     let basePrice = 0;
 
+    console.log(currentHour)
+
     switch (currentOrder.title) {
       case 'Укол':
-        basePrice = currentHour >= 7 && currentHour < 20 ? 5000 : currentHour < 23 ? 6000 : 10000;
+        basePrice = currentHour >= 7 && currentHour < 20 ? 5000 :  (currentHour >= 20 && currentHour < 23) ? 6000 : 10000;
         break;
       case 'Капельница':
-        basePrice = currentHour >= 7 && currentHour < 20 ? 7000 : currentHour < 23 ? 8000 : 14000;
+        basePrice = (currentHour >= 7 && currentHour < 20) ? 7000 : (currentHour >= 20 && currentHour < 23) ? 8000 : 14000;
         break;
       case 'Укол + Капельница':
-        basePrice = currentHour >= 7 && currentHour < 20 ? 8000 : currentHour < 23 ? 9000 : 15000;
+        basePrice = currentHour >= 7 && currentHour < 20 ? 8000 : (currentHour >= 20 && currentHour < 23) ? 9000 : 15000;
         break;
       case 'Детоксикация':
         basePrice = currentHour >= 7 && currentHour < 20 ? 25000 : 30000;
         break;
       case 'Золушка (коктейли)':
-        basePrice = currentHour >= 7 && currentHour < 20 ? 12000 : currentHour < 23 ? 15000 : 20000;
+        basePrice = currentHour >= 7 && currentHour < 20 ? 12000 :  (currentHour >= 20 && currentHour < 23) ? 15000 : 20000;
         break;
       case 'Перевязки':
-        basePrice = currentHour >= 7 && currentHour < 20 ? 7000 : currentHour < 23 ? 9000 : 15000;
+        basePrice = currentHour >= 7 && currentHour < 20 ? 7000 :  (currentHour >= 20 && currentHour < 23) ? 9000 : 15000;
         break;
       case 'Пищевые отравления (капельница)':
-        basePrice = currentHour >= 7 && currentHour < 20 ? 15000 : currentHour < 23 ? 17000 : 20000;
+        basePrice = currentHour >= 7 && currentHour < 20 ? 15000 :  (currentHour >= 20 && currentHour < 23) ? 17000 : 20000;
         break;
       case 'Медсестра на время':
         basePrice = 20000;
@@ -238,7 +240,6 @@ const MapFooter = () => {
           </Typography>
         </Button>
         <Button
-          // disabled={!currentOrder.title || !currentOrder.streetAndBuildingNumber } // Disable button while loading
           variant="contained"
           onClick={handleSubmit}
           sx={{

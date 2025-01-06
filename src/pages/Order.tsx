@@ -15,60 +15,61 @@ import MapFooter from '../components/order/MapFooter';
 import { useLocation } from 'wouter-preact';
 import ServiceCardsList from '../components/order/ServiceCardsList';
 import { authAtom } from 'atoms/auth';
-import { cancelOrder, checkOrder } from 'helpers/api';
+import { cancelOrder, checkOrder } from 'helpers/api/apiClient';
 import { useEffect, useState } from 'preact/hooks';
 import dayjs from 'dayjs';
 
+
 export default function Order() {
+  const [, navigate] = useLocation();
+
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
   const [authValue, setAuthValue] = useAtom(authAtom);
   const [isCancelling, setIsCancelling] = useState(false);  // Track the loading state for cancel
 
-  const handleCancelOrder = async () => {
-    setIsCancelling(true);  // Start loading when cancel is initiated
+  // const handleCancelOrder = async () => {
+  //   setIsCancelling(true);  // Start loading when cancel is initiated
 
-    const res = await cancelOrder(currentOrder!._id!);
+  //   const res = await cancelOrder(currentOrder!._id!);
 
-    if (!res.success) {
-      const phone = '77027776776'; // Replace with the actual phone number
-      const message = 'Здравствуйте! Хочу отменить заказ, это ещё возможно сделать?'; // The message you want to send
-      const whatsappUrl = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`;
+  //   if (!res.success) {
+  //     const phone = '77027776776'; // Replace with the actual phone number
+  //     const message = 'Здравствуйте! Хочу отменить заказ, это ещё возможно сделать?'; // The message you want to send
+  //     const whatsappUrl = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`;
       
-      window.open(whatsappUrl, '_blank'); // Open in a new tab
-    } else {
-      setCurrentOrder((prevOrder) => ({
-        ...prevOrder,
-        title: '',
-        amount: 0,
-        streetAndBuildingNumber: '',
-        flat: '',
-        floor: '',
-        options: {
-          isNeedPharmacy: false,
-          isHaveDoctorsAppointment: false,
-          isWithDrugsCocktail: false,
-          isPremiumIntoxication: false,
-          isWithDressingMaterial: false,
-          isWithMaterialsPoisoning: false,
-          photoURL: '',
-          photo: undefined,
-          daysForNurse: 0,
-          message: '',
-        },
-        arrivalTime: {
-          hours: dayjs().format('HH'),
-          minutes: dayjs().format('mm'),
-          isNearestHour: true,
-          date: dayjs().format('YYYY-MM-DD')
-        },  
-        status: ''
-      }));
-    }
+  //     window.open(whatsappUrl, '_blank'); // Open in a new tab
+  //   } else {
+  //     setCurrentOrder((prevOrder) => ({
+  //       ...prevOrder,
+  //       title: '',
+  //       amount: 0,
+  //       streetAndBuildingNumber: '',
+  //       flat: '',
+  //       floor: '',
+  //       options: {
+  //         isNeedPharmacy: false,
+  //         isHaveDoctorsAppointment: false,
+  //         isWithDrugsCocktail: false,
+  //         isPremiumIntoxication: false,
+  //         isWithDressingMaterial: false,
+  //         isWithMaterialsPoisoning: false,
+  //         photoURL: '',
+  //         photo: undefined,
+  //         daysForNurse: 0,
+  //         message: '',
+  //       },
+  //       arrivalTime: {
+  //         hours: dayjs().format('HH'),
+  //         minutes: dayjs().format('mm'),
+  //         isNearestHour: true,
+  //         date: dayjs().format('YYYY-MM-DD')
+  //       },  
+  //       status: ''
+  //     }));
+  //   }
 
-    setIsCancelling(false);  // Stop loading when the cancellation process is done
-  };
-
-  const [, navigate] = useLocation();
+  //   setIsCancelling(false);  // Stop loading when the cancellation process is done
+  // };
 
   const getOptions = () => {
     const options = currentOrder.title ? serviceOptionsMap[currentOrder.title as keyof typeof serviceOptionsMap] : [];
@@ -82,22 +83,16 @@ export default function Order() {
   };
 
   useEffect(() => {
-    // Log or handle updates to authValue
-    console.log("authValue updated:", authValue);
-    if (currentOrder?.status === 'cancelled') {
-      console.log("Order was cancelled.");
-    }
-  }, [currentOrder.status]);
-
-  useEffect(() => {
     const fetchOrder = async () => {
       try {
         const res = await checkOrder();
-        setCurrentOrder((prevOrder) => ({
-          ...prevOrder,
-          _id: res.order._id,
-          status: res.order.status,
-        }));
+        if (res.order) {
+          setCurrentOrder((prevOrder) => ({
+            ...prevOrder,
+            _id: res.order._id,
+            status: res.order.status,
+          }));
+        }
       } catch (error) {
         console.error('Error fetching order:', error);
       }
@@ -106,65 +101,13 @@ export default function Order() {
     fetchOrder();
   }, []);
 
-  if ((currentOrder.status == 'waiting' || currentOrder.status == 'taken') && authValue.user.phoneNumber != '77012111030') {
-    return (
-      <Box sx={{ mt: '5%', textAlign: 'center', backgroundColor: 'transparent' }}>
-        <Typography variant="h5" sx={{ textAlign: 'center', color: 'green' }}>
-          Заказ успешно создан
-        </Typography>
-        <Typography
-          sx={{
-            fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' },
-            fontWeight: 'bold',
-            color: 'dark',
-            mb: 2,
-          }}
-        >
-          Что бы сделать еще один заказ дождитесь выполнения текущего или же отмените созданный
-        </Typography>
-        <Button
-          variant="contained"
-          onClick={() => navigate('/')}
-          sx={{
-            backgroundColor: '#88e788',
-            border: '3px solid black',
-            borderRadius: '140px',
-            padding: 1,
-            mr: 2
-          }}
-        >
-          <Typography
-            variant="h5"
-            sx={{ fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' } }}
-          >
-            На главную
-          </Typography>
-        </Button>
-        <Button
-          variant="contained"
-          onClick={handleCancelOrder}
-          sx={{
-            backgroundColor: '#ff8585',
-            border: '3px solid black',
-            borderRadius: '140px',
-            padding: 1,
-            ml: 2
-          }}
-        >
-          {isCancelling ? (
-            <CircularProgress size={24} color="primary" />  // Show the spinner while cancelling
-          ) : (
-            <Typography
-              variant="h5"
-              sx={{ fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' } }}
-            >
-              Отменить
-            </Typography>
-          )}
-        </Button>
-      </Box>
-    );
-  }
+  useEffect(() => {
+    // Ensure we only navigate if conditions are met and prevent endless loops
+    if ((currentOrder.status === 'waiting' || currentOrder.status === 'taken' || currentOrder.status === 'waiting_rating') && 
+        authValue.user.phoneNumber !== '77012111030') {
+      navigate('/waiting');  // Navigate to '/waiting' page
+    }
+  }, [currentOrder.status]);
 
   return (
     <Box sx={{ mt: '5%', backgroundColor: 'transparent' }}>
@@ -183,7 +126,7 @@ export default function Order() {
           variant="contained"
           onClick={() => navigate('/')}
           sx={{
-            backgroundColor: '#88e788',
+            backgroundColor: '#0000001f',
             border: '3px solid black',
             borderRadius: '140px',
             margin: 1,

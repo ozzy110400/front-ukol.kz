@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
-import { atom } from 'jotai'
+import { atomWithStorage } from 'jotai/utils';
+
 export type TOrder = {
     _id?: string,
     title?: string;
@@ -8,6 +9,8 @@ export type TOrder = {
     floor?: string;
     amount?: number;
     options: {
+        isChild: boolean,
+        isNeedWoman: boolean,
         isNeedPharmacy: boolean,
         isHaveDoctorsAppointment: boolean,
         isWithDrugsCocktail: boolean,
@@ -25,32 +28,37 @@ export type TOrder = {
         isNearestHour: boolean
         date: string;
     },
-    status: string
+    status: string,
 }
-export default atom<TOrder>({
-    _id: '',
-    title: '',
-    streetAndBuildingNumber: '',
-    flat: '',
-    floor: '',
-    amount: 0,
-    options : {
-        isNeedPharmacy: false,
-        isHaveDoctorsAppointment: false,
-        isWithDrugsCocktail: false,
-        isPremiumIntoxication: false,
-        isWithDressingMaterial: false,
-        isWithMaterialsPoisoning: false,
-        photoURL: '',
-        photo: undefined,
-        daysForNurse: 0,
-        message: ''  
-    },
-    arrivalTime: {
-        hours: dayjs().add(1, 'hour').format('HH'),
-        minutes: dayjs().format('mm'),
-        date: dayjs().format('YYYY-MM-DD'),
-        isNearestHour: true
-    },
-    status: ''
-})
+
+const currentOrderAtom = atomWithStorage<TOrder>('currentOrder', {
+  _id: '',
+  title: '',
+  streetAndBuildingNumber: '',
+  flat: '',
+  floor: '',
+  amount: 0,
+  options: {
+    isChild: false,
+    isNeedWoman: false,
+    isNeedPharmacy: false,
+    isHaveDoctorsAppointment: false,
+    isWithDrugsCocktail: false,
+    isPremiumIntoxication: false,
+    isWithDressingMaterial: false,
+    isWithMaterialsPoisoning: false,
+    photoURL: '',
+    photo: undefined,
+    daysForNurse: 0,
+    message: '',
+  },
+  arrivalTime: {
+    hours: dayjs().add(1, 'hour').format('HH'),
+    minutes: dayjs().format('mm'),
+    date: dayjs().format('YYYY-MM-DD'),
+    isNearestHour: true
+},
+  status: '',
+});
+
+export default currentOrderAtom;

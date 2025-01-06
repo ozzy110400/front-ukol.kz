@@ -1,4 +1,4 @@
-import { TOrder } from '../atoms/currentOrder';
+import { TOrder } from '../../atoms/currentOrder';
 import axios from 'axios';
 
 const baseURL = import.meta.env['VITE_BACK_URL']; 
@@ -63,6 +63,18 @@ export const authPhone = async (phoneNumber: string) => {
     }
 };  
 
+export const submitRating = async (id: string, rating: number, comment: string) => {
+    try {
+        const body = { rating, comment };
+
+        const response = await  $api.post(`/order/rating/${id}`,body)
+        return response.data;
+    } catch (error) {
+        console.error('Error authenticating phone number:', error);
+        throw error;
+    }
+};  
+
 export const verifyCode = async (phoneNumber: string, code: string) => {
     try {
         const body = { phoneNumber, code };
@@ -88,6 +100,18 @@ export const cancelOrder = async (orderID: string, ) => {
 export const checkOrder = async () => {
     try {
         const response = await $api.get('/order/check');
+        return response.data
+    } catch (error) {
+        console.error('Error check order:', error);
+        throw error;
+    }
+};  
+
+export const selectSpec = async (currentOrderId: string, id: string) => {
+    try {
+        const body = { currentOrderId, id };
+
+        const response = await $api.post('/order/select', body);
         return response.data
     } catch (error) {
         console.error('Error check order:', error);

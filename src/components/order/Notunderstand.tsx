@@ -23,7 +23,7 @@ export default function NotUnderstand() {
       <Typography
         variant="h5"
         sx={{
-          fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' },
+          fontSize: { xs: '0.8rem', sm: '1.0rem', md: '1.2rem' },
           fontWeight: 'bold',
           mb: 2,
         }}
@@ -33,22 +33,21 @@ export default function NotUnderstand() {
 
       </Typography>
       <Button
+        
         variant="contained"
         onClick={handleWhatsAppClick}
+
         sx={{
-          backgroundColor: '#88e788', // WhatsApp green color
+          backgroundColor: '#0000001f', // WhatsApp green color
           color: '#fff',
-          fontSize: { xs: '0.8rem', sm: '0.9rem', md: '1.0rem' },
+          fontSize: { xs: '0.6rem', sm: '0.7rem', md: '0.8rem' },
           fontWeight: 'bold',
           borderRadius: '50px',
           textTransform: 'none',
-          border: '2px solid black',
-          '&:hover': {
-            backgroundColor: '#1da851',
-          },
+           border: '3px solid black',
         }}
       >
-         <Typography variant="h5" sx={{ fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' } }}>
+         <Typography variant="h5" sx={{  fontSize: { xs: '0.7rem', sm: '0.8rem', md: '0.9rem' }, }}>
          Нажмите для консультации   
         </Typography>
       </Button>

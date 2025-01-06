@@ -19,6 +19,8 @@ const ServiceCardsList = () => {
       title,
       amount,
       options: {
+        isChild: false,
+        isNeedWoman: false,
         isNeedPharmacy: false,
         isHaveDoctorsAppointment: false,
         isWithDrugsCocktail: false,
@@ -76,9 +78,19 @@ const ServiceCardsList = () => {
             primary={option.title}
           />
           <ListItemSecondaryAction>
-            <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+          <Typography
+            variant="body2"
+            onClick={() => handleSelect(option.title, option.price)}
+            sx={{
+              fontWeight: 'bold',
+              userSelect: 'none', // Prevent text selection
+              WebkitUserSelect: 'none', // For Safari support
+              MozUserSelect: 'none', // For Firefox support
+              msUserSelect: 'none', // For older IE support
+            }}
+          >
             от {new Intl.NumberFormat('en-US').format(option.price)}₸
-            </Typography>
+          </Typography>
           </ListItemSecondaryAction>
         </ListItem>
       ))}
