@@ -10,7 +10,14 @@ import Contact from 'components/main/Contacts';
 
 export default function Main() {
   return (
-    <Box sx={{ backgroundColor: 'transparent' , justifyContent: 'center', textAlign: 'center',}}>
+    <Box 
+      component="main" 
+      sx={{ backgroundColor: 'transparent', justifyContent: 'center', textAlign: 'center' }}
+      itemScope
+      itemType="http://schema.org/MedicalOrganization"
+    >
+      <meta itemProp="name" content="Ukol.kz" />
+      <meta itemProp="description" content="Профессиональные медицинские услуги на дому в Казахстане" />
       <Header/>
       <MainPhrase/>
       <Help/>

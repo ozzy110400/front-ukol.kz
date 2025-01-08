@@ -44,6 +44,30 @@ export default function () {
     }
   }, [location]); 
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "MedicalBusiness",
+    "name": "Ukol.kz",
+    "description": "Профессиональные медицинские услуги на дому в Казахстане",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "KZ"
+    },
+    "telephone": "+77027776776",
+    "openingHours": "Mo-Su 08:00-23:00"
+  };
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(structuredData);
+    document.head.appendChild(script);
+    
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
+
   return (
     <div style={{ 
       height: '100vh', // Ensure the container takes full viewport height

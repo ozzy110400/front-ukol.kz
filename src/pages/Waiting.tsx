@@ -132,6 +132,7 @@ export default function Waiting() {
               value={comment}
               onChange={(e) => setComment((e.target as HTMLInputElement).value)}
               sx={{
+                marginX: 2,
                 '& .MuiOutlinedInput-root': {
                   '&.Mui-focused fieldset': {
                     borderColor: '#88e788',

@@ -60,14 +60,15 @@ const MainPhrase = (props: MainPhraseProps) => {
           <Box
             component="img"
             src={mainImg}
-            alt="main-image"
+            alt="Профессиональная медсестра оказывает медицинские услуги на дому"
+            loading="lazy"
             sx={{
               maxWidth: '100%',
               height: '550px',
               objectFit: 'cover',
               borderRadius: 2,
-              display: { xs: 'none', md: 'block' }, // Hide on mobile
-              ml: { md: 12 }, // Add margin-left on larger screens
+              display: { xs: 'none', md: 'block' },
+              ml: { md: 12 },
             }}
           />
         </Box>
