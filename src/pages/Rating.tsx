@@ -152,7 +152,7 @@ export default function Raiting() {
 
       return (
         <Box sx={{ 
-          mt: '5%', 
+          m: '5%', 
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
