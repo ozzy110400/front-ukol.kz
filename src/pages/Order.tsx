@@ -15,7 +15,7 @@ import MapFooter from '../components/order/MapFooter';
 import { useLocation } from 'wouter-preact';
 import ServiceCardsList from '../components/order/ServiceCardsList';
 import { authAtom } from 'atoms/auth';
-import { cancelOrder, checkOrder } from 'helpers/api/apiClient';
+import { checkOpenOrder } from 'helpers/api/apiClient';
 import { useEffect, useState } from 'preact/hooks';
 import dayjs from 'dayjs';
 
@@ -85,7 +85,7 @@ export default function Order() {
   useEffect(() => {
     const fetchOrder = async () => {
       try {
-        const res = await checkOrder();
+        const res = await checkOpenOrder();
         if (res.order) {
           setCurrentOrder((prevOrder) => ({
             ...prevOrder,

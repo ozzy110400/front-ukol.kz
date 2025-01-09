@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import { currentSpecAtom } from '../../atoms/currentSpecialists';
 import currentOrderAtom from '../../atoms/currentOrder';
 import { DotsAnimation } from 'components/DotsAnimation';
-import { checkOrder } from '../../helpers/api/apiClient';
+import { checkOpenOrder } from '../../helpers/api/apiClient';
 import { Box, Button, CircularProgress } from '@mui/material';
 import { useLocation } from 'wouter-preact';
 
@@ -31,15 +31,10 @@ const SpecState = () => {
   // };
 
   useEffect(() => {
-    const updateReplyCount = () => {
-      const randomMultiplier = Math.floor(Math.random() * 13) + 1;
-      setReplyCount(currentSpecs.length > 0 ? currentSpecs.length * randomMultiplier : randomMultiplier);
-    };
-
     const checkOrderStatus = async () => {
       try {
 
-        const { order } = await checkOrder();
+        const { order } = await checkOpenOrder();
         if(!order){
           console.log('we are here')
           navigate('/')
@@ -59,13 +54,11 @@ const SpecState = () => {
       }
     };
 
-    updateReplyCount();
     checkOrderStatus();
 
     const interval = setInterval(() => {
-      updateReplyCount();
       checkOrderStatus();
-    }, 10000);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);

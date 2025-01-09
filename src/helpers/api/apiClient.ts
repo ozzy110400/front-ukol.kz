@@ -97,7 +97,7 @@ export const cancelOrder = async (orderID: string, ) => {
     }
 };  
 
-export const checkOrder = async () => {
+export const checkOpenOrder = async () => {
     try {
         const response = await $api.get('/order/check');
         return response.data
@@ -106,6 +106,16 @@ export const checkOrder = async () => {
         throw error;
     }
 };  
+
+export const getOrderByID = async (id: string) => {
+    try {
+        const response = await $api.get(`/order/${id}`);
+        return response.data
+    } catch (error) {
+        console.error('Error check order:', error);
+        throw error;
+    }
+}; 
 
 export const selectSpec = async (currentOrderId: string, id: string) => {
     try {
