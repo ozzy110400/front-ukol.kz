@@ -64,7 +64,7 @@ function Header() {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
             }}
