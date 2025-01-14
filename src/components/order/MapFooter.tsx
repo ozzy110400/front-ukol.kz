@@ -152,8 +152,6 @@ const MapFooter = () => {
     const currentHour = selectedTime ? parseInt(selectedTime, 10) : parseInt(dayjs().format('HH'), 10);
     let basePrice = 0;
 
-    console.log(currentHour)
-
     switch (currentOrder.title) {
       case 'Укол':
         basePrice = currentHour >= 7 && currentHour < 20 ? 5000 :  (currentHour >= 20 && currentHour < 23) ? 6000 : 10000;

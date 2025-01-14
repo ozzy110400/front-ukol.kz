@@ -5,6 +5,7 @@ import Order from './pages/Order';
 import Account from './pages/Account';
 import Waiting from 'pages/Waiting';
 import Raiting from 'pages/Rating';
+import NotFound from 'pages/NotFound';
 
 declare global {
   interface Window {
@@ -88,6 +89,7 @@ export default function () {
           <Route path="/account" component={Account} />
           <Route path="/waiting" component={Waiting} />
           <Route path="/rating/:id" component={Raiting} />
+          <Route path="*" component={NotFound} />
         </Switch>
       </Suspense>    
       {/* <Footer/> */}
