@@ -63,14 +63,13 @@ function Header() {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
             }}
           >
             UKOL.KZ
           </Typography>
+          
           <Typography
             variant="h5"
             noWrap
