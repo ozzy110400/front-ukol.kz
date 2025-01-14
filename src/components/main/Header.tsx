@@ -20,7 +20,7 @@ const options = [
   { label: 'Наши услуги', target: 'services' },
   { label: 'О нас', target: 'about' },
   { label: 'Отзывы', target: 'reviews' },
-  { label: 'Медикам', target: 'spec' },
+  //{ label: 'Медикам', target: 'spec' },
 ];
 
 function Header() {
@@ -36,16 +36,16 @@ function Header() {
   };
 
   const handleMenuItemClick = (target: string, label: string) => {
-    if (label === 'Медикам') {
-      // Redirect to spec.ukol.kz when 'Медикам' is clicked
-      window.location.href = 'https://spec.ukol.kz';
-    } else {
+    // if (label === 'Медикам') {
+    //   // Redirect to spec.ukol.kz when 'Медикам' is clicked
+    //   window.location.href = 'https://spec.ukol.kz';
+    // } else {
       // Scroll to the corresponding section
       document.getElementById(target)?.scrollIntoView({
         behavior: 'smooth',
         block: 'start',
       });
-    }
+   // }
     handleCloseNavMenu();
   };
 
