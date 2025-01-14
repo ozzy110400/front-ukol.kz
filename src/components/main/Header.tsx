@@ -20,7 +20,7 @@ const options = [
   { label: 'Наши услуги', target: 'services' },
   { label: 'О нас', target: 'about' },
   { label: 'Отзывы', target: 'reviews' },
-  //{ label: 'Медикам', target: 'spec' },
+  { label: 'Медикам', target: 'spec' },
 ];
 
 function Header() {
@@ -36,16 +36,16 @@ function Header() {
   };
 
   const handleMenuItemClick = (target: string, label: string) => {
-    // if (label === 'Медикам') {
-    //   // Redirect to spec.ukol.kz when 'Медикам' is clicked
-    //   window.location.href = 'https://spec.ukol.kz';
-    // } else {
+    if (label === 'Медикам') {
+      // Redirect to spec.ukol.kz when 'Медикам' is clicked
+      window.location.href = 'https://spec.ukol.kz';
+    } else {
       // Scroll to the corresponding section
       document.getElementById(target)?.scrollIntoView({
         behavior: 'smooth',
         block: 'start',
       });
-   // }
+    }
     handleCloseNavMenu();
   };
 
@@ -63,29 +63,13 @@ function Header() {
           <Typography
             variant="h6"
             noWrap
+            component="a"
+            href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
             }}
           >
             UKOL.KZ
-          </Typography>
-          
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
