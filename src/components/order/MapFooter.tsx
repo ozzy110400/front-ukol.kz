@@ -223,20 +223,20 @@ const MapFooter = () => {
           backgroundColor: 'transparent',
         }}
       >
-        <Button
-          disabled
-          variant="contained"
+        <Box
           sx={{
-            backgroundColor: '#88e788',
-            border: '3px solid black',
-            borderRadius: '140px',
-            margin: 2,
+                margin: 2,
           }}
         >
-          <Typography variant="h5" sx={{ fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' } }}>
-            {amount}₸
+          <Typography variant="h5" sx={{ m:2, 
+            fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' },
+            textDecoration: 'underline',
+                  textDecorationColor: '#88e788',
+                   textDecorationThickness: '5px'
+                    }}>
+            цена: {amount}₸
           </Typography>
-        </Button>
+        </Box>
         <Button
           variant="contained"
           onClick={handleSubmit}

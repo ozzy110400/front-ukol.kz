@@ -71,52 +71,43 @@ export const serviceOptionsMap = {
           component: Message,
         }
     ],  
-    // 'Золушка (коктейли)': [
-    //     {
-    //     component: WithDrugsCocktail,
-    //     },
-    //     {
-    //       component: Message,
-    //     }
-    // ],  
-    // 'Перевязки': [
-    //     {
-    //     component: Dressing,
-    //     },
-    //     {
-    //       component: Message,
-    //     }
-    // ],
-    // 'Пищевые отравления (капельница)': [
-    //   {
-    //     component: WithMaterialsPoisoning,
-    //   },
-    //   {
-    //     component: Message,
-    //   }
-    // ],
-    // 'Медсестра на время': [
-    //   {
-    //     component: DaysForNurse,
+    'Золушка (коктейли)': [
+        {
+        component: WithDrugsCocktail,
+        },
+        {
+          component: Message,
+        }
+    ],  
+    'Перевязки': [
+        {
+        component: Dressing,
+        },
+        {
+          component: Message,
+        }
+    ],
+    'Пищевые отравления (капельница)': [
+      {
+        component: WithMaterialsPoisoning,
+      },
+      {
+        component: Message,
+      }
+    ],
+    'Медсестра на время': [
+      {
+        component: DaysForNurse,
 
-    //   },
-    //   {
-    //     component: Message,
-    //   },
-    // ],
-    // 'Врач на дом': [
-    //   {
-    //     component: Message,
-    //   },
-    // ],
-    'Другое': [
+      },
       {
         component: Message,
       },
+    ],
+    'Врач на дом': [
       {
-        component: WAButton,
+        component: Message,
       },
-      
     ],
   };
 

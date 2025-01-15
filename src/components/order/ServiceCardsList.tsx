@@ -6,7 +6,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 import Typography from '@mui/material/Typography';
 import currentOrderAtom from '../../atoms/currentOrder';
-import { servicePriceGlobaOption } from '../../helpers/default';
+import { services } from '../../helpers/default';
 import dayjs from 'dayjs';
 import { trackClarityEvent } from 'App';
 
@@ -56,7 +56,7 @@ const ServiceCardsList = () => {
       }}
       subheader={<li />}
     >
-      {servicePriceGlobaOption.map((option, index) => (
+      {services.map((option, index) => (
         <ListItem
           key={option.title}
           data-clarity-mask="true"

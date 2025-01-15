@@ -29,7 +29,7 @@ export default function AddressInput() {
     <Box sx={{ p: 2 }}>
       {/* Address Field */}
       <TextField
-        label="Адрес, квартира и этаж"
+        label="Адрес"
         value={address}
         onChange={(e) => {
           const target = e.target as HTMLInputElement | null;
@@ -63,6 +63,73 @@ export default function AddressInput() {
       <FormHelperText sx={{ color: !isAddressValid ? 'red' : 'inherit', marginTop: 1 }}>
         {!isAddressValid ? "Обязательное поле" : ""}
       </FormHelperText>
+
+      <Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
+        {/* Flat Field */}
+        <TextField
+          label="Квартира"
+          value={flat}
+          onChange={(e) => {
+            const target = e.target as HTMLInputElement | null;
+            if (target) {
+              setFlat(target.value)
+              setCurrentOrder((prev) => ({ ...prev, flat: target.value }));
+            }
+          }}
+          variant="standard"
+          fullWidth
+          sx={{
+            '& .MuiInputLabel-root.Mui-focused': {
+              color: 'darkgray',
+            },
+            '& .MuiInput-underline:before': {
+              borderBottomWidth: '3px',
+              borderBottomColor: 'darkgray',
+            },
+            '& .MuiInput-underline:after': {
+              borderBottomWidth: '3px',
+              borderBottomColor: 'darkgray',
+            },
+            '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
+              borderBottomWidth: '3px',
+              borderBottomColor: 'darkgray',
+            },
+          }}
+        />
+
+
+        {/* Floor Field */}
+        <TextField
+          label="Этаж"
+          value={floor}
+          onChange={(e) => {
+            const target = e.target as HTMLInputElement | null;
+            if (target) {
+              setFloor(target.value)
+              setCurrentOrder((prev) => ({ ...prev, floor: target.value }));
+            }
+          }}
+          variant="standard"
+          fullWidth
+          sx={{
+            '& .MuiInputLabel-root.Mui-focused': {
+              color: 'darkgray',
+            },
+            '& .MuiInput-underline:before': {
+              borderBottomWidth: '3px',
+              borderBottomColor: 'darkgray',
+            },
+            '& .MuiInput-underline:after': {
+              borderBottomWidth: '3px',
+              borderBottomColor: 'darkgray',
+            },
+            '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
+              borderBottomWidth: '3px',
+              borderBottomColor: 'darkgray',
+            },
+          }}
+        />
+      </Box>
     </Box>
   );
 }

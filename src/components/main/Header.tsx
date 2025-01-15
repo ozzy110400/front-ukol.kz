@@ -53,13 +53,14 @@ function Header() {
     <AppBar position="static" sx={{ backgroundColor: 'transparent', mt: 2, mr: 2 }} elevation={0}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box sx={{ display: { xs: 'flex', md: 'flex' }, mr: 1 }}>
+        <Box sx={{ display: { xs: 'flex', md: 'flex' }, mr: 1 }}>
             <img
               src={logoImg}
               alt="Logo"
               style={{ maxHeight: '80px', width: 'auto' }}
             />
           </Box>
+
           <Typography
             variant="h6"
             noWrap
@@ -71,7 +72,24 @@ function Header() {
           >
             UKOL.KZ
           </Typography>
-
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            
+          </Typography>
+        
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
             {options.map((option) => (
               <Button

@@ -1,4 +1,4 @@
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography, Button, CircularProgress } from '@mui/material';
 import SyringeIcon from '/img/syringe-icon.svg';
 import DropletIcon from '/img/droplet-icon.svg';
 import BedIcon from '/img/bed-solid.svg';
@@ -16,7 +16,7 @@ import { trackClarityEvent } from 'App';
 import { TOrder } from 'atoms/currentOrder';
 
 
-const Help = () => {
+const ServiceCards = () => {
   const [, navigate] = useLocation();
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
 
@@ -24,8 +24,8 @@ const Help = () => {
   const serviceDescriptions = [
     { title: 'Уколы на дому', short_name: 'Укол', msg:'', description: 'Удобные и безопасные инъекции прямо у вас дома.', icon: SyringeIcon },
     { title: 'Капельницы на дому', short_name: 'Капельница', msg:'', description: 'Эффективное лечение капельницами в уютной домашней обстановке.', icon: DropletIcon },
-    { title: 'Удобство и комфорт', short_name: 'Другое', msg:'Нужен присмотр от медспециалиста', description: 'Ваше здоровье в центре внимания.', icon: BedIcon },
-    { title: 'Пищевые отравления', short_name: 'Капельница', msg:'У меня пищевое отправление, нужна помощь', description: 'Быстрая помощь при пищевых отравлениях.', icon: UtensilsIcon },
+ // { title: 'Удобство и комфорт', short_name: 'Другое', msg:'Нужен присмотр от медспециалиста', description: 'Ваше здоровье в центре внимания.', icon: BedIcon },
+    { title: 'Пищевые отравления', short_name: 'Капельница', msg:'У меня пищевое отправление, нужна помощь', description: 'Быстрая помощь при пищевых отравлениях. При необходимости капельница.', icon: UtensilsIcon },
     { title: 'Желудочные зонды', short_name: 'Другое',  msg:'Нужно сделать желудочный зонд', description: 'Профессиональное введение желудочных зондов.', icon: StethoscopeIcon },
     { title: 'Уход за пожилыми на дому', short_name: 'Другое', msg:'Нужен уход за пожилым человеком',  description: 'Чуткий и заботливый уход за пожилыми людьми.', icon: UserAltIcon },
     { title: 'Бережные процедуры', short_name: 'Другое', msg:'Нужно помочь сделать ...', description: 'Аккуратный и безопасный уход.', icon: HandHoldingHeartIcon },
@@ -65,7 +65,7 @@ const Help = () => {
           marginBottom: '40px',
         }}
       >
-        Вот с чем мы <br />можем помочь
+        Услуги и цены
       </Typography>
 
       {/* Service Cards Section */}
@@ -83,11 +83,15 @@ const Help = () => {
             onClick={() => handleCardClick(service.short_name, service.msg)}
             sx={{
               backgroundColor: 'transparent',
+              border: '3px solid black',
               borderRadius: 2,
               textAlign: 'center',
+              mx: 2,
               padding: 1,
               width: '400px',
               transition: 'transform 0.3s ease',
+              position: 'relative', // Set position to relative for button positioning
+
             }}
           >
             <Box
@@ -97,7 +101,7 @@ const Help = () => {
               sx={{
                 width: 40,
                 height: 40,
-                display: 'block',
+                display: 'flex',
                 marginLeft: 'auto',
                 marginRight: 'auto',
               }}
@@ -105,14 +109,52 @@ const Help = () => {
             <Typography variant="h6" sx={{ fontSize: '25px', fontWeight: 700 }}>
               {service.title}
             </Typography>
-            <Typography sx={{ fontSize: '16px',fontWeight: 800, color: '#555' }}>{service.description}</Typography>
+            <Typography sx={{ fontSize: '16px',fontWeight: 800, color: '#555' }}>{service.description}</Typography> 
+            <Box>
+            <Box
+              sx={{
+                display: 'flex',
+                width: '100%',
+                justifyContent: 'space-between',
+                alignItems: 'end',
+                padding: 0,
+                backgroundColor: 'transparent',
+              }}
+            >
+              
+              <Typography variant="h5" sx={{ mt:2, fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' } }}>
+                 цена от {123}₸
+                </Typography>
+              
+              <Button
+                variant="contained"
+                //onClick={handleSubmit}
+                sx={{
+                  backgroundColor: '#88e788',
+                  border: '2px solid black',
+                  borderRadius: '140px',
+                  mt: 2,
+                  position: 'relative',
+                }}
+              >
+          
+            <Typography variant="h5" sx={{ fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' } }}>
+              Заказать
+            </Typography>
+        
+        </Button>
+      </Box>
+    </Box>
           </Box>
+          
+          
         ))}
       </Box>
+      
 
     </Box>
     </section>
   );
 };
 
-export default Help;
+export default ServiceCards;

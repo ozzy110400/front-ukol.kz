@@ -6,7 +6,7 @@ import App from './App'
 
 const theme = createTheme({
   typography: {
-    fontFamily: 'Tilt Neon, sans-serif',
+    fontFamily: 'Inter, sans-serif',
     h1: {
       fontSize: '3rem',
       fontWeight: 1100, // Increase font weight for h1

@@ -23,7 +23,7 @@ const DaysForNurse = (props: DaysForNurseProps)  => {
   return (
     <Box sx={{ m: 2, mb: 1 }}>
       <Typography variant="h3" sx={{ mb: 2 }}>
-        Количество смен на которые вам необходима медсестр. 1 смена = 12 часов
+        Количество смен на которые вам необходима медсестр. 1 смена = 8 часов
       </Typography>
       <FormControl fullWidth>
         <InputLabel>Количество смен</InputLabel>

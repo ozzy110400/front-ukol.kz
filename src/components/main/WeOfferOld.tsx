@@ -5,29 +5,8 @@ import { useLocation } from 'wouter-preact';
 
 export default function WeOffer() {
   const [, navigate] = useLocation();
-
-  const services = [
-    {
-      headingText: "АНОНИМНОСТЬ",
-      subText: "Ваши данные защищены. Мы гарантируем полную анонимность и конфиденциальность.",
-    },
-    {
-      headingText: "ПРОФЕССИОНАЛИЗМ",
-      subText: "Наши специалисты с многолетним опытом и сертификацией всегда готовы оказать качественную помощь.",
-    },
-    {
-      headingText: "КОМФОРТ",
-      subText: "Специалист приедет к вам за 20 минут, избавив от необходимости посещать клинику.",
-    }
-];
-
   
-  const services1 = [
-    {
-      headingText: "АНОНИМНОСТЬ",
-      subText:
-        "Мы гарантируем конфиденциальность и <br/> анонимность личности/информации пациентов.",
-    },
+  const services = [
     {
       headingText: "БЫСТРЫЙ ВЫЕЗД",
       subText:
@@ -38,6 +17,11 @@ export default function WeOffer() {
       subText:
         "У каждого специалиста есть все необходимые <br/> документы подтверждающие квалификацию. <br/> Имеются удостоверение личности, диплом и <br/> сертификат специалиста.",
     },
+    {
+      headingText: "АНОНИМНОСТЬ",
+      subText:
+        "Мы гарантируем конфиденциальность и <br/> анонимность личности/информации пациентов.",
+    },
   ];
 
   return (
@@ -45,7 +29,7 @@ export default function WeOffer() {
     <Box>
       {/* Header Section */}
       <Typography
-        variant="h2"
+        variant="h6"
         sx={{
           paddingTop: '15%',
           textAlign: 'center',
@@ -54,7 +38,7 @@ export default function WeOffer() {
           fontSize: '30px',
         }}
       >
-        нашим клиентам
+        Мы предлагаем <br /> ЛУЧШИЕ условия
       </Typography>
 
       {/* Content Section */}
@@ -69,13 +53,13 @@ export default function WeOffer() {
               }}
               key={index}
               sx={{
-                backgroundColor: 'transparent',
-                border: '3px solid black',
+                backgroundColor: '#88e788',
                 padding: '10px',
-                mx: 4,
+                marginX: '1px',
                 borderRadius: 2,
                 boxShadow: 1,
                 textAlign: 'center',
+              
               }}
               
             >
@@ -86,9 +70,6 @@ export default function WeOffer() {
                   fontWeight: 700,
                   fontSize: '24px',
                   marginBottom: '8px',
-                  textDecoration: 'underline',
-                  textDecorationColor: '#88e788',
-                   textDecorationThickness: '5px'
                 }}
               >
                 {service.headingText}

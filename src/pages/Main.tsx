@@ -4,7 +4,7 @@ import {
 import MainPhrase from '../components/main/MainPhrase';
 import FAQ from '../components/main/FAQ';
 import Header from 'components/main/Header';
-import Help from 'components/main/Help';
+import ServiceCards from 'components/main/ServiceCards';
 import WeOffer from 'components/main/WeOffer';
 import Contact from 'components/main/Contacts';
 
@@ -20,7 +20,7 @@ export default function Main() {
       <meta itemProp="description" content="Профессиональные медицинские услуги на дому в Казахстане" />
       <Header/>
       <MainPhrase/>
-      <Help/>
+      <ServiceCards/>
       <WeOffer/>
       <FAQ/>
       <Contact/>

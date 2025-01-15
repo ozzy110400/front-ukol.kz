@@ -6,6 +6,7 @@ import Account from './pages/Account';
 import Waiting from 'pages/Waiting';
 import Raiting from 'pages/Rating';
 import NotFound from 'pages/NotFound';
+import Service from 'pages/Service';
 
 declare global {
   interface Window {
@@ -36,6 +37,9 @@ export default function () {
         document.title = 'Вызов опытной медсестры на дом';
         break;
       case '/order':
+        document.title = 'Вызов опытной медсестры на дом';
+        break;
+      case '/service':
         document.title = 'Вызов опытной медсестры на дом';
         break;
       case '/account':
@@ -86,6 +90,7 @@ export default function () {
         <Switch>
           <Route path="/" component={Main} />
           <Route path="/order" component={Order} />
+          <Route path="/service/:code" component={Service} />
           <Route path="/account" component={Account} />
           <Route path="/waiting" component={Waiting} />
           <Route path="/rating/:id" component={Raiting} />
