@@ -70,13 +70,13 @@ export default function ReviewCarousel() {
         centeredSlides={true}
         slidesPerView={1.3} // Set to show a part of the next and previous slides
         loop={true}
-        coverflowEffect={{
-          rotate: 50,
-          stretch: 0,
-          depth: 100,
-          modifier: 1,
-          slideShadows: true,
-        }}
+            // coverflowEffect={{
+            //   rotate: 50,
+            //   stretch: 0,
+            //   depth: 100,
+            //   modifier: 1,
+            //   slideShadows: true,
+            // }}
         pagination={{ clickable: true }}
         spaceBetween={10} // Add space between slides
         modules={[EffectCoverflow, Pagination]}
