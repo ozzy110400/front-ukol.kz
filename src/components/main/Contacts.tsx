@@ -57,7 +57,7 @@ export default function Contact() {
   );
 
   return (
-    <section id="reviews" >
+    <section id="contacts" >
 
     <Container sx={{ py: 4 }}>
       <Box display="flex" flexWrap="wrap" gap={15}  sx={{justifyContent: 'center'}}>

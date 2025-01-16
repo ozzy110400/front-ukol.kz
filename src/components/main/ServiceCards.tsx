@@ -98,6 +98,7 @@ const ServiceCards = () => {
             <Box>
             <Box
               sx={{
+                mt:3,
                 display: 'flex',
                 width: '100%',
                 justifyContent: 'space-between',
@@ -108,16 +109,14 @@ const ServiceCards = () => {
             >
               
               <Typography variant="h5" sx={{ mt:2,ml:1, fontSize: { xs: '20px', sm: '1.2rem', md: '1.4rem' } }}>
-                 цена: {new Intl.NumberFormat('en-US').format(service.price)}₸
+                 {new Intl.NumberFormat('en-US').format(service.price)}₸
                 </Typography>
-              
               <Button
                 variant="contained"
-                //onClick={handleSubmit}
+                onClick={() => handleCardClick(service.code)}      
                 sx={{
                   backgroundColor: '#88e788',
-                  border: '2px solid black',
-                  borderRadius: '140px',
+                  borderRadius: '10px',
                   mt: 2,
                   position: 'relative',
                 }}
@@ -187,9 +186,8 @@ const ServiceCards = () => {
                 variant="contained"
                 onClick={handleWhatsAppClick}
                 sx={{
-                  backgroundColor: '#88e788',
-                  border: '2px solid black',
-                  borderRadius: '140px',
+                  backgroundColor: '#88e788',       
+                  borderRadius: '10px',
                   mt: 2,
                   position: 'relative',
                 }}
@@ -201,8 +199,8 @@ const ServiceCards = () => {
         </Button>
       </Box>
     </Box>
-          </Box>
-      </Box>
+  </Box>
+</Box>
       
 
     </Box>

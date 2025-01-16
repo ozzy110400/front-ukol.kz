@@ -9,7 +9,7 @@ import {
 import { useAtom } from 'jotai';
 import { useLocation } from 'wouter-preact';
 import { useState } from 'preact/hooks';
-import logoImg from "/img/logo.png";
+import logoImg from "/img/logo.svg";
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
@@ -18,8 +18,9 @@ import Toolbar from '@mui/material/Toolbar';
 
 const options = [
   { label: 'Наши услуги', target: 'services' },
-  { label: 'О нас', target: 'about' },
   { label: 'Отзывы', target: 'reviews' },
+  { label: 'О нас', target: 'about' },
+  { label: 'Контакты', target: 'contacts' },
   { label: 'Медикам', target: 'spec' },
 ];
 
@@ -57,21 +58,9 @@ function Header() {
             <img
               src={logoImg}
               alt="Logo"
-              style={{ maxHeight: '80px', width: 'auto' }}
+              style={{ height: '30px',}} // Increased maxHeight
             />
           </Box>
-
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-            }}
-          >
-            UKOL.KZ
-          </Typography>
           <Typography
             variant="h5"
             noWrap

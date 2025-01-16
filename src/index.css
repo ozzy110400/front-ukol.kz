@@ -8,3 +8,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-family: 'Tilt Neon', sans-serif; 
 }
+
+@layer base {
+  :root {
+    --radius: 0.5rem; 
+  } 
+}

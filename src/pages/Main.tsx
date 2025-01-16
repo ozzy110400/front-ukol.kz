@@ -7,6 +7,7 @@ import Header from 'components/main/Header';
 import ServiceCards from 'components/main/ServiceCards';
 import WeOffer from 'components/main/WeOffer';
 import Contact from 'components/main/Contacts';
+import ReviewGrid from 'components/main/Reviews';
 
 export default function Main() {
   return (
@@ -22,6 +23,7 @@ export default function Main() {
       <MainPhrase/>
       <ServiceCards/>
       <WeOffer/>
+      <ReviewGrid/>
       <FAQ/>
       <Contact/>
     </Box>

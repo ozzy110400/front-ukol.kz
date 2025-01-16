@@ -1,13 +1,34 @@
-import { Box, Typography, Container, Button } from '@mui/material';
+import { Box, Typography, Container, Button, Paper } from '@mui/material';
 import LinkToMakeOrderButton from './LinkToMakeOrderButton';
-import mainImg from '/img/main-img.png'; // Import the main image
+import mainImg from '/img/main-img.png'; 
+import earsImg from '/img/ears1.png'; 
+import injectionImg from '/img/injection1.png';
+import secondImg from '/img/second.png';
+import heartImg from '/img/heart4.svg';
+import Carousel from 'react-material-ui-carousel'
 
 interface MainPhraseProps {}
 
 const MainPhrase = (props: MainPhraseProps) => {
+
+  var items = [
+    {
+        name: "Удобство",
+        description: "Заказывайте онлайн в 3 клика",
+    },
+    {
+        name: "Скорость", 
+        description: "Приезжаем в течении 1 часа",
+    },
+    {
+      name: "Доступность", 
+      description: "Мы работаем 24/7 без выходных",
+  }
+]
+
   return (
-    <Box sx={{ backgroundColor: '#F7F7F1', paddingY: 8 }}>
-      <Container maxWidth="lg">
+    <Box sx={{ backgroundColor: '#F7F7F1', paddingY: 4, mb:4 }}>
+      <Container maxWidth='lg' >
         <Box
           sx={{
             display: 'flex',
@@ -22,28 +43,52 @@ const MainPhrase = (props: MainPhraseProps) => {
               variant="h1"
               sx={{
                 fontWeight: 700,
-                mb: 6,
+                mb: 4,
                 fontSize: '40px' , // Adjust font size for responsiveness
               }}
             >
-              Ukol.kz - это медспециалисты <br /> на дом!
+              Лучшие медспециалисты на дом!
             </Typography>
-            <Typography
-              variant="h5"
-              sx={{
-                textAlign: 'center',
-                fontSize: '25px' , 
-              }}
-            >    
-              Заказывайте онлайн в 3 клика  <br /> <br />
-
-              Приезжаем в течении 1 часа <br /> <br />
-
-              Мы работаем 24/7 без выходных  
-            </Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 4 }}>            
+              <Box component="img" src={earsImg} alt="Ears Image" sx={{ width: 'auto', height: '110px',  display: { xs: 'block', md: 'none' }, mt:5, ml:2}} />
+              <Box component="img" src={secondImg} alt="Third Image" sx={{ width: 'auto', height: '110px', display: { xs: 'block', md: 'none' }, mb:1,}} /> 
+              <Box component="img" src={injectionImg} alt="Third Image" sx={{ width: 'auto', height: '110px', display: { xs: 'block', md: 'none' }, mt:3, mr:2 }} />
+            </Box>
+            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
+              <Box component="img" src={heartImg} alt="Second Image" sx={{ width: '150px', height: 'auto', mx: 1, display: { xs: 'block', md: 'none' }, }} />
+            </Box>
+            <Carousel interval={3000}>
+            {
+                items.map( (item, i) =>
+              <Box>
+                <Typography
+                       variant="h3"
+                       sx={{
+                         background: 'transparent',
+                         textAlign: 'center',
+                         fontSize: '25px' , 
+                       }}
+                     >    
+                      {item.name}
+                     </Typography>
+                   <Typography
+                       variant="h3"
+                       sx={{
+                         background: 'transparent',
+                         textAlign: 'center',
+                         fontSize: '20px' , 
+                       }}
+                     >    
+                      {item.description}
+                     </Typography>
+               </Box> )
+            }
+             </Carousel>
+            
             <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
-            <Box sx={{ m: 2, mb: 1 }}>
+            <Box sx={{  m: 2, mb: 1 ,  width: '100%'}}>
             <Button
+                fullWidth
                 variant="contained"
                 onClick={() => {
                   document.getElementById('services')?.scrollIntoView({
@@ -56,14 +101,7 @@ const MainPhrase = (props: MainPhraseProps) => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   backgroundColor: '#88e788',
-                  border: '3px solid black',
-                  borderRadius: '140px',
-                  boxShadow: 'rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px',
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    transform: 'scale(1.05)',
-                    boxShadow: 'rgba(0, 0, 0, 0.35) 0px 54px 55px, rgba(0, 0, 0, 0.15) 0px -12px 30px, rgba(0, 0, 0, 0.15) 0px 4px 6px, rgba(0, 0, 0, 0.20) 0px 12px 13px, rgba(0, 0, 0, 0.11) 0px -3px 5px',
-                  },
+                  borderRadius: '10px',
                 }}
               >
                 <Typography variant="h5" >
@@ -72,9 +110,6 @@ const MainPhrase = (props: MainPhraseProps) => {
               </Button>
               </Box>
             </Box>
-            {/* <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
-              <LinkToMakeOrderButton />
-            </Box> */}
           </Box>
 
           <Box
