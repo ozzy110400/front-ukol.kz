@@ -85,7 +85,7 @@ const MainPhrase = (props: MainPhraseProps) => {
             }
              </Carousel>
             
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center', }}>
             <Box sx={{  m: 2, mb: 1 ,  width: '100%'}}>
             <Button
                 fullWidth
