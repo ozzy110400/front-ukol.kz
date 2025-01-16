@@ -46,7 +46,7 @@ export default function ReviewCarousel() {
     <Box
       sx={{
         padding: "16px",
-        backgroundColor: "#f9f9f9",
+        backgroundColor: "transparent",
         textAlign: "center",
       }}
     >
@@ -83,7 +83,7 @@ export default function ReviewCarousel() {
         style={{
           width: "100%",
           maxWidth: "600px",
-          height: swiperHeight, // Dynamically set height
+         // height: swiperHeight, // Dynamically set height
         }}
         onInit={(swiper) => updateHeight(swiper)} // Set height on init
         onSlideChange={(swiper) => updateHeight(swiper)} // Update height on slide change
