@@ -3185,15 +3185,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"daisyui@npm:^4.11.1":
-  version: 4.12.14
-  resolution: "daisyui@npm:4.12.14"
+"daisyui@npm:^4.12.23":
+  version: 4.12.23
+  resolution: "daisyui@npm:4.12.23"
   dependencies:
     css-selector-tokenizer: "npm:^0.8"
     culori: "npm:^3"
     picocolors: "npm:^1"
     postcss-js: "npm:^4"
-  checksum: 10c0/8b665e285cea4fa8775428ea6b6ca5f86b41077ac37db2faae9566bc97c9dc4fc637243791a795ba3db17fe62beeef01fb02092d26323cab90e93ce2768b7d14
+  checksum: 10c0/7699d294c6193800fc1a0671d67f1a5ea46059cd36702a4326a82c6b0bb823de8ba485aca20beac970ee2a47949c5411df8ea60a40c3e00989d7ce2214e6c196
   languageName: node
   linkType: hard
 
@@ -6190,6 +6190,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"preact-head@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "preact-head@npm:1.0.3"
+  peerDependencies:
+    preact: "*"
+  checksum: 10c0/0dfeaf9474efa1b19b2baf27b934449e56516954452f476bcc57bb0ffbab70267e2fa37a93c2d10aa38c3f1c7b4b7a83a422cdc8f0abe182874246b05f8b40af
+  languageName: node
+  linkType: hard
+
+"preact-iso@npm:^2.8.1":
+  version: 2.8.1
+  resolution: "preact-iso@npm:2.8.1"
+  peerDependencies:
+    preact: ">=10"
+    preact-render-to-string: ">=6.4.0"
+  checksum: 10c0/6bbd46674bc93786d0075b7f0592b92f92434ee81a96d53751417ff18b6bdce2bad1d3897b9058d59e08906581fc4f45237944c6999a9e83a58d2e0bda7509c6
+  languageName: node
+  linkType: hard
+
 "preact-router@npm:^4.1.2":
   version: 4.1.2
   resolution: "preact-router@npm:4.1.2"
@@ -7461,7 +7480,7 @@ __metadata:
     class-variance-authority: "npm:^0.7.1"
     clsx: "npm:^2.1.1"
     cross-env: "npm:^7.0.3"
-    daisyui: "npm:^4.11.1"
+    daisyui: "npm:^4.12.23"
     date-fns: "npm:^4.1.0"
     dayjs: "npm:^1.11.13"
     depcheck: "npm:^1.4.7"
@@ -7484,6 +7503,8 @@ __metadata:
     material-ui-phone-number: "npm:^3.0.0"
     postcss: "npm:^8.4.38"
     preact: "npm:^10.24.3"
+    preact-head: "npm:^1.0.3"
+    preact-iso: "npm:^2.8.1"
     preact-router: "npm:^4.1.2"
     prettier: "npm:^3.2.5"
     react-input-mask: "npm:^2.0.4"

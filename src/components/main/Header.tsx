@@ -1,20 +1,5 @@
-import {
-  Box,
-  Button,
-  Typography,
-  CircularProgress,
-  AppBar,
-  MenuItem,
-} from '@mui/material';
-import { useAtom } from 'jotai';
-import { useLocation } from 'wouter-preact';
 import { useState } from 'preact/hooks';
 import logoImg from "/img/logo.svg";
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import IconButton from '@mui/material/IconButton';
-import Container from '@mui/material/Container';
-import Toolbar from '@mui/material/Toolbar';
 
 const options = [
   { label: 'Наши услуги', target: 'services' },
@@ -26,7 +11,6 @@ const options = [
 
 function Header() {
   const [openNav, setOpenNav] = useState(false);
-  const [, navigate] = useLocation();
 
   const handleOpenNavMenu = () => {
     setOpenNav(true);
@@ -38,10 +22,8 @@ function Header() {
 
   const handleMenuItemClick = (target: string, label: string) => {
     if (label === 'Медикам') {
-      // Redirect to spec.ukol.kz when 'Медикам' is clicked
       window.location.href = 'https://spec.ukol.kz';
     } else {
-      // Scroll to the corresponding section
       document.getElementById(target)?.scrollIntoView({
         behavior: 'smooth',
         block: 'start',
@@ -51,108 +33,55 @@ function Header() {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: 'transparent', mt: 2, mr: 2 }} elevation={0}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-        <Box sx={{ display: { xs: 'flex', md: 'flex' }, mr: 1 }}>
-            <img
-              src={logoImg}
-              alt="Logo"
-              style={{ height: '30px',}} // Increased maxHeight
-            />
-          </Box>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            
-          </Typography>
-        
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
-            {options.map((option) => (
-              <Button
-                key={option.target}
-                onClick={() => handleMenuItemClick(option.target, option.label)}
-                sx={{
-                  my: 2,
-                  display: 'block',
-                  flex: 1,
-                  outline: 'none',
-                  boxShadow: 'none',
-                  '&:focus': {
-                    outline: 'none',
-                    boxShadow: 'none',
-                  },
-                  '&:hover': {
-                    backgroundColor: 'transparent',
-                    boxShadow: 'none',
-                  },
-                  '&:active': {
-                    backgroundColor: 'transparent',
-                    boxShadow: 'none',
-                  },
-                  '& .MuiTouchRipple-root': {
-                    display: 'none',
-                  },
-                }}
-              >
-                <Typography variant="h5">{option.label}</Typography>
-              </Button>
-            ))}
-          </Box>
-          <Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="primary"
-              sx={{ color: '#000' }}
-            >
-              <MenuIcon sx={{ fontSize: '2.5rem', fontWeight: 'bold' }} />
-            </IconButton>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={openNav}
-              onClose={handleCloseNavMenu}
-            >
-              {options.map((option) => (
-                <MenuItem
-                  key={option.target}
-                  onClick={() => handleMenuItemClick(option.target, option.label)}
-                >
-                  <Typography variant="h5" sx={{ textAlign: 'center' }}>
-                    {option.label}
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+    <div className="navbar bg-transparent mt-2">
+      <div className="navbar-start">
+        <img src={logoImg} alt="Logo" className="h-8 ml-2" />
+      </div>
+
+      <div className="navbar-center hidden lg:flex">
+        <ul className="menu menu-horizontal px-1">
+          {options.map((option) => (
+            <li key={option.target}>
+              <a onClick={() => handleMenuItemClick(option.target, option.label)}
+                 className="font-bold text-black text-xl">
+                {option.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="navbar-end flex justify-end">
+        <div className="dropdown">
+          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden" onClick={handleOpenNavMenu}>
+          <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              className="inline-block h-8 w-8 stroke-current text-black hover:text-black">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </div>
+          <ul
+          tabIndex={0}
+          className={`menu menu-sm dropdown-content bg-my-white rounded-box z-[1] mt-3 w-max p-2 shadow absolute right-0 ${openNav ? "block" : "hidden"}`}>
+          {options.map((option) => (
+            <li key={option.target}>
+              <a onClick={() => handleMenuItemClick(option.target, option.label)} 
+                 className="font-bold text-black text-xl"
+                 >
+                {option.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        </div>
+      </div>
+    </div>
   );
 }
 

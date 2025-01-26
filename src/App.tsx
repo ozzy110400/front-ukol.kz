@@ -2,11 +2,11 @@ import { Suspense, useEffect } from 'preact/compat'
 import { Switch, Route, useLocation } from 'wouter-preact';
 import Main from './pages/Main';
 import Order from './pages/Order';
-import Account from './pages/Account';
 import Waiting from 'pages/Waiting';
 import Raiting from 'pages/Rating';
 import NotFound from 'pages/NotFound';
-import Service from 'pages/Service';
+import Services from 'pages/Services';
+//import Service from 'pages/Service';
 
 declare global {
   interface Window {
@@ -42,9 +42,6 @@ export default function () {
       case '/service':
         document.title = 'Вызов опытной медсестры на дом';
         break;
-      case '/account':
-        document.title = 'Вызов опытной медсестры на дом';
-        break;
       default:
         document.title = 'Вызов опытной медсестры на дом';
     }
@@ -75,29 +72,20 @@ export default function () {
   }, []);
 
   return (
-    <div style={{ 
-      height: '100vh', // Ensure the container takes full viewport height
-      margin: 0,       // Remove any default margin
-      padding: 0,      // Remove padding to avoid restricting space
-      display: 'flex', // Use flexbox to manage the content
-      flexDirection: 'column', // Arrange the layout vertically
-    }}>   
+    <div>   
      
       <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WL4BHDZW"
       height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
        <Suspense fallback={<p>Loading...</p>}>
-        {/* <Header /> */}
         <Switch>
           <Route path="/" component={Main} />
           <Route path="/order" component={Order} />
-          <Route path="/service/:code" component={Service} />
-          <Route path="/account" component={Account} />
+          <Route path="/services" component={Services} />
           <Route path="/waiting" component={Waiting} />
           <Route path="/rating/:id" component={Raiting} />
           <Route path="*" component={NotFound} />
         </Switch>
       </Suspense>    
-      {/* <Footer/> */}
     </div>
   )
 }

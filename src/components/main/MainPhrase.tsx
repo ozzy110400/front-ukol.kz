@@ -1,17 +1,14 @@
-import { Box, Typography, Container, Button, Paper } from '@mui/material';
-import LinkToMakeOrderButton from './LinkToMakeOrderButton';
-import mainImg from '/img/main-img.png'; 
-import earsImg from '/img/ears1.png'; 
-import injectionImg from '/img/injection1.png';
-import secondImg from '/img/second.png';
-import heartImg from '/img/heart4.svg';
+import earsBigImd from '/img/main/ears-big.webp'; 
+import earsSmallImg from '/img/main/ears-small.webp'; 
+import injectionImg from '/img/main/injection.webp';
+import pillsImg from '/img/main/tablets.webp';
+import heartImg from '/img/main/heart.svg';
 import Carousel from 'react-material-ui-carousel'
 
 interface MainPhraseProps {}
 
 const MainPhrase = (props: MainPhraseProps) => {
-
-  var items = [
+  const items = [
     {
         name: "Удобство",
         description: "Заказывайте онлайн в 3 клика",
@@ -23,112 +20,63 @@ const MainPhrase = (props: MainPhraseProps) => {
     {
       name: "Доступность", 
       description: "Мы работаем 24/7 без выходных",
-  }
-]
+    }
+  ];
 
   return (
-    <Box sx={{ backgroundColor: '#F7F7F1', paddingY: 4, mb:4 }}>
-      <Container maxWidth='lg' >
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: { xs: 'column', md: 'row' },
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
+    <div className="py-6 m-4">
+      <div className="max-w-screen-lg mx-auto">
+        <div className="flex flex-col md:flex-row items-center ">
           {/* Text Section */}
-          <Box sx={{ textAlign: 'center', mr: { md: 12 } }}>
-            <Typography
-              variant="h1"
-              sx={{
-                fontWeight: 700,
-                mb: 4,
-                fontSize: '40px' , // Adjust font size for responsiveness
-              }}
-            >
-              Лучшие медспециалисты на дом!
-            </Typography>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 4 }}>            
-              <Box component="img" src={earsImg} alt="Ears Image" sx={{ width: 'auto', height: '110px',  display: { xs: 'block', md: 'none' }, mt:5, ml:2}} />
-              <Box component="img" src={secondImg} alt="Third Image" sx={{ width: 'auto', height: '110px', display: { xs: 'block', md: 'none' }, mb:1,}} /> 
-              <Box component="img" src={injectionImg} alt="Third Image" sx={{ width: 'auto', height: '110px', display: { xs: 'block', md: 'none' }, mt:3, mr:2 }} />
-            </Box>
-            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
-              <Box component="img" src={heartImg} alt="Second Image" sx={{ width: '150px', height: 'auto', mx: 1, display: { xs: 'block', md: 'none' }, }} />
-            </Box>
-            <Carousel interval={3000}>
+          <div className="text-center md:mr-12">
+            <h1 className="font-bold mb-8 text-4xl text-black">
+              Лучшие медицинские услуги на дому
+            </h1>
+            <div className="flex justify-between mb-8">
+              <img src={earsSmallImg} alt="платные медицинские услуги на дому" className="w-auto h-28 md:hidden mt-5 ml-2" />
+              <img src={pillsImg} alt="платные медицинские услуги на дому" className="w-auto h-28 md:hidden mb-1" />
+              <img src={injectionImg} alt="платные медицинские услуги на дому" className="w-auto h-28 md:hidden mt-3 mr-2" />
+            </div>
+            <div className="flex justify-center mb-8">
+              <img src={heartImg} alt="Second Image" className="w-36 h-auto mx-2 md:hidden" />
+            </div>
+
+            <Carousel interval={2000}>
             {
                 items.map( (item, i) =>
-              <Box>
-                <Typography
-                       variant="h3"
-                       sx={{
-                         background: 'transparent',
-                         textAlign: 'center',
-                         fontSize: '25px' , 
-                       }}
-                     >    
-                      {item.name}
-                     </Typography>
-                   <Typography
-                       variant="h3"
-                       sx={{
-                         background: 'transparent',
-                         textAlign: 'center',
-                         fontSize: '20px' , 
-                       }}
-                     >    
-                      {item.description}
-                     </Typography>
-               </Box> )
+              <div className="mb-5">
+                <p className="font-bold text-2xl text-black">{item.name}</p>
+                <p className="font-bold  text-black">{item.description}</p>
+
+               </div> )
             }
              </Carousel>
-            
-            <Box sx={{ display: 'flex', justifyContent: 'center', }}>
-            <Box sx={{  m: 2, mb: 1 ,  width: '100%'}}>
-            <Button
-                fullWidth
-                variant="contained"
-                onClick={() => {
-                  document.getElementById('services')?.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start',
-                  });
-                }}
-                sx={{ 
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: '#88e788',
-                  borderRadius: '10px',
-                }}
-              >
-                <Typography variant="h5" >
-                 выбрать услугу
-                </Typography>
-              </Button>
-              </Box>
-            </Box>
-          </Box>
 
-          <Box
-            component="img"
-            src={mainImg}
+            <div className="flex justify-center">
+              <div className="mt-8 w-full cursor-pointer">
+                <button
+                  onClick={() => {
+                    document.getElementById('services')?.scrollIntoView({
+                      behavior: 'smooth',
+                      block: 'start',
+                    });
+                  }}
+                  className="bg-my-green w-full font-bold rounded-xl px-4 py-2 text-2xl text-black uppercase"
+                >
+                  выбрать услугу
+                </button>
+              </div>
+            </div>
+          </div>
+          <img
+            src={earsBigImd}
             alt="Профессиональная медсестра оказывает медицинские услуги на дому"
             loading="lazy"
-            sx={{
-              maxWidth: '100%',
-              height: '550px',
-              objectFit: 'cover',
-              borderRadius: 2,
-              display: { xs: 'none', md: 'block' },
-              ml: { md: 12 },
-            }}
+            className="max-w-full h-[550px] object-cover rounded-2xl md:block hidden ml-12"
           />
-        </Box>
-      </Container>
-    </Box>
+        </div>
+      </div>
+    </div>
   );
 };
 
