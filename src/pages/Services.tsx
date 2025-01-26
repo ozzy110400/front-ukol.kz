@@ -1,62 +1,89 @@
-import { h } from 'preact';
+import Footer from 'components/main/Footer';
+import Bandage from 'components/services/Bandage';
+import Detox from 'components/services/Detox';
+import Drip from 'components/services/Drip';
+import Injection from 'components/services/Injection';
+import Nurse from 'components/services/Nurse';
+import Tube from 'components/services/Tube';
+import DoctorImg from '../../img/doctor.webp';
+
 import Head from 'preact-head';
+import FAQ from 'components/main/FAQ';
 
 export default function Services() {
-
-  const services = [
-    {
-      id: 2,
-      title: "Наши услуги",
-      url: "https://ukol.kz/services",
-      description: "Страница со списком всех услуг и ценами",
-      subServices: [
-        { id: 2.1, title: "Уколы на дому", url: "/uslugi/ukoly" },
-        { id: 2.2, title: "Капельницы на дому", url: "/uslugi/kapelnitsy" },
-        { id: 2.3, title: "Услуги медсестры на дому", url: "/uslugi/medsestra-na-domu" },
-        { id: 2.4, title: "Перевязки на дому", url: "/uslugi/perevyazki" },
-        { id: 2.5, title: "Уход за лежачими больными", url: "/uslugi/ukhod-za-lezhachimi-bolnymi" },
-        { id: 2.6, title: "Уход за пожилыми людьми", url: "/uslugi/ukhod-za-pozhilymi" },
-        { id: 2.7, title: "Витаминные коктейли в капельницах", url: "/uslugi/vitaminnye-kokteyli" },
-        { id: 2.8, title: "Нарколог на дом", url: "/uslugi/narkolog-na-dom" },
-        { id: 2.9, title: "Плацентарная терапия", url: "/uslugi/placentarnaya-terapiya" },
-        { id: 2.10, title: "Детоксикация", url: "/uslugi/detox" },
-        { id: 2.11, title: "Установка назогастрального зонда", url: "/uslugi/ustanovka-nazogastralnogo-zonda" },
-      ],
-    },
-  ];
-
+  const handleWhatsAppClick = () => {
+    const phone = '77027776776'; // Replace with the actual phone number
+    const message = 'Здравствуйте! Нужна помощь с заказом медицинских услуг'; // The message you want to send
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`;
+    
+    window.open(whatsappUrl, '_blank'); // Open in a new tab
+  };
   return (
     <div>
       <Head>
-        <title>Все услуги | ukol.kz</title>
+        <title>Все услуги | Укол.kz</title>
         <meta name="description" content="Полный список медицинских услуг на дому: уколы, капельницы, услуги медсестры, перевязки, уход за больными и многое другое." />
         <meta name="keywords" content="медицинские услуги на дому, уколы на дому, капельницы на дому, медсестра на дом, перевязки на дому, уход за больными" />
         <meta property="og:title" content="Все услуги | Укол.kz" />
         <meta property="og:description" content="Полный список медицинских услуг на дому: уколы, капельницы, услуги медсестры, перевязки, уход за больными и многое другое." />
-        <meta property="og:url" content="https://ukol.kz/services" />
-        <link rel="canonical" href="https://ukol.kz/services" />
+        <meta property="og:url" content="https://ukol.kz/uslugi" />
+        <link rel="canonical" href="https://ukol.kz/uslugi" />
       </Head>
 
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold text-center mb-8">Наши услуги</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service) => (
-            <div key={service.id} className="card bg-base-100 shadow-xl">
-              <div className="card-body">
-                <h2 className="card-title text-2xl">{service.title}</h2>
-                <p>{service.description}</p>
-                <div className="mt-4">
-                  {service.subServices.map((subService) => (
-                    <a key={subService.id} href={subService.url} className="block text-blue-500 hover:text-blue-700 mb-2">
-                      {subService.title}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+      <div className="mx-auto px-4 py-4 border-b-2 flex justify-between">
+        <button onClick={handleWhatsAppClick} className="bg-my-green text-black font-semibold py-2 px-4 rounded-lg hover:bg-my-green-dark transition-colors">
+          связаться нами
+        </button>
+        <a href="/" className="bg-my-green text-black font-semibold py-2 px-4 rounded-lg hover:bg-my-green-dark transition-colors">
+          на главную
+        </a>
       </div>
+
+      <section className="bg-transparent pt-4">
+        <div className="container mx-auto px-4 text-center">
+           <h1 className="font-bold text-4xl text-black mb-6">
+              Наши услуги на дом
+            </h1>
+            <h2 className="text-lg font-semibold text-black">
+              Ваше здоровье — наш приоритет! Мы предлагаем профессиональные медицинские услуги на дому: быстро, удобно и безопасно. Наши опытные специалисты готовы помочь вам в любое время.
+            </h2>
+           
+           <div className="flex items-start mt-4 ">         
+              <div className="chat chat-end">
+                <div className=" 
+                chat-bubble bg-transparent
+                text-black text-lg font-semibold 
+                border-2 border-solid border-black 
+                rounded-bl-lg
+                before:bg-black before:top-24">
+                <p>
+                  Любую услугу теперь можно заказть онлайн в несколько кликов.
+                </p>
+                <p className="underline decoration-my-green decoration-4 mb-2" >
+                  Больше никаких звонков!
+                </p>
+                </div>
+            </div>
+            <img
+              src={DoctorImg}
+              alt="Профессиональная медсестра оказывает медицинские услуги на дому"
+              loading="lazy"
+              className="h-40 w-22 rounded-md mt-20"
+            />
+           </div>
+        </div>
+      </section>
+
+      <Injection/>
+      <Drip/>
+      <Detox/>
+      <Bandage/>
+      <Nurse/>
+      <Tube/>
+      <FAQ/>
+      <Footer/>
+     
     </div>
   );
 };
+

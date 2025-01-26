@@ -7,7 +7,6 @@ import { serviceOptionsMap } from '../components/order/options/allOptionsMap';
 import ArrivalTime from '../components/order/ArrivalTime';
 import MapFooter from '../components/order/MapFooter';
 import { useLocation } from 'wouter-preact';
-//import ServiceCardsList from '../components/order/ServiceCardsList';
 import { authAtom } from 'atoms/auth';
 import { checkOpenOrder } from 'helpers/api/apiClient';
 import { useEffect, useState } from 'preact/hooks';

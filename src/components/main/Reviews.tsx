@@ -92,7 +92,7 @@ export default function ReviewCarousel() {
         >
           {reviewImages.map((review, index) => (
             <SwiperSlide key={index}>
-              <div className="items-center justify-start bg-white p-2 rounded-xl shadow-lg">
+              <div className="items-center justify-start bg-white p-2 rounded-xl shadow-lg mb-10">
                 <img
                   src={review.image}
                   alt={`Отзыв ${index + 1}`}

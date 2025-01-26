@@ -4,6 +4,7 @@ import injectionImg from '/img/main/injection.webp';
 import pillsImg from '/img/main/tablets.webp';
 import heartImg from '/img/main/heart.svg';
 import Carousel from 'react-material-ui-carousel'
+import { navigate } from 'wouter-preact/use-browser-location';
 
 interface MainPhraseProps {}
 
@@ -27,7 +28,6 @@ const MainPhrase = (props: MainPhraseProps) => {
     <div className="py-6 m-4">
       <div className="max-w-screen-lg mx-auto">
         <div className="flex flex-col md:flex-row items-center ">
-          {/* Text Section */}
           <div className="text-center md:mr-12">
             <h1 className="font-bold mb-8 text-4xl text-black">
               Лучшие медицинские услуги на дому
@@ -55,12 +55,7 @@ const MainPhrase = (props: MainPhraseProps) => {
             <div className="flex justify-center">
               <div className="mt-8 w-full cursor-pointer">
                 <button
-                  onClick={() => {
-                    document.getElementById('services')?.scrollIntoView({
-                      behavior: 'smooth',
-                      block: 'start',
-                    });
-                  }}
+                  onClick={() => navigate('/services')} 
                   className="bg-my-green w-full font-bold rounded-xl px-4 py-2 text-2xl text-black uppercase"
                 >
                   выбрать услугу

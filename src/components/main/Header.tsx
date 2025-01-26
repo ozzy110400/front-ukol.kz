@@ -1,11 +1,12 @@
 import { useState } from 'preact/hooks';
 import logoImg from "/img/logo.svg";
+import { navigate } from 'wouter-preact/use-browser-location';
 
 const options = [
   { label: 'Наши услуги', target: 'services' },
   { label: 'Отзывы', target: 'reviews' },
   { label: 'О нас', target: 'about' },
-  { label: 'Контакты', target: 'contacts' },
+  //{ label: 'Контакты', target: 'contacts' },
   { label: 'Медикам', target: 'spec' },
 ];
 
@@ -23,6 +24,8 @@ function Header() {
   const handleMenuItemClick = (target: string, label: string) => {
     if (label === 'Медикам') {
       window.location.href = 'https://spec.ukol.kz';
+    } else if (label === 'Наши услуги'){
+      navigate('/services')
     } else {
       document.getElementById(target)?.scrollIntoView({
         behavior: 'smooth',

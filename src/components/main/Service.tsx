@@ -18,44 +18,51 @@ export const services = [
     title: 'Уколы на дому', 
     code: 'injection',
     price: 5000, 
-    description: 'Быстрое и безопасное введение инъекций у вас дома.', 
+    description: 'Быстрое и безопасное выполнение внутримышечных, подкожных и внутривенных уколов у вас дома.', 
     icon: InjectionImg 
   },
   { 
     title: 'Капельницы на дому', 
     code: 'drip', 
     price: 7_000,  
-    description: 'Эффективное восстановление организма капельницей прямо у вас дома.', 
+    description: 'Установка капельниц на дому: витаминные, от интоксикации или с вашими препаратами.', 
     icon: DripImg 
   },
   { 
-    title: 'Вывод из запоя', 
+    title: 'Детоксикация на дому', 
     code: 'detox', 
     price: 25_000,
-    description: 'Детоксикация и восстановление с помощью капельницы от интоксикации.', 
+    description: 'Проводим алкогольную и наркотическую детоксикацию у вас дома: быстро, безопасно и анонимно.', 
     icon: PillsImg 
   },
+  // { 
+  //   title: 'Вывод из запоя', 
+  //   code: 'detox', 
+  //   price: 25_000,
+  //   description: 'Детоксикация и восстановление с помощью капельницы от интоксикации.', 
+  //   icon: PillsImg 
+  // },
   { 
     title: 'Медсестра на дом', 
     code: 'nurse', 
     price: 20_000,
-    description: 'Чуткий и заботливый уход за пациентом',
+    description: 'Уход за лежачими пациентами, присмотр за пожилыми или присутствие на мероприятиях: профессионально и с заботой.',
     icon: NurseImg 
   },
-  { 
-    title: 'Уход за лежачими больными', 
-    code: 'nurse', 
-    price: 20_000,
-    description: 'Чуткий и заботливый уход за лежачим больным',
-    icon: BedImg 
-  },
-  { 
-    title: 'Уход за пожилыми людьми', 
-    code: 'nurse', 
-    price: 20_000,
-    description: 'Чуткий и заботливый уход за пожилым человеком',
-    icon: OldImg 
-  },
+  // { 
+  //   title: 'Уход за лежачими больными', 
+  //   code: 'nurse', 
+  //   price: 20_000,
+  //   description: 'Чуткий и заботливый уход за лежачим больным',
+  //   icon: BedImg 
+  // },
+  // { 
+  //   title: 'Уход за пожилыми людьми', 
+  //   code: 'nurse', 
+  //   price: 20_000,
+  //   description: 'Чуткий и заботливый уход за пожилым человеком',
+  //   icon: OldImg 
+  // },
   { 
     title: 'Перевязка на дому', 
     code: 'bandages', 
@@ -63,27 +70,20 @@ export const services = [
     description: 'Профессиональный уход за ранами для быстрого заживления и комфорта.',
     icon: BandagenImg 
   },
-  { 
-    title: 'Детоксикация на дому', 
-    code: 'detox', 
-    price: 25_000,
-    description: 'Детоксикация и восстановление с помощью капельницы от интоксикации.', 
-    icon: PillsImg 
-  },
-  { 
-    title: 'Витаминные коктейли в капельницах', 
-    code: 'cocktails', 
-    price: 12_000,
-    description: 'Коктейли красоты и здоровья для быстрого восстановления организма.', 
-    icon: CocktailImg 
-  },
-  { 
-    title: 'Плацентарная терапия', 
-    code: 'cocktails', 
-    price: 12_000,
-    description: 'Плацентарная терапия в домашних условиях', 
-    icon: PlacentalImg 
-  },
+  // { 
+  //   title: 'Витаминные коктейли в капельницах', 
+  //   code: 'cocktails', 
+  //   price: 12_000,
+  //   description: 'Коктейли красоты и здоровья для быстрого восстановления организма.', 
+  //   icon: CocktailImg 
+  // },
+  // { 
+  //   title: 'Плацентарная терапия', 
+  //   code: 'cocktails', 
+  //   price: 12_000,
+  //   description: 'Плацентарная терапия в домашних условиях', 
+  //   icon: PlacentalImg 
+  // },
   { 
     title: 'Установка назогастрального зонда', 
     code: 'cocktails', 
@@ -91,13 +91,13 @@ export const services = [
     description: 'Профессиональная установка назогастрального зонда', 
     icon: StomachImg 
   },
-  { 
-    title: 'Наркоглог на дом',
-    code: 'doctor', 
-    price: 20_000,
-    description: 'Профессиональный врач приедет к вам для диагностики и лечения',
-    icon: DoctorImg,
-  },
+  // { 
+  //   title: 'Наркоглог на дом',
+  //   code: 'doctor', 
+  //   price: 20_000,
+  //   description: 'Профессиональный врач приедет к вам для диагностики и лечения',
+  //   icon: DoctorImg,
+  // },
   // { 
   //   title: 'Пищевые отравления',
   //   code: 'food-poisoning', 
@@ -136,7 +136,7 @@ export default function Service() {
     <section id="services" className="py-8">
       <div className="text-center mb-5">
         <p className="text-3xl text-black font-bold uppercase">
-          услуги и процедуры
+          Вот с чем ме можем помочь
         </p>
       </div>
 
