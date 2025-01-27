@@ -41,14 +41,26 @@ export default function Services() {
 
       <section className="bg-transparent pt-4">
         <div className="container mx-auto px-4 text-center">
-           <h1 className="font-bold text-4xl text-black mb-6">
-              Наши услуги на дом
-            </h1>
-            <h2 className="text-lg font-semibold text-black">
-              Ваше здоровье — наш приоритет! Мы предлагаем профессиональные медицинские услуги на дому: быстро, удобно и безопасно. Наши опытные специалисты готовы помочь вам в любое время.
-            </h2>
-           
-           <div className="flex items-start mt-4 ">         
+            <p className="text-xl font-bold text-black mb-3">
+              Ваше здоровье — наш приоритет!
+              </p>
+              <p className="text-md font-semibold text-black mb-6" >
+               Мы предлагаем профессиональные медицинские услуги на дому: быстро, удобно и безопасно. Наши опытные специалисты готовы помочь вам в любое время.
+               </p> 
+        </div>
+        <h1 className="font-bold text-center text-3xl text-black mb-2">
+        Наши услуги на дом
+      </h1>
+      </section>
+  
+
+      <Injection/>
+      <Drip/>
+      <Detox/>
+      <Bandage/>
+      <Nurse/>
+      <Tube/>
+      <div className="flex items-start mt-4 ">         
               <div className="chat chat-end">
                 <div className=" 
                 chat-bubble bg-transparent
@@ -71,16 +83,6 @@ export default function Services() {
               className="h-40 w-22 rounded-md mt-20"
             />
            </div>
-        </div>
-      </section>
-
-      <Injection/>
-      <Drip/>
-      <Detox/>
-      <Bandage/>
-      <Nurse/>
-      <Tube/>
-      <FAQ/>
       <Footer/>
      
     </div>
