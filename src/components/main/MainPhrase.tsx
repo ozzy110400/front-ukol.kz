@@ -58,7 +58,7 @@ const MainPhrase = (props: MainPhraseProps) => {
                   onClick={() => navigate('/services')} 
                   className="bg-my-green w-full font-bold rounded-xl px-4 py-2 text-2xl text-black uppercase"
                 >
-                  выбрать услугу
+                  услуги и цены
                 </button>
               </div>
             </div>

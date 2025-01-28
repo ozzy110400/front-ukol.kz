@@ -5,7 +5,7 @@ export default function NotFound() {
   const [, navigate] = useLocation();
 
   useEffect(() => {
-    navigate('/not-found', { replace: true });
+    navigate('/404', { replace: true });
   }, []);
 
   return (

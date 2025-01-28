@@ -1,3 +1,4 @@
+import { navigate } from 'wouter-preact/use-browser-location';
 import PillsImg from '/img/service/pills.svg';
 
 export default function Detox() {
@@ -25,7 +26,7 @@ export default function Detox() {
         {/* Контент collapse */}
         <div className="collapse-content">
           <p className="text-base font-semibold text-gray-600 mb-4">
-          Услугу оказывают опытные медики-наркологи с медицинским образованием и многолетним стажем. Самостоятельное выведение токсинов опасно и может привести к осложнениям: нарушениям работы сердца, печени, почек или обострению хронических заболеваний. Наши специалисты используют современные препараты и проверенные методики, обеспечивая безопасность и эффективность процедуры. Мы работаем анонимно, срочно выезжаем на дом и помогаем вернуть здоровье в комфортных условиях.
+            Услугу оказывают опытные медики-наркологи с медицинским образованием и многолетним стажем. Самостоятельное выведение токсинов опасно и может привести к осложнениям: нарушениям работы сердца, печени, почек или обострению хронических заболеваний. Наши специалисты используют современные препараты и проверенные методики, обеспечивая безопасность и эффективность процедуры. Мы работаем анонимно, срочно выезжаем на дом и помогаем вернуть здоровье в комфортных условиях.
           </p>
 
           {/* Детализация видов уколов с кнопками */}
@@ -33,44 +34,35 @@ export default function Detox() {
             <h3 className="text-lg font-semibold text-black mb-2">Виды детоксикации:</h3>
             <ul className="space-y-2">
               <li>
-                <a
-                  href="/uslugi/ukoly/vnutrivenno"
-                  className="flex flex-col justify-between items-start border-2 border-black hover:bg-gray-200 rounded-lg px-4 py-2 transition-colors"
-                >
+              <div className="flex flex-col justify-between items-start border-2 border-black rounded-lg px-4 py-2 ">
+
                   <span className="text-black font-semibold mb-2">Алкогольная детоксикация</span>
                   <div className="flex justify-between w-full">
                     <span className="text-black font-semibold py-1">30000₸</span>
                     <button
                       className="bg-my-green rounded-lg px-2 py-1"
-                      onClick={(e) => {
-                        e.preventDefault(); // Предотвращаем переход по ссылке
-                        console.log("Заказано: Внутривенные уколы");
-                      }}
+                      onClick={() => {navigate('/services/detox/alcohol')}}
+
                     >
                       <span className="text-black font-semibold">Заказать</span>
                     </button>
                   </div>
-                </a>
+                </div>
               </li>
               <li>
-                <a
-                  href="/uslugi/ukoly/vnutrimyshechno"
-                  className="flex flex-col justify-between items-start border-2 border-black hover:bg-gray-200 rounded-lg px-4 py-2 transition-colors"
-                >
+              <div className="flex flex-col justify-between items-start border-2 border-black rounded-lg px-4 py-2 ">
+
                   <span className="text-black font-semibold mb-2">Наркотическая детоксикация</span>
                   <div className="flex justify-between w-full">
                     <span className="text-black font-semibold py-1">30000₸</span>
                     <button
                       className="bg-my-green rounded-lg px-2 py-1"
-                      onClick={(e) => {
-                        e.preventDefault(); // Предотвращаем переход по ссылке
-                        console.log("Заказано: Внутримышечные уколы");
-                      }}
+                      onClick={() => {navigate('/services/detox/drug')}}
                     >
                       <span className="text-black font-semibold">Заказать</span>
                     </button>
                   </div>
-                </a>
+                </div>
               </li>
              
             </ul>

@@ -11,7 +11,7 @@ import WithDrugsCocktail from "./WithDrugsCocktail";
 import WithMaterialsPoisoning from "./WithMaterialsPoisoning";
 
 
-export const serviceOptionsMap = {
+export const serviceOptionsMapOld = {
     'Укол': [
       {
         component: DoctorsAppointment,
@@ -105,6 +105,77 @@ export const serviceOptionsMap = {
       },
     ],
     'Врач на дом': [
+      {
+        component: Message,
+      },
+    ],
+  };
+
+  
+  export const serviceOptionsMap = {
+    injection: [
+      {
+        component: DoctorsAppointment,
+      },
+      {
+        component: IsChild,
+      },
+      {
+        component: NeedWoman,
+      },
+      {
+        component: NeedPharmacy,
+      },
+      {
+        component: Message,
+      }
+    ],
+    drip: [
+      {
+        component: DoctorsAppointment,
+      },
+      {
+        component: IsChild,
+      },
+      {
+        component: NeedWoman,
+      },
+      {
+        component: NeedPharmacy,
+      },
+      {
+        component: Message,
+      },
+    ],
+    detox: [
+        {
+        component: PremiumIntoxication,
+        },
+        {
+          component: Message,
+        }
+    ],  
+    bandage: [
+        {
+        component: Dressing,
+        },
+        {
+          component: Message,
+        }
+    ],
+    drip1: [
+      {
+        component: WithMaterialsPoisoning,
+      },
+      {
+        component: Message,
+      }
+    ],
+    nurse: [
+      {
+        component: DaysForNurse,
+
+      },
       {
         component: Message,
       },

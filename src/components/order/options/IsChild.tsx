@@ -1,4 +1,3 @@
-import { Box, Button, Checkbox, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
 import currentOrderAtom from '../../../atoms/currentOrder';
 
@@ -8,60 +7,39 @@ const IsChild = (props: IsChildProps) => {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
 
   return (
-    <Box sx={{ m: 2, mb: 1 }}>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Checkbox 
+    <div className="p-2 mx-2">
+      {/* Checkbox Section */}
+      <div className="flex items-center">
+        <input
+          type="checkbox"
+          className="checkbox  border-2 border-black"
           checked={currentOrder.options.isChild}
-          onClick={() => 
-            setCurrentOrder(prevOrder => ({
+          onChange={() =>
+            setCurrentOrder((prevOrder) => ({
               ...prevOrder,
-              options: { // Update the nested options object
+              options: {
                 ...prevOrder.options,
-                isChild: !prevOrder.options.isChild // Toggle the checkbox state
+                isChild: !prevOrder.options.isChild, // Toggle the checkbox state
               },
             }))
           }
         />
-        <Button
-          onClick={() => 
-            setCurrentOrder(prevOrder => ({
+        <button
+          className="btn btn-ghost text-black text-lg font-bold"
+          onClick={() =>
+            setCurrentOrder((prevOrder) => ({
               ...prevOrder,
-              options: { // Update the nested options object
+              options: {
                 ...prevOrder.options,
-                isChild: !prevOrder.options.isChild // Toggle the checkbox state
+                isChild: !prevOrder.options.isChild, // Toggle the checkbox state
               },
             }))
           }
-          sx={{
-            textTransform: 'none',
-            padding: 0,
-            '&:hover': {
-              backgroundColor: 'transparent',
-            },
-          }}
         >
-          <Typography variant="h3">Пациент ребенок</Typography>
-        </Button>
-      </Box>
-      {/* Additional options */}
-      {currentOrder.options.isChild && (
-        <Box sx={{ display: 'flex', alignItems: 'center', ml: 1  }}>
-          <Typography
-            variant="h1"
-            sx={{
-              fontSize: {
-                xs: '0.8rem',
-                sm: '1.0rem',
-                md: '1.2rem',
-              },
-              fontStyle: 'italic',
-            }}
-          >
-          </Typography>
-        </Box>
-      )}
-
-    </Box>
+          Пациент ребенок
+        </button>
+      </div>
+    </div>
   );
 };
 

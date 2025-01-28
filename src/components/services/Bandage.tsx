@@ -1,3 +1,4 @@
+import { navigate } from 'wouter-preact/use-browser-location';
 import BandageImg from '/img/service/bandage.svg';
 
 export default function Bandage() {
@@ -32,24 +33,19 @@ export default function Bandage() {
           <div className="mb-4">
             <ul className="space-y-2">
               <li>
-                <a
-                  href="/uslugi/ukoly/vnutrivenno"
-                  className="flex flex-col justify-between items-start border-2 border-black hover:bg-gray-200 rounded-lg px-4 py-2 transition-colors"
-                >
+              <div className="flex flex-col justify-between items-start border-2 border-black rounded-lg px-4 py-2 ">
+
                   <span className="text-black font-semibold mb-2">Перевязка</span>
                   <div className="flex justify-between w-full">
                     <span className="text-black font-semibold py-1">8000₸</span>
                     <button
                       className="bg-my-green rounded-lg px-2 py-1"
-                      onClick={(e) => {
-                        e.preventDefault(); // Предотвращаем переход по ссылке
-                        console.log("Заказано: Внутривенные уколы");
-                      }}
+                      onClick={() => {navigate('/services/bandage/regular')}}
                     >
                       <span className="text-black font-semibold">Заказать</span>
                     </button>
                   </div>
-                </a>
+                </div>
               </li>   
             </ul>
           </div>

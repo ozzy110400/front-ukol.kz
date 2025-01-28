@@ -1,24 +1,120 @@
 import { useAtom } from 'jotai';
 import currentOrderAtom from '../atoms/currentOrder';
-import Map from '../components/order/MapN';
 import LoginModal from '../components/order/LoginModal';
 import NotUnderstand from '../components/order/Notunderstand';
 import { serviceOptionsMap } from '../components/order/options/allOptionsMap';
 import ArrivalTime from '../components/order/ArrivalTime';
 import MapFooter from '../components/order/MapFooter';
-import { useLocation } from 'wouter-preact';
+import { useLocation, useParams } from 'wouter-preact';
 import { authAtom } from 'atoms/auth';
 import { checkOpenOrder } from 'helpers/api/apiClient';
-import { useEffect, useState } from 'preact/hooks';
+import { useEffect } from 'preact/hooks';
+import AddressInput from 'components/order/AddressInput';
+import Header from 'components/services/Header';
+
+type ServiceDetails = {
+  title: string;
+  description: string;
+}
+
+const serviceMapping: Record<string, Record<string, ServiceDetails>> = {
+  injection: {
+    intramuscularly: {
+      title: 'Внутримышечный укол',
+      description: 'Профессиональное выполнение внутримышечных инъекций на дому'
+    },
+    intravenous: {
+      title: 'Внутривенный укол',
+      description: 'Безопасное внутривенное введение препаратов'
+    },
+    subcutaneous: {
+      title: 'Подкожный укол',
+      description: 'Подкожные инъекции с минимальным дискомфортом'
+    }
+  },
+  drip: {
+    hangover: {
+      title: 'Капельница от похмелья',
+      description: 'Эффективное восстановление после алкогольной интоксикации'
+    },
+    poisoning: {
+      title: 'Капельница от отравления',
+      description: 'Быстрое выведение токсинов из организма'
+    },
+    custom: {
+      title: 'Капельница',
+      description: 'Индивидуальный подбор состава капельницы'
+    }
+  },
+  nurse: {
+    old: {
+      title: 'Присмотр за пожилым человеком',
+      description: 'Профессиональный уход за пациентами пожилого возраста'
+    },
+    bed: {
+      title: 'Присмотр за лежачим больным',
+      description: 'Специализированный уход за лежачими пациентами'
+    },
+    event: {
+      title: 'Дежурство на мероприятии',
+      description: 'Медицинское сопровождение мероприятий'
+    },
+  },
+  detox: {
+    alcohol: {
+      title: 'Алкогольная детоксикация',
+      description: 'Комплексная очистка организма от алкоголя'
+    },
+    drug: {
+      title: 'Наркотическая детоксикация',
+      description: 'Профессиональная помощь при наркотической интоксикации'
+    },
+  },
+  bandage: {
+    regular: {
+      title: 'Перевязка',
+      description: 'Профессиональная перевязка ран и послеоперационных швов'
+    },
+  },
+};
 
 export default function Order() {
   const [, navigate] = useLocation();
-
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
   const [authValue] = useAtom(authAtom);
+  const { type, code } = useParams();
+
+  useEffect(() => {
+    const setServiceDetails = async () => {
+      // Сброс предыдущих значений перед проверкой
+      setCurrentOrder(prev => ({
+        ...prev,
+        title: '',
+        description: ''
+      }));
+
+      if (type && serviceMapping[type]) {
+        const serviceCategory = serviceMapping[type];
+        if (code && serviceCategory[code]) {
+          const { title, description } = serviceCategory[code];
+          setCurrentOrder(prev => ({
+            ...prev,
+            title,
+            description
+          }));
+        } else {
+          navigate('/404');
+        }
+      } else {
+        navigate('/404');
+      }
+    };
+
+    setServiceDetails();
+  }, [type, code, setCurrentOrder, navigate]);
 
   const getOptions = () => {
-    const options = currentOrder.title ? serviceOptionsMap[currentOrder.title as keyof typeof serviceOptionsMap] : [];
+    const options = serviceOptionsMap[type as keyof typeof serviceOptionsMap]
     return (
       <div>
         {options.map(({ component: Component }, index: number) => (
@@ -33,8 +129,8 @@ export default function Order() {
       try {
         const res = await checkOpenOrder();
         if (res.order) {
-          setCurrentOrder((prevOrder) => ({
-            ...prevOrder,
+          setCurrentOrder(prev => ({
+            ...prev,
             _id: res.order._id,
             status: res.order.status,
           }));
@@ -57,25 +153,19 @@ export default function Order() {
   }, [currentOrder.status]);
 
   return (
-    <div className="mt-5 bg-transparent">
-      <div className="flex justify-between items-center mb-4 px-4">
-        <p className="text-center font-extrabold text-lg sm:text-xl md:text-2xl">
-          Обратите внимание! Препараты, материалы и другие расходники не входят в стоимость услуг
-        </p>
-        <button
-          onClick={() => navigate('/')}
-          className="bg-black bg-opacity-10 border-4 border-black rounded-full px-6 py-2 min-w-[120px] hover:bg-opacity-20 transition"
-        >
-          <span className="text-center text-base sm:text-lg md:text-xl">на главную</span>
-        </button>
+    <div className="bg-transparent">
+      <Header/>
+      <div className="mt-2 px-4 px-4">
+        <h1 className="text-3xl text-black font-bold mb-4">{currentOrder.title}</h1>
+        
       </div>
-      <Map />
-      {/* <ServiceCardsList /> */}
+
+      <AddressInput />
       {getOptions()}
-      <ArrivalTime />
+      {/* <ArrivalTime />
       <MapFooter />
       <NotUnderstand />
-      <LoginModal />
+      <LoginModal /> */}
     </div>
   );
 }

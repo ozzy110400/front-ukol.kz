@@ -16,16 +16,16 @@ import PillsImg from '/img/service/pills.svg';
 export const services = [
   { 
     title: 'Уколы на дому', 
-    code: 'injection',
+    code: 'injections',
     price: 5000, 
     description: 'Быстрое и безопасное выполнение внутримышечных, подкожных и внутривенных уколов у вас дома.', 
     icon: InjectionImg 
   },
   { 
     title: 'Капельницы на дому', 
-    code: 'drip', 
+    code: 'drips', 
     price: 7_000,  
-    description: 'Установка капельниц на дому: витаминные, от интоксикации или с вашими препаратами.', 
+    description: 'Установка капельниц на дому: витаминные, от интоксикации или с вашими препаратами.',
     icon: DripImg 
   },
   { 
@@ -46,7 +46,7 @@ export const services = [
     title: 'Медсестра на дом', 
     code: 'nurse', 
     price: 20_000,
-    description: 'Уход за лежачими пациентами, присмотр за пожилыми или присутствие на мероприятиях: профессионально и с заботой.',
+    description: 'Уход за лежачим пациентом, присмотр за пожилым или присутствие на мероприятиях: профессионально и с заботой.',
     icon: NurseImg 
   },
   // { 
@@ -65,7 +65,7 @@ export const services = [
   // },
   { 
     title: 'Перевязка на дому', 
-    code: 'bandages', 
+    code: 'bandage/regular', 
     price: 7_000,
     description: 'Профессиональный уход за ранами для быстрого заживления и комфорта.',
     icon: BandagenImg 
@@ -84,13 +84,13 @@ export const services = [
   //   description: 'Плацентарная терапия в домашних условиях', 
   //   icon: PlacentalImg 
   // },
-  { 
-    title: 'Установка назогастрального зонда', 
-    code: 'cocktails', 
-    price: 12_000,
-    description: 'Профессиональная установка назогастрального зонда', 
-    icon: StomachImg 
-  },
+  // { 
+  //   title: 'Установка назогастрального зонда', 
+  //   code: 'cocktails', 
+  //   price: 12_000,
+  //   description: 'Профессиональная установка назогастрального зонда', 
+  //   icon: StomachImg 
+  // },
   // { 
   //   title: 'Наркоглог на дом',
   //   code: 'doctor', 
@@ -119,28 +119,19 @@ export const services = [
 export default function Service() {
   const [, navigate] = useLocation();
 
-  const handleWhatsAppClick = () => {
-    const phone = '77027776776'; // Replace with the actual phone number
-    const message = 'Здравствуйте! Нужна помощь с заказом медицинских услуг'; // The message you want to send
-    const whatsappUrl = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`;
-    
-    window.open(whatsappUrl, '_blank'); // Open in a new tab
-  };
-
   const handleCardClick = (code: string) => {  
     trackClarityEvent('redirect_from_lending_we_help');
-    navigate(`/service/${code}`);
+    navigate(`/services/${code}`);
   };
 
   return (
     <section id="services" className="py-8">
       <div className="text-center mb-5">
         <p className="text-3xl text-black font-bold uppercase">
-          Вот с чем ме можем помочь
+          Вот с чем мы можем помочь
         </p>
       </div>
 
-      {/* Service Cards Section */}
       <div className="flex flex-wrap justify-center gap-2">
         {services.map((service, index) => (
           <div
@@ -176,7 +167,6 @@ export default function Service() {
             </div>
           </div>
         ))}
-
       </div>
     </section>
   );

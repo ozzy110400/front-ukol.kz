@@ -1,3 +1,4 @@
+import { navigate } from 'wouter-preact/use-browser-location';
 import InjectionImg from '/img/service/injection.svg';
 
 export default function Injection() {
@@ -33,64 +34,49 @@ export default function Injection() {
             <h3 className="text-lg font-semibold text-black mb-2">Виды уколов:</h3>
             <ul className="space-y-2">
               <li>
-                <a
-                  href="/uslugi/ukoly/vnutrivenno"
-                  className="flex flex-col justify-between items-start border-2 border-black hover:bg-gray-200 rounded-lg px-4 py-2 transition-colors"
-                >
+                <div className="flex flex-col justify-between items-start border-2 border-black rounded-lg px-4 py-2 ">
                   <span className="text-black font-semibold mb-2">Внутривенный укол</span>
                   <div className="flex justify-between w-full">
                     <span className="text-black font-semibold py-1">5000₸</span>
                     <button
                       className="bg-my-green rounded-lg px-2 py-1"
-                      onClick={(e) => {
-                        e.preventDefault(); // Предотвращаем переход по ссылке
-                        console.log("Заказано: Внутривенные уколы");
-                      }}
+                      onClick={() => {navigate('/services/injection/intravenous')}}
                     >
                       <span className="text-black font-semibold">Заказать</span>
                     </button>
                   </div>
-                </a>
+                </div>
               </li>
               <li>
-                <a
-                  href="/uslugi/ukoly/vnutrimyshechno"
-                  className="flex flex-col justify-between items-start border-2 border-black hover:bg-gray-200 rounded-lg px-4 py-2 transition-colors"
-                >
+              <div className="flex flex-col justify-between items-start border-2 border-black rounded-lg px-4 py-2 ">
                   <span className="text-black font-semibold mb-2">Внутримышечный укол</span>
                   <div className="flex justify-between w-full">
                     <span className="text-black font-semibold py-1">5000₸</span>
                     <button
                       className="bg-my-green rounded-lg px-2 py-1"
-                      onClick={(e) => {
-                        e.preventDefault(); // Предотвращаем переход по ссылке
-                        console.log("Заказано: Внутримышечные уколы");
-                      }}
+                      onClick={() => {navigate('/services/injection/intramuscularly')}}
+
                     >
                       <span className="text-black font-semibold">Заказать</span>
                     </button>
                   </div>
-                </a>
+                </div>
               </li>
               <li>
-                <a
-                  href="/uslugi/ukoly/podkozhnue"
-                  className="flex flex-col justify-between items-start border-2 border-black hover:bg-gray-200 rounded-lg px-4 py-2 transition-colors"
-                >
+              <div className="flex flex-col justify-between items-start border-2 border-black rounded-lg px-4 py-2 ">
+
                   <span className="text-black font-semibold mb-2">Подкожный укол</span>
                   <div className="flex justify-between w-full">
                     <span className="text-black font-semibold py-1">5000₸</span>
                     <button
                       className="bg-my-green rounded-lg px-2 py-1"
-                      onClick={(e) => {
-                        e.preventDefault(); // Предотвращаем переход по ссылке
-                        console.log("Заказано: Подкожные уколы");
-                      }}
+                      onClick={() => {navigate('/services/injection/subcutaneous')}}
+
                     >
                       <span className="text-black font-semibold">Заказать</span>
                     </button>
                   </div>
-                </a>
+                </div>
               </li>
             </ul>
           </div>

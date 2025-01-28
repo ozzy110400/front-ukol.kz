@@ -1,5 +1,4 @@
 import { useRef, useState } from 'preact/hooks';
-import { Box, Button, Checkbox, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
 import currentOrderAtom from '../../../atoms/currentOrder';
 
@@ -32,86 +31,64 @@ const DoctorsAppointment = (props: DoctorsAppointmentProps) => {
       fileInputRef.current.click(); // Trigger the hidden input click
     }
   };
-
   return (
-    <Box sx={{ m: 2 }}>
-      {/* Checkbox section */}
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Checkbox 
+    <div className="p-2 mx-2">
+      {/* Checkbox Section */}
+      <div className="flex items-center">
+        <input
+          type="checkbox"
+          className="checkbox border-2 border-black"
           checked={currentOrder.options.isHaveDoctorsAppointment}
-          onClick={() => 
-            setCurrentOrder(prevOrder => ({
+          onChange={() =>
+            setCurrentOrder((prevOrder) => ({
               ...prevOrder,
-              options: { // Update the nested options object
+              options: {
                 ...prevOrder.options,
-                isHaveDoctorsAppointment: !prevOrder.options.isHaveDoctorsAppointment, // Toggle the checkbox state
+                isHaveDoctorsAppointment: !prevOrder.options.isHaveDoctorsAppointment,
               },
             }))
           }
         />
-        <Button
-          onClick={() => 
-            setCurrentOrder(prevOrder => ({
+        <button
+          className="btn btn-ghost text-black text-lg font-bold"
+          onClick={() =>
+            setCurrentOrder((prevOrder) => ({
               ...prevOrder,
-              options: { // Update the nested options object
+              options: {
                 ...prevOrder.options,
-                isHaveDoctorsAppointment: !prevOrder.options.isHaveDoctorsAppointment, // Toggle the checkbox state
+                isHaveDoctorsAppointment: !prevOrder.options.isHaveDoctorsAppointment,
               },
             }))
           }
-          sx={{
-            textTransform: 'none',
-            padding: 0,
-            '&:hover': {
-              backgroundColor: 'transparent',
-            },
-          }}
         >
-          <Typography variant="h3">Есть назначение врача</Typography>
-        </Button>
-      </Box>
+          Есть назначение врача
+        </button>
+      </div>
 
-      {/* Upload button section */}
+      {/* Upload Button Section */}
       {currentOrder.options.isHaveDoctorsAppointment && (
-        <Box sx={{ mt: 2 }}>
-          <Button
-            variant="contained"
-            sx={{ 
-              backgroundColor: '#88e788', 
-              border: '3px solid black', 
-              borderRadius: '140px',
-              position: 'relative',
-              overflow: 'hidden',
-            }}
-            onClick={triggerFileUpload} // Trigger the file input click on button click
+        <div className="space-y-4">
+          <button
+            className="btn btn-ghost bg-my-green rounded-lg text-black font-bold px-2 py-1"
+            onClick={triggerFileUpload}
           >
-            <Typography variant="h5" sx={{
-              fontSize: {
-                xs: '1rem',   
-                sm: '1.2rem',     
-                md: '1.4rem',  
-              },
-            }}>
-              Загрузить фото назначения
-            </Typography>
-          </Button>
+            Загрузить фото назначения
+          </button>
           <input
             type="file"
             hidden
             accept="image/*"
-            ref={fileInputRef} // Reference the hidden input
+            ref={fileInputRef}
             onChange={handleFileUpload}
           />
 
           {/* Display file name after upload */}
           {currentOrder.options.photo && (
-            <Typography sx={{ mt: 2 }}>
-              Загруженный файл: {fileName}
-            </Typography>
+            <p className="text-sm text-gray-600">Загруженный файл: {fileName}</p>
           )}
-        </Box>
+        </div>
       )}
-    </Box>
+    </div>
   );
 };
 

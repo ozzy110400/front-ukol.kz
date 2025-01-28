@@ -1,4 +1,3 @@
-import { Box, Button, Checkbox, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
 import currentOrderAtom from '../../../atoms/currentOrder';
 
@@ -8,60 +7,48 @@ const NeedPharmacy = (props: NeedPharmacyProps) => {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
 
   return (
-    <Box sx={{ m: 2, mb: 1 }}>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Checkbox 
+    <div className="p-2 mx-2">
+      {/* Checkbox Section */}
+      <div className="flex items-center">
+        <input
+          type="checkbox"
+          className="checkbox  border-2 border-black"
           checked={currentOrder.options.isNeedPharmacy}
-          onClick={() => 
-            setCurrentOrder(prevOrder => ({
+          onChange={() =>
+            setCurrentOrder((prevOrder) => ({
               ...prevOrder,
-              options: { // Update the nested options object
+              options: {
                 ...prevOrder.options,
-                isNeedPharmacy: !prevOrder.options.isNeedPharmacy // Toggle the checkbox state
+                isNeedPharmacy: !prevOrder.options.isNeedPharmacy, // Toggle the checkbox state
               },
             }))
           }
         />
-        <Button
-          onClick={() => 
-            setCurrentOrder(prevOrder => ({
+        <button
+          className="btn btn-ghost text-black text-lg font-bold"
+          onClick={() =>
+            setCurrentOrder((prevOrder) => ({
               ...prevOrder,
-              options: { // Update the nested options object
+              options: {
                 ...prevOrder.options,
-                isNeedPharmacy: !prevOrder.options.isNeedPharmacy // Toggle the checkbox state
+                isNeedPharmacy: !prevOrder.options.isNeedPharmacy, // Toggle the checkbox state
               },
             }))
           }
-          sx={{
-            textTransform: 'none',
-            padding: 0,
-            '&:hover': {
-              backgroundColor: 'transparent',
-            },
-          }}
         >
-          <Typography variant="h3">Нужно зайти в аптеку (+1000₸)</Typography>
-        </Button>
-      </Box>
-      {/* Additional options */}
+          Нужно зайти в аптеку (+1000₸)
+        </button>
+      </div>
+
+      {/* Additional options for pharmacy */}
       {currentOrder.options.isNeedPharmacy && (
-        <Box sx={{ display: 'flex', alignItems: 'center', ml: 1  }}>
-          <Typography
-            variant="h1"
-            sx={{
-              fontSize: {
-                xs: '0.8rem',
-                sm: '1.0rem',
-                md: '1.2rem',
-              },
-              fontStyle: 'italic',
-            }}
-          >
+        <div className="ml-4 space-y-2">
+          <p className="italic text-sm">
             Специалист позвонит вам когда будет в аптеке
-          </Typography>
-        </Box>
+          </p>
+        </div>
       )}
-    </Box>
+    </div>
   );
 };
 

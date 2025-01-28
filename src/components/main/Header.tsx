@@ -9,8 +9,8 @@ const options = [
   //{ label: 'Контакты', target: 'contacts' },
   { label: 'Медикам', target: 'spec' },
 ];
+export default function Header() {
 
-function Header() {
   const [openNav, setOpenNav] = useState(false);
 
   const handleOpenNavMenu = () => {
@@ -88,4 +88,3 @@ function Header() {
   );
 }
 
-export default Header;

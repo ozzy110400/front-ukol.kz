@@ -6,6 +6,10 @@ import Waiting from 'pages/Waiting';
 import Raiting from 'pages/Rating';
 import NotFound from 'pages/NotFound';
 import Services from 'pages/Services';
+import Injections from 'pages/services/Injections';
+import Drips from 'pages/services/Drips';
+import Detox from 'pages/services/Detox';
+import Nurse from 'pages/services/Nurse';
 //import Service from 'pages/Service';
 
 declare global {
@@ -28,24 +32,6 @@ export const trackClarityEvent = (eventName: string) => {
 };
 
 export default function () {
-
-  const [location] = useLocation(); 
-
-  useEffect(() => {
-    switch (location) {
-      case '/':
-        document.title = 'Вызов опытной медсестры на дом';
-        break;
-      case '/order':
-        document.title = 'Вызов опытной медсестры на дом';
-        break;
-      case '/service':
-        document.title = 'Вызов опытной медсестры на дом';
-        break;
-      default:
-        document.title = 'Вызов опытной медсестры на дом';
-    }
-  }, [location]); 
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -81,6 +67,11 @@ export default function () {
           <Route path="/" component={Main} />
           <Route path="/order" component={Order} />
           <Route path="/services" component={Services} />
+          <Route path="/services/injections" component={Injections} />
+          <Route path="/services/drips" component={Drips} />
+          <Route path="/services/detox" component={Detox} />
+          <Route path="/services/nurse" component={Nurse} />
+          <Route path="/services/:type/:code" component={Order} />
           <Route path="/waiting" component={Waiting} />
           <Route path="/rating/:id" component={Raiting} />
           <Route path="*" component={NotFound} />

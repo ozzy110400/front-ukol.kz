@@ -7,8 +7,8 @@ interface MessageProps {}
 const Message= ( props: MessageProps) => {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
 
-  const handleMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const message = (event.target as HTMLInputElement).value;
+  const handleMessageChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const message = (event.target as HTMLTextAreaElement).value;
     setCurrentOrder((prevOrder) => ({
       ...prevOrder,
       options: {
@@ -19,34 +19,18 @@ const Message= ( props: MessageProps) => {
   };
 
   return (
-    <Box sx={{ m: 2, mb: 1 }}>
-      <Typography variant="h5" sx={{ mb: 2,
-
-      }}>
-       Что-то еще что должен знать специалист? 
-      </Typography>
-      <TextField
-        fullWidth
-        multiline
-        rows={1} // Define number of visible lines
-        variant="outlined"
+    <div className="p-4 mx-2 space-y-2">
+      <label className="text-lg text-black font-bold">
+        Что-то еще что должен знать специалист?
+      </label>
+      <textarea
+        className="textarea textarea-bordered bg-transparent w-full border-2 border-black p-2 resize-none focus:border-black text-black"
         placeholder="Введите ваше сообщение"
-        value={currentOrder.options.message || ''} // Display the saved message or an empty string
+        value={currentOrder.options.message || ''}
         onChange={handleMessageChange}
-        sx={{
-
-          "& .MuiOutlinedInput-root": {
-          "&.Mui-focused": {
-            "& .MuiOutlinedInput-notchedOutline": {
-              borderColor: 'black',
-              borderWidth: "3px",
-            },
-          },
-         
-        },
-        }}
+        rows={2} // Set to 2 rows for the textarea
       />
-    </Box>
+    </div>
   );
 };
 
