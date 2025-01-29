@@ -37,7 +37,7 @@ export default function Injection() {
                 <div className="flex flex-col justify-between items-start border-2 border-black rounded-lg px-4 py-2 ">
                   <span className="text-black font-semibold mb-2">Внутривенный укол</span>
                   <div className="flex justify-between w-full">
-                    <span className="text-black font-semibold py-1">5000₸</span>
+                    <span className="text-black font-semibold py-1">5,000₸</span>
                     <button
                       className="bg-my-green rounded-lg px-2 py-1"
                       onClick={() => {navigate('/services/injection/intravenous')}}
@@ -51,7 +51,7 @@ export default function Injection() {
               <div className="flex flex-col justify-between items-start border-2 border-black rounded-lg px-4 py-2 ">
                   <span className="text-black font-semibold mb-2">Внутримышечный укол</span>
                   <div className="flex justify-between w-full">
-                    <span className="text-black font-semibold py-1">5000₸</span>
+                    <span className="text-black font-semibold py-1">5,000₸</span>
                     <button
                       className="bg-my-green rounded-lg px-2 py-1"
                       onClick={() => {navigate('/services/injection/intramuscularly')}}
@@ -67,7 +67,7 @@ export default function Injection() {
 
                   <span className="text-black font-semibold mb-2">Подкожный укол</span>
                   <div className="flex justify-between w-full">
-                    <span className="text-black font-semibold py-1">5000₸</span>
+                    <span className="text-black font-semibold py-1">5,000₸</span>
                     <button
                       className="bg-my-green rounded-lg px-2 py-1"
                       onClick={() => {navigate('/services/injection/subcutaneous')}}

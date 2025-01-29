@@ -129,7 +129,7 @@ export default function Injections() {
               </div>
             </div>
             <div className="flex justify-between items-center mt-6 border-t-2 border-black pt-4">
-              <span className="text-xl font-bold">5000₸</span>
+              <span className="text-xl font-bold">5,000₸</span>
               <button 
                 className="bg-my-green text-black font-semibold px-6 py-2 rounded-lg hover:bg-my-green-dark transition"
                 onClick={() => {navigate('/services/injection/intravenous')}}>
@@ -169,7 +169,7 @@ export default function Injections() {
               </div>
             </div>
             <div className="flex justify-between items-center mt-6 border-t-2 border-black pt-4">
-              <span className="text-xl font-bold">5000₸</span>
+              <span className="text-xl font-bold">5,000₸</span>
               <button 
                 className="bg-my-green text-black font-semibold px-6 py-2 rounded-lg hover:bg-my-green-dark transition"
                 onClick={() => {navigate('/services/injection/intramuscularly')}}>
@@ -210,7 +210,7 @@ export default function Injections() {
               </div>
             </div>
             <div className="flex justify-between items-center mt-6 border-t-2 border-black pt-4">
-              <span className="text-xl font-bold">5000₸</span>
+              <span className="text-xl font-bold">5,000₸</span>
               <button 
                 className="bg-my-green text-black font-semibold px-6 py-2 rounded-lg hover:bg-my-green-dark transition"
                 onClick={() => {navigate('/services/injection/subcutaneous')}}>

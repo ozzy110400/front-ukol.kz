@@ -4,9 +4,7 @@ import { useAtom } from 'jotai';
 
 export default function AddressInput() {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
-  const [address, setAddress] = useState<string | undefined>(currentOrder.streetAndBuildingNumber);
-  const [flat, setFlat] = useState<string | undefined>(currentOrder.flat);
-  const [floor, setFloor] = useState<string | undefined>(currentOrder.floor);
+  const [address, setAddress] = useState<string>(currentOrder.address);
 
   const validateAddress = (address: string | undefined): boolean => {
     // Guard against undefined
@@ -16,6 +14,10 @@ export default function AddressInput() {
     return address.trim().length > 0; // If address is undefined, it returns false
   };
 
+  useEffect(() => {
+    setAddress(currentOrder.address);
+  }, [currentOrder.address]);
+
   const [isAddressValid, setIsAddressValid] = useState<boolean>(validateAddress(address));
 
   // Update isAddressValid whenever the address changes
@@ -24,7 +26,7 @@ export default function AddressInput() {
   }, [address]);
 
   return (
-    <div className="p-4">
+    <div className="p-2 mx-2">
       {/* Address Field */}
       <div className="form-control w-full">
         <label className="label">
@@ -39,12 +41,10 @@ export default function AddressInput() {
               const newAddress = target.value;
               setIsAddressValid(validateAddress(newAddress)); // Validate the address
               setAddress(newAddress);
-              setCurrentOrder((prev) => ({ ...prev, streetAndBuildingNumber: newAddress }));
+              setCurrentOrder((prev) => ({ ...prev, address: newAddress }));
             }
           }}
-          className={`input border-2 bg-transparent text-black w-full focus:border-black ${
-            isAddressValid ? 'border-black' : 'border-error'
-          }`}
+          className={`input border-2 bg-transparent text-black w-full border-black focus:border-black`}
           placeholder="Введите адрес"
         />
          {!isAddressValid && (

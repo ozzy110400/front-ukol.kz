@@ -1,49 +1,53 @@
-import { Box, Button, Checkbox, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
 import currentOrderAtom from '../../../atoms/currentOrder';
 
 interface PremiumDetoxicationProps {}
 
-const PremiumDetoxication= (props:PremiumDetoxicationProps) => {
+const PremiumDetoxication = (props: PremiumDetoxicationProps) => {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
 
+
   return (
-    <Box sx={{ m: 2, mb: 1 }}>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Checkbox 
+    <div className="p-2 mx-2">
+      {/* Checkbox Section */}
+      <div className="flex items-center">
+        <input
+          type="checkbox"
+          className="checkbox  border-2 border-black"
           checked={currentOrder.options.isPremiumIntoxication}
-          onClick={() => 
-            setCurrentOrder(prevOrder => ({
+          onChange={() =>
+            setCurrentOrder((prevOrder) => ({
               ...prevOrder,
-              options: { // Update the nested options object
+              options: {
                 ...prevOrder.options,
-                isPremiumIntoxication: !prevOrder.options.isPremiumIntoxication // Toggle the checkbox state
+                isPremiumIntoxication: !prevOrder.options.isPremiumIntoxication
               },
             }))
           }
         />
-        <Button
-          onClick={() => 
-            setCurrentOrder(prevOrder => ({
+        <button
+            className="btn btn-ghost max-w-full text-black text-lg font-bold whitespace-normal break-words"
+            onClick={() =>
+            setCurrentOrder((prevOrder) => ({
               ...prevOrder,
-              options: { // Update the nested options object
+              options: {
                 ...prevOrder.options,
-                isPremiumIntoxication: !prevOrder.options.isPremiumIntoxication // Toggle the checkbox state
+                isPremiumIntoxication: !prevOrder.options.isPremiumIntoxication
               },
             }))
           }
-          sx={{
-            textTransform: 'none',
-            padding: 0,
-            '&:hover': {
-              backgroundColor: 'transparent',
-            },
-          }}
         >
-          <Typography variant="h3">Премиальная детоксикация (+3 препарата)</Typography>
-        </Button>
-      </Box>
-    </Box>
+         Премиум-детокс (+30,000₸)
+        </button>
+      </div>
+
+        <div className="ml-4 space-y-2">
+          <p className="italic text-sm text-black">
+            Расширенный состав капельницы 
+          </p>
+        </div>
+      
+    </div>
   );
 };
 

@@ -37,7 +37,7 @@ export default function Bandage() {
 
                   <span className="text-black font-semibold mb-2">Перевязка</span>
                   <div className="flex justify-between w-full">
-                    <span className="text-black font-semibold py-1">8000₸</span>
+                    <span className="text-black font-semibold py-1">8,000₸</span>
                     <button
                       className="bg-my-green rounded-lg px-2 py-1"
                       onClick={() => {navigate('/services/bandage/regular')}}

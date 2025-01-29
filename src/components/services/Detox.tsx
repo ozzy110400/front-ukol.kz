@@ -38,7 +38,7 @@ export default function Detox() {
 
                   <span className="text-black font-semibold mb-2">Алкогольная детоксикация</span>
                   <div className="flex justify-between w-full">
-                    <span className="text-black font-semibold py-1">30000₸</span>
+                    <span className="text-black font-semibold py-1">30,000₸</span>
                     <button
                       className="bg-my-green rounded-lg px-2 py-1"
                       onClick={() => {navigate('/services/detox/alcohol')}}
@@ -54,7 +54,7 @@ export default function Detox() {
 
                   <span className="text-black font-semibold mb-2">Наркотическая детоксикация</span>
                   <div className="flex justify-between w-full">
-                    <span className="text-black font-semibold py-1">30000₸</span>
+                    <span className="text-black font-semibold py-1">30,000₸</span>
                     <button
                       className="bg-my-green rounded-lg px-2 py-1"
                       onClick={() => {navigate('/services/detox/drug')}}

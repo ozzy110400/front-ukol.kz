@@ -36,9 +36,9 @@ export default function Drip() {
               <li>
               <div className="flex flex-col justify-between items-start border-2 border-black rounded-lg px-4 py-2 ">
 
-                  <span className="text-black font-semibold mb-2">Индивидуальная капельница</span>
+                  <span className="text-black font-semibold mb-2">Капельница</span>
                   <div className="flex justify-between w-full">
-                    <span className="text-black font-semibold py-1">7000₸</span>
+                    <span className="text-black font-semibold py-1">7,000₸</span>
                     <button
                       className="bg-my-green rounded-lg px-2 py-1"
                       onClick={() => {navigate('/services/drip/custom')}}
@@ -50,27 +50,14 @@ export default function Drip() {
                 </div>
               </li>
               <li>
-              <div className="flex flex-col justify-between items-start border-2 border-black rounded-lg px-4 py-2 ">
-
-                  <span className="text-black font-semibold mb-2">Капельница от похмелья</span>
-                  <div className="flex justify-between w-full">
-                    <span className="text-black font-semibold py-1">7000₸</span>
-                    <button
-                      className="bg-my-green rounded-lg px-2 py-1"
-                      onClick={() => {navigate('/services/drip/hangover')}}
-
-                    >
-                      <span className="text-black font-semibold">Заказать</span>
-                    </button>
-                  </div>
-                </div>
+             
               </li>
               <li>
               <div className="flex flex-col justify-between items-start border-2 border-black rounded-lg px-4 py-2 ">
 
                   <span className="text-black font-semibold mb-2">Капельница от отравления</span>
                   <div className="flex justify-between w-full">
-                    <span className="text-black font-semibold py-1">7000₸</span>
+                    <span className="text-black font-semibold py-1">15,000₸</span>
                     <button
                       className="bg-my-green rounded-lg px-2 py-1"
                       onClick={() => {navigate('/services/drip/poisoning')}}

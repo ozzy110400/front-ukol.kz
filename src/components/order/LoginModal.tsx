@@ -1,27 +1,26 @@
-import { useState } from 'preact/hooks';
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  TextField,
-  Typography,
-  Checkbox,
-  FormControlLabel,
-  CircularProgress,
-} from '@mui/material';
+import { useState, useEffect } from 'preact/hooks';
 import { useAtom } from 'jotai';
 import { authAtom } from '../../atoms/auth';
 import modalsOpenAtom from '../../atoms/modalsOpen';
 import InputMask from 'react-input-mask';
 import { authPhone, verifyCode } from '../../helpers/api/apiClient';
 import { trackClarityEvent } from 'App';
+import currentOrderAtom from 'atoms/currentOrder';
+import PhoneInput from './PhoneInput';
+
+const formatPhone = (rawPhone: string): string => {
+  if (!rawPhone) return '';
+  const cleaned = rawPhone.replace(/\D/g, '');
+  return `+7 (${cleaned.slice(1, 4)}) ${cleaned.slice(4, 7)}-${cleaned.slice(7, 9)}-${cleaned.slice(9, 11)}`;
+};
+
+
 
 export default function LoginModal() {
+  const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
   const [modalsOpen, setModalsOpen] = useAtom(modalsOpenAtom);
   const [authValue, setAuthValue] = useAtom(authAtom);
-  const [phone, setPhone] = useState('');
+  const [phone, setPhone] = useState<string>(formatPhone(currentOrder.phone));
   const [isPolicyChecked, setIsPolicyChecked] = useState(false);
   const [codeMessage, setCodeMessage] = useState({
     message: 'Код отправлен на WhatsApp по указаному номеру',
@@ -32,7 +31,12 @@ export default function LoginModal() {
   const [timer, setTimer] = useState(0);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-  // Loading states
+  const validatePhone = (phone: string): boolean => {
+    const phoneRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
+    return phoneRegex.test(phone);
+  };
+  const [isPhoneValid, setIsPhoneValid] = useState<boolean>(validatePhone(phone));
+
   const [isGetCodeLoading, setIsGetCodeLoading] = useState(false);
   const [isSubmitCodeLoading, setIsSubmitCodeLoading] = useState(false);
 
@@ -43,6 +47,13 @@ export default function LoginModal() {
   const formatPhoneNumber = (phone: string) => {
     return phone.replace(/\D/g, '');
   };
+ 
+
+  useEffect(() => {
+    const formattedPhone = formatPhone(currentOrder.phone);
+    setPhone(formattedPhone);
+    setIsPhoneValid(validatePhone(formattedPhone)); // Добавлено обновление валидации
+  }, [currentOrder.phone]);
 
   const handleSendCode = async () => {
     setIsGetCodeLoading(true); // Show loader
@@ -102,110 +113,97 @@ export default function LoginModal() {
   const handleCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCode((event.target as HTMLInputElement).value);
   };
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement; // Приведение типа к HTMLInputElement
+    if (!target) return;
+    const rawPhone = target.value.replace(/\D/g, '');
+    const formattedPhone = formatPhone(rawPhone);
+    
+    setPhone(formattedPhone);
+    setCurrentOrder(prev => ({ ...prev, phone: rawPhone }));
+    setIsPhoneValid(validatePhone(formattedPhone));
+  };
 
   return (
-    <Box>
-      <Dialog open={modalsOpen.isLoginModalOpen} onClose={handleClose} fullWidth>
-        <DialogTitle>
-          <Typography variant="h5" sx={{ textAlign: 'center' }}>
-            Авторизация
-          </Typography>
-        </DialogTitle>
-        <DialogContent>
-          <Box
-            sx={{
-              width: '100%',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              padding: 2,
-              backgroundColor: 'transparent',
-            }}
+    <div class={`modal ${modalsOpen.isLoginModalOpen ? 'modal-open' : ''}`}>
+      <div class="modal-box w-full max-w-md bg-my-white relative">
+        {/* Close tick icon */}
+        <button className="btn btn-sm btn-circle text-black btn-ghost absolute right-2 top-2"
+         onClick={handleClose}>
+          ✕
+          </button>
+        <p class="text-center text-black text-lg font-semibold">После подтверждения номера телефона заказ будет создан автоматически</p>
+        
+         <div class="mt-4">
+          <InputMask
+            required
+            mask="+7 (999) 999-9999"
+            value={phone}
+            onChange={handlePhoneChange}
+            disabled={isButtonDisabled || isGetCodeLoading}
           >
-                <Box sx={{ mt: '2%', alignItems: 'center' }}>
-                  <InputMask
-                    required
-                    mask="+7 (999) 999-9999"
-                    value={phone}
-                    onChange={(event) => setPhone((event.target as HTMLInputElement).value)}
-                    disabled={isButtonDisabled || isGetCodeLoading}
-                  >
-                    {() => (
-                      <TextField
-                        label="Номер телефона"
-                        variant="standard"
-                        fullWidth
-                        disabled={isButtonDisabled || isGetCodeLoading}
-                      />
-                    )}
-                  </InputMask>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={isPolicyChecked}
-                        onChange={(e) => setIsPolicyChecked((e.target as HTMLInputElement).checked)}
-                      />
-                    }
-                    label={
-                      <Typography variant="body2">
-                        Согласен(а) с политикой конфиденциальности и договором оферты
-                      </Typography>
-                    }
-                  />
-                  <Button
-                    variant="contained"
-                    onClick={handleSendCode}
-                    sx={{
-                      backgroundColor: '#88e788',
-                      border: '3px solid black',
-                      borderRadius: '140px',
-                      marginTop: 2,
-                    }}
-                    disabled={!isPolicyChecked || isButtonDisabled || isGetCodeLoading}
-                  >
-                    {isGetCodeLoading ? (
-                      <CircularProgress size={24} color="inherit" />
-                    ) : (
-                      <Typography variant="h5">
-                        {isButtonDisabled ? `Повтор через ${timer} сек` : 'Получить код'}
-                      </Typography>
-                    )}
-                  </Button>
-                </Box>
+            {() => (
+              <input
+                type="text"
+                placeholder="Номер телефона"
+                className={`input border-2 bg-transparent text-black w-full border-black focus:border-black`}
+                disabled={isButtonDisabled || isGetCodeLoading}
+              />
+            )}
+          </InputMask>
+          <label class="label cursor-pointer flex items-center mt-2">
+            <input
+              type="checkbox"
+              checked={isPolicyChecked}
+              onChange={(e) => setIsPolicyChecked((e.target as HTMLInputElement).checked)}
+              class="checkbox  border-2 border-black"
+            />
+            <span class="ml-2 text-sm text-black">
+              Согласен(а) с политикой конфиденциальности и договором оферты
+            </span>
+          </label>
+          <button
+            class={`btn ${isButtonDisabled || isGetCodeLoading ? 'btn-disabled' : 'bg-my-green'} text-black text-xl btn-ghost w-full mt-4`}
+            onClick={handleSendCode}
+            disabled={!isPolicyChecked || isButtonDisabled || isGetCodeLoading || !isPhoneValid}
+          >
+            {isGetCodeLoading ? (
+              <div class="loading loading-spinner loading-sm"></div>
+            ) : (
+              <span className="text-black">{isButtonDisabled ? `Повтор через ${timer} сек` : 'Получить код'}</span>
+            )}
+          </button>
+        </div> 
 
-                {isCodeSent && (
-                  <Box sx={{ mt: 4 }}>
-                    <TextField
-                      label="Введите код"
-                      variant="standard"
-                      fullWidth
-                      value={code}
-                      error={codeMessage.hasError}
-                      onChange={handleCodeChange}
-                      inputProps={{ maxLength: 5, pattern: '[0-9]*', inputMode: 'numeric' }}
-                      helperText={codeMessage.message}
-                    />
-                    <Button
-                      variant="contained"
-                      onClick={handleCodeSubmit}
-                      sx={{
-                        backgroundColor: '#88e788',
-                        border: '3px solid black',
-                        borderRadius: '140px',
-                        marginTop: 2,
-                      }}
-                      disabled={isSubmitCodeLoading}
-                    >
-                      {isSubmitCodeLoading ? (
-                        <CircularProgress size={24} color="inherit" />
-                      ) : (
-                        <Typography variant="h5">Отправить</Typography>
-                      )}
-                    </Button>
-                  </Box>
-                )}
-          </Box>
-        </DialogContent>
-      </Dialog>
-    </Box>
+        {isCodeSent && (
+          <div class="mt-4">
+            <input
+              type="text"
+              placeholder="Введите код"
+              class={`input input-bordered w-full ${codeMessage.hasError ? 'input-error' : ''}`}
+              value={code}
+              onChange={handleCodeChange}
+              pattern="[0-9]*"
+              inputMode="numeric"
+            />
+            <p class={`text-sm ${codeMessage.hasError ? 'text-error' : 'text-gray-500'}`}>
+              {codeMessage.message}
+            </p>
+            <button
+              class={`btn ${isSubmitCodeLoading ? 'btn-disabled' : 'btn-success'} w-full mt-4`}
+              onClick={handleCodeSubmit}
+              disabled={isSubmitCodeLoading}
+            >
+              {isSubmitCodeLoading ? (
+                <div class="loading loading-spinner loading-sm"></div>
+              ) : (
+                <span>Отправить</span>
+              )}
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
+

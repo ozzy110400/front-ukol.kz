@@ -115,7 +115,7 @@ export default function NurseServices() {
             </div>
             <div className="flex justify-between items-center mt-6 border-t-2 border-black pt-4">
               <div>
-                <span className="text-xl font-bold block">20 000₸ / 8 часов</span>
+                <span className="text-xl font-bold block">20,000₸/8 часов</span>
                 <small className="text-gray-600">+500₸/час при превышении времени</small>
               </div>
               <button 
@@ -158,7 +158,7 @@ export default function NurseServices() {
             </div>
             <div className="flex justify-between items-center mt-6 border-t-2 border-black pt-4">
               <div>
-                <span className="text-xl font-bold block">20 000₸ / 8 часов</span>
+                <span className="text-xl font-bold block">20,000₸/8 часов</span>
                 <small className="text-gray-600">Минимальный заказ 4 часа</small>
               </div>
               <button 
@@ -202,8 +202,8 @@ export default function NurseServices() {
             </div>
             <div className="flex justify-between items-center mt-6 border-t-2 border-black pt-4">
               <div>
-                <span className="text-xl font-bold block">20 000₸ / 8 часов</span>
-                <small className="text-gray-600">+2 медсестры за 35 000₸</small>
+                <span className="text-xl font-bold block">20,000₸ / 8 часов</span>
+                <small className="text-gray-600">+2 медсестры за 35,000₸</small>
               </div>
               <button 
                 className="bg-my-green  text-black font-semibold px-6 py-2 rounded-lg"

@@ -3,14 +3,16 @@ import { atomWithStorage } from 'jotai/utils';
 
 export type TOrder = {
     _id?: string,
-    title?: string;
-    streetAndBuildingNumber?: string;
+    title: string;
+    address: string;
     flat?: string;
     floor?: string;
-    amount?: number;
+    amount: number;
+    phone: string;
     options: {
         isChild: boolean,
         isNeedWoman: boolean,
+        isNeedInjection: boolean,
         isNeedPharmacy: boolean,
         isHaveDoctorsAppointment: boolean,
         isWithDrugsCocktail: boolean,
@@ -34,13 +36,15 @@ export type TOrder = {
 const currentOrderAtom = atomWithStorage<TOrder>('currentOrder', {
   _id: '',
   title: '',
-  streetAndBuildingNumber: '',
+  address: '',
   flat: '',
   floor: '',
   amount: 0,
+  phone: '',
   options: {
     isChild: false,
     isNeedWoman: false,
+    isNeedInjection: false,
     isNeedPharmacy: false,
     isHaveDoctorsAppointment: false,
     isWithDrugsCocktail: false,

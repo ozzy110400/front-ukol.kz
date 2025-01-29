@@ -1,9 +1,9 @@
 import { useAtom } from 'jotai';
 import currentOrderAtom from '../../../atoms/currentOrder';
 
-interface WithMaterialsPoisoningProps {}
+interface NeedInjectionProps {}
 
-const WithMaterialsPoisoning = (props: WithMaterialsPoisoningProps) => {
+const NeedInjection = (props: NeedInjectionProps) => {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
 
   return (
@@ -13,13 +13,13 @@ const WithMaterialsPoisoning = (props: WithMaterialsPoisoningProps) => {
         <input
           type="checkbox"
           className="checkbox  border-2 border-black"
-          checked={currentOrder.options.isWithMaterialsPoisoning}
+          checked={currentOrder.options.isNeedInjection}
           onChange={() =>
             setCurrentOrder((prevOrder) => ({
               ...prevOrder,
               options: {
                 ...prevOrder.options,
-                isWithMaterialsPoisoning: !prevOrder.options.isWithMaterialsPoisoning, // Toggle the checkbox state
+                isNeedInjection: !prevOrder.options.isNeedInjection, // Toggle the checkbox state
               },
             }))
           }
@@ -31,16 +31,16 @@ const WithMaterialsPoisoning = (props: WithMaterialsPoisoningProps) => {
               ...prevOrder,
               options: {
                 ...prevOrder.options,
-                isWithMaterialsPoisoning: !prevOrder.options.isWithMaterialsPoisoning, // Toggle the checkbox state
+                isNeedInjection: !prevOrder.options.isNeedInjection, // Toggle the checkbox state
               },
             }))
           }
         >
-          Нужны препараты (+5,000₸)
+          Нужен укол (+1,000₸)
         </button>
       </div>
     </div>
   );
 };
 
-export default WithMaterialsPoisoning;
+export default NeedInjection;

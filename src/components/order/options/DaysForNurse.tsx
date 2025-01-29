@@ -1,46 +1,45 @@
-import { Box, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material';
 import { useAtom } from 'jotai';
 import currentOrderAtom from '../../../atoms/currentOrder';
+import { ChangeEvent } from 'react';
 
-interface DaysForNurseProps {}
-
-const DaysForNurse = (props: DaysForNurseProps)  => {
+const DaysForNurse = () => {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
-  
-  const handleDaysChange = (event: SelectChangeEvent<number>) => {
+
+  const handleDaysChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const target = event.target as HTMLInputElement;
     const selectedDays = target.value as unknown as number;
     setCurrentOrder(prevOrder => ({
       ...prevOrder,
       options: {
         ...prevOrder.options,
-        daysForNurse: selectedDays, 
+        daysForNurse: selectedDays,
       },
       amount: selectedDays * 20000,
     }));
   };
 
   return (
-    <Box sx={{ m: 2, mb: 1 }}>
-      <Typography variant="h3" sx={{ mb: 2 }}>
-        Количество смен на которые вам необходима медсестр. 1 смена = 8 часов
-      </Typography>
-      <FormControl fullWidth>
-        <InputLabel>Количество смен</InputLabel>
-        <Select
-          value={currentOrder.options.daysForNurse || ''}
+    <div className="p-2 mx-2">      
+      <div className="form-control w-full">
+        <label className="label">
+          <span className="label-text text-black t">Количество смен (1 смена = 8 часов)</span>
+        </label>
+        <select
+          value={currentOrder.options.daysForNurse ?? ''}
           onChange={handleDaysChange}
-          label="Количество смен"
+          className="select select-bordered w-full text-lg text-black bg-transparent border-black border-2 focus:border-black"
         >
+          <option disabled value="">Выберите количество</option>
           {[1, 2, 3, 4, 5, 6, 7].map((day) => (
-            <MenuItem key={day} value={day} >
-              {day}
-            </MenuItem>
+            <option key={day} value={day}>
+              {day} смен
+            </option>
           ))}
-        </Select>
-      </FormControl>
-    </Box>
+        </select>
+      </div>
+    </div>
   );
 };
 
 export default DaysForNurse;
+

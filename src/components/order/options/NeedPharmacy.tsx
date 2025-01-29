@@ -36,7 +36,7 @@ const NeedPharmacy = (props: NeedPharmacyProps) => {
             }))
           }
         >
-          Нужно зайти в аптеку (+1000₸)
+          Зайти в аптеку (+1,000₸)
         </button>
       </div>
 

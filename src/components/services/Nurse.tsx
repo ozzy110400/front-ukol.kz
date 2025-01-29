@@ -38,7 +38,7 @@ export default function Nurse() {
 
                   <span className="text-black font-semibold mb-2">Уход за лежачим человеком</span>
                   <div className="flex justify-between w-full">
-                    <span className="text-black font-semibold py-1">20000₸ за 8 часов</span>
+                    <span className="text-black font-semibold py-1">20,000₸ за 8 часов</span>
                     <button
                       className="bg-my-green rounded-lg px-2 py-1"
                       onClick={() => {navigate('/services/nurse/bed')}}
@@ -54,7 +54,7 @@ export default function Nurse() {
 
                   <span className="text-black font-semibold mb-2">Уход за пожилым человеком</span>
                   <div className="flex justify-between w-full">
-                    <span className="text-black font-semibold py-1">20000₸ за 8 часов</span>
+                    <span className="text-black font-semibold py-1">20,000₸ за 8 часов</span>
                     <button
                       className="bg-my-green rounded-lg px-2 py-1"
                       onClick={() => {navigate('/services/nurse/old')}}
@@ -70,7 +70,7 @@ export default function Nurse() {
 
                   <span className="text-black font-semibold mb-2">Дежурство на мероприятии</span>
                   <div className="flex justify-between w-full">
-                    <span className="text-black font-semibold py-1">20000₸ за 8 часов</span>
+                    <span className="text-black font-semibold py-1">20,000₸ за 8 часов</span>
                     <button
                       className="bg-my-green rounded-lg px-2 py-1"
                       onClick={() => {navigate('/services/nurse/event')}}
