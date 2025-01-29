@@ -7,6 +7,7 @@ import { authAtom }  from '../../atoms/auth';
 import { uploadPhoto, createOrder } from '../../helpers/api/apiClient';
 import dayjs from 'dayjs';
 import { trackClarityEvent } from 'App';
+import { navigate } from 'wouter-preact/use-browser-location';
 
 const OrderFooter = () => {
   const [auth, setAuth] = useAtom(authAtom);
@@ -17,7 +18,7 @@ const OrderFooter = () => {
   const [loading, setLoading] = useState(false); // State to handle loading
 
   const handleSubmit = async () => {
-    setLoading(true); // Set loading state to true when the button is clicked
+    setLoading(true);
   
     // Validate essential fields
     if (!currentOrder.address) {
@@ -69,6 +70,7 @@ const OrderFooter = () => {
       // Show success modal if the operation was successful
       setModalsOpen((prev) => ({ ...prev, isSuccesModalOpen: result.success }));
       console.log('Order created successfully:', result);
+      navigate('/waiting')
     } catch (error) {
       console.error('Failed to create order:', error);
     } finally {

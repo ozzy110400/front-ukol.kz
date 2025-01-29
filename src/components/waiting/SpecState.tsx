@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useAtom } from 'jotai';
-import Typography from '@mui/material/Typography';
 import { currentSpecAtom } from '../../atoms/currentSpecialists';
 import currentOrderAtom from '../../atoms/currentOrder';
 import { DotsAnimation } from 'components/DotsAnimation';
 import { checkOpenOrder } from '../../helpers/api/apiClient';
-import { Box, Button, CircularProgress } from '@mui/material';
 import { useLocation } from 'wouter-preact';
 
 const SpecState = () => {
@@ -14,30 +12,17 @@ const SpecState = () => {
   const [currentSpecs] = useAtom(currentSpecAtom);
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
   const [replyCount, setReplyCount] = useState(0);
-
   const [timeToArrive, setTimeToArrive] = useState(0);
   const [specPhoneNumber, setSpecPhoneNumber] = useState('');
-
-
   const [isOrderTaken, setIsOrderTaken] = useState(false);
-
-  // const handleCancelOrder = async () => {
-  //   setIsPressingBtn(true);  // Start loading when cancel is initiated
-  //     const phone = specPhoneNumber; // Replace with the actual phone number
-  //     const message = ''; // The message you want to send
-  //     const whatsappUrl = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`;
-  //     window.open(whatsappUrl, '_blank'); // Open in a new tab
-  //     setIsPressingBtn(false);  // Stop loading when the cancellation process is done
-  // };
 
   useEffect(() => {
     const checkOrderStatus = async () => {
       try {
-
         const { order } = await checkOpenOrder();
-        if(!order){
-          console.log('we are here')
-          navigate('/')
+        if (!order) {
+          console.log('we are here');
+          navigate('/');
         }
         if (order.status === 'taken' && !isOrderTaken) {
           setCurrentOrder((prev) => ({ ...prev, status: order.status }));
@@ -48,38 +33,33 @@ const SpecState = () => {
         if (order.status === 'waiting_rating' && !isOrderTaken) {
           setCurrentOrder((prev) => ({ ...prev, status: order.status }));
         }
-
       } catch (error) {
         console.error('Failed to check order status:', error);
       }
     };
 
     checkOrderStatus();
-
-    const interval = setInterval(() => {
-      checkOrderStatus();
-    }, 5000);
-
+    const interval = setInterval(checkOrderStatus, 5000);
     return () => clearInterval(interval);
   }, []);
 
   if (isOrderTaken) {
     return (
-      <Box>
-        <Typography variant="h5" sx={{ mt: 2, ml: 2, mr: 2, textAlign: 'center' }}>
+      <div className="p-4 text-center">
+        <h5 className="text-lg font-semibold text-black">
           {currentOrder.arrivalTime.isNearestHour 
             ? `Специалист подтвердил ваш заказ и уже выехал! Ожидайте через ${timeToArrive} минут`
             : `Специалист подтвердил ваш заказ и будет у вас в ${currentOrder.arrivalTime.hours} часа ${currentOrder.arrivalTime.minutes} минут ${currentOrder.arrivalTime.date}`
           }
-        </Typography>
-      </Box>
+        </h5>
+      </div>
     );
   }
 
   return (
-    <Typography variant="h5" sx={{  mt: 2, ml: 2, mr: 2, textAlign: 'center' }}>
-        Подбираем подходящего для Вас специалиста, ожидайте<DotsAnimation />     
-    </Typography>
+    <h5 className="p-4 text-center text-lg font-semibold">
+      Подбираем подходящего для Вас специалиста, ожидайте <DotsAnimation />
+    </h5>
   );
 };
 

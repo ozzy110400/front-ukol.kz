@@ -64,6 +64,31 @@ export default function Order() {
     setIsCancelling(false);  // Stop loading when the cancellation process is done
   };
 
+  return (
+    <div className="mt-10 text-center bg-transparent">
+      <h2 className="text-2xl font-bold text-black mb-4">
+        Заказ успешно создан
+      </h2>
+      <div className="flex justify-center gap-4">
+        <button
+          onClick={() => navigate('/')}
+          className="btn  btn-ghost  bg-my-green text-black rounded-lg px-6  text-lg"
+        >
+          На главную
+        </button>
+        <button
+          onClick={handleCancelOrder}
+          className="btn btn-ghost bg-my-green text-black rounded-lgl px-6 text-lg flex items-center justify-center"
+        >
+          {isCancelling ? (
+            <span className="loading loading-spinner loading-md"></span>
+          ) : (
+            'Связаться с поддержкой'
+          )}
+        </button>
+      </div>
+    </div>
+  );
 
   return (
     <Box sx={{ mt: '5%',  textAlign: 'center', backgroundColor: 'transparent' }}>

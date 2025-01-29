@@ -180,7 +180,7 @@ export default function LoginModal() {
             <input
               type="text"
               placeholder="Введите код"
-              class={`input input-bordered w-full ${codeMessage.hasError ? 'input-error' : ''}`}
+              class={`input border-2 bg-transparent text-black w-full border-black focus:border-black ${codeMessage.hasError ? 'input-error' : ''}`}
               value={code}
               onChange={handleCodeChange}
               pattern="[0-9]*"
@@ -190,7 +190,7 @@ export default function LoginModal() {
               {codeMessage.message}
             </p>
             <button
-              class={`btn ${isSubmitCodeLoading ? 'btn-disabled' : 'btn-success'} w-full mt-4`}
+              class={`btn ${isSubmitCodeLoading ? 'btn-disabled' : 'btn-my-green'} text-black text-xl btn-ghost w-full mt-4`}
               onClick={handleCodeSubmit}
               disabled={isSubmitCodeLoading}
             >
