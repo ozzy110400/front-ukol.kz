@@ -190,7 +190,7 @@ export default function LoginModal() {
               {codeMessage.message}
             </p>
             <button
-              class={`btn ${isSubmitCodeLoading ? 'btn-disabled' : 'btn-my-green'} text-black text-xl btn-ghost w-full mt-4`}
+              class={`btn ${isSubmitCodeLoading ? 'btn-disabled' : 'bg-my-green'} text-black text-xl btn-ghost w-full mt-4`}
               onClick={handleCodeSubmit}
               disabled={isSubmitCodeLoading}
             >

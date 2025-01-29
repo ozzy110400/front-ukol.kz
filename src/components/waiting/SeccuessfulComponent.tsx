@@ -69,7 +69,7 @@ export default function Order() {
       <h2 className="text-2xl font-bold text-black mb-4">
         Заказ успешно создан
       </h2>
-      <div className="flex justify-center gap-4">
+      <div className="flex flex-col justify-center gap-4 mx-2">
         <button
           onClick={() => navigate('/')}
           className="btn  btn-ghost  bg-my-green text-black rounded-lg px-6  text-lg"

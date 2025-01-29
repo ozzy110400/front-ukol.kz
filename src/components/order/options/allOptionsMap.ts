@@ -176,9 +176,7 @@ import WithMaterialsPoisoning from "./WithMaterialsPoisoning";
       {
         component: WithMaterialsPoisoning,
       },
-      {
-        component: NeedPharmacy,
-      },
+
       {
         component: Message,
       },

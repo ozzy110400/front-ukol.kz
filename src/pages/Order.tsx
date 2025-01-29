@@ -444,9 +444,9 @@ export default function Order() {
                 border-2 border-solid border-black 
                 rounded-bl-lg
                 before:bg-black before:top-44">
-                  <h2 class="text-2xl font-bold text-black mb-4">Нам доверились более 15 000 пациентов</h2>
+                  <h2 class="text-2xl font-bold text-black mb-4">Нам доверились более 10 000 пациентов</h2>
                   <p class="text-lg text-gray-700 mb-4">
-                  За 3 лет работы мы помогли тысячам людей получить качественную медицинскую помощь 
+                  За 2 года работы мы помогли тысячам людей получить качественную медицинскую помощь 
                   без посещения клиники. 98% пациентов рекомендуют нас своим близким.
                   </p>
                   
@@ -465,7 +465,7 @@ export default function Order() {
                 text-black text-lg font-semibold 
                 border-2 border-solid border-black 
                 rounded-bl-lg
-                before:bg-black before:top-14">
+                before:bg-black before:top-40">
                  <h2 class="text-2xl font-bold text-black mb-4">Безупречный подход</h2>
                  <p className="text-lg text-gray-700 mb-4">
                 Наши специалисты - сертифицированные медсестры с клиническим опытом работы от 5 лет. 
