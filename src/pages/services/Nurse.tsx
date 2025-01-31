@@ -1,4 +1,4 @@
-import Head from 'preact-head';
+import Review from 'components/Reviews';
 import OldImg from '../../../img/services/nurse/old.svg';
 import BedImg from '../../../img/services/nurse/bed.svg';
 import BagImg from '../../../img/services/nurse/bag.svg';
@@ -10,6 +10,8 @@ import dayjs from 'dayjs';
 import { useEffect } from 'preact/hooks';
 import { useAtom } from 'jotai';
 import currentOrderAtom from 'atoms/currentOrder';
+import Certification from 'components/Certificates';
+import Breadcrumbs from 'components/Breadcrumbs';
 
 const faq = [
   {
@@ -134,6 +136,8 @@ export default function NurseServices() {
     <main>
 
       <Header/>
+      <Breadcrumbs/>
+
 
       {/* Hero Section */}
       <section className="mb-6 mt-2 px-4">
@@ -149,6 +153,9 @@ export default function NurseServices() {
           </div>
         </div>
       </section>
+
+      <Order/> 
+
 
       {/* Секции услуг */}
       <section className="space-y-16 px-4 text-black">
@@ -279,7 +286,6 @@ export default function NurseServices() {
         </div>
       </section>
 
-      <Order/> 
 
 
       {/* Преимущества */}
@@ -302,8 +308,9 @@ export default function NurseServices() {
           </div>
         </div>
       </div>
-
+      <Review/> 
       <FAQ faqItems={faq}/>
+      <Certification/>
       <Footer/>
     </main>
   );

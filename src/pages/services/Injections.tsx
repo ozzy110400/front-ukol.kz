@@ -1,4 +1,4 @@
-import  Head  from 'preact-head';
+import Review from 'components/Reviews';
 import VeinImg from '../../../img/services/injections/vein.svg';
 import MuscleImg from '../../../img/services/injections/muscle.svg';
 import SkinImg from '../../../img/services/injections/skin.svg';
@@ -10,6 +10,8 @@ import dayjs from 'dayjs';
 import { useEffect } from 'preact/hooks';
 import { useAtom } from 'jotai';
 import currentOrderAtom from 'atoms/currentOrder';
+import Certification from 'components/Certificates';
+import Breadcrumbs from 'components/Breadcrumbs';
 
 const faq = [
   {
@@ -146,6 +148,8 @@ export default function Injections() {
     <main>
 
       <Header/>
+      <Breadcrumbs/>
+
 
       {/* Hero Section */}
       <section className="mb-6 mt-2 px-4">
@@ -162,6 +166,7 @@ export default function Injections() {
 
         </div>
       </section>
+      <Order/> 
 
       {/* Секция для каждого типа инъекций */}
       <section className="space-y-16 px-4 text-black">
@@ -287,7 +292,6 @@ export default function Injections() {
         </div>
       </section>
 
-      <Order/> 
 
       <div className="space-y-16 px-4 text-black">
         <div className="rounded-lg p-6 my-8 bg-my-green/30">
@@ -346,7 +350,9 @@ export default function Injections() {
       </div>
 
 
+      <Review/> 
       <FAQ faqItems={faq}/>
+      <Certification/>
       <Footer/>
     </main>
   );

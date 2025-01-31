@@ -1,4 +1,4 @@
-import Head from 'preact-head';
+import Review from 'components/Reviews';
 import AlcoholDetoxImg from '../../../img/services/detox/alcohol.svg';
 import DrugDetoxImg from '../../../img/services/detox/drug.svg';
 import Header from 'components/Header';
@@ -9,6 +9,8 @@ import dayjs from 'dayjs';
 import { useAtom } from 'jotai';
 import currentOrderAtom from 'atoms/currentOrder';
 import { useEffect } from 'preact/hooks';
+import Certification from 'components/Certificates';
+import Breadcrumbs from 'components/Breadcrumbs';
 
 const faq = [
   {
@@ -137,6 +139,8 @@ export default function Detox() {
   return (
     <main>
       <Header/>
+      <Breadcrumbs/>
+
 
       {/* Hero Section */}
       <section className="mb-6 mt-2 px-4">
@@ -152,6 +156,7 @@ export default function Detox() {
           </div>
         </div>
       </section>
+      <Order/> 
 
       {/* Секции детоксикации */}
       <section className="space-y-16 px-4 text-black">
@@ -238,7 +243,6 @@ export default function Detox() {
         </div>
       </section>
 
-      <Order/> 
 
       {/* Преимущества */}
       <div className="space-y-16 px-4 text-black">
@@ -293,8 +297,9 @@ export default function Detox() {
           </table>
         </div>
       </div>
-
+      <Review/> 
       <FAQ faqItems={faq}/>
+      <Certification/>
       <Footer/>
     </main>
   );

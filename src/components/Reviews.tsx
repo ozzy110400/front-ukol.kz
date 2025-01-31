@@ -2,14 +2,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import r1 from "../../../img/reviews/r11.webp";
-import r2 from "../../../img/reviews/r22.webp";
-import r3 from "../../../img/reviews/r33.webp";
-import r4 from "../../../img/reviews/r44.webp";
-import r5 from "../../../img/reviews/r55.webp";
-import r6 from "../../../img/reviews/r66.webp";
-import r7 from "../../../img/reviews/r77.webp";
-import r8 from "../../../img/reviews/r88.webp";
+import r1 from "../../img/reviews/r11.webp";
+import r2 from "../../img/reviews/r22.webp";
+import r3 from "../../img/reviews/r33.webp";
+import r4 from "../../img/reviews/r44.webp";
+import r5 from "../../img/reviews/r55.webp";
+import r6 from "../../img/reviews/r66.webp";
+import r7 from "../../img/reviews/r77.webp";
+import r8 from "../../img/reviews/r88.webp";
 
 import { EffectCoverflow, Pagination } from "swiper/modules";
 import { useState } from "preact/hooks";
@@ -50,7 +50,7 @@ const reviewImages = [
 ];
 
 
-export default function ReviewCarousel() {
+export default function Review() {
   const [swiperHeight, setSwiperHeight] = useState("auto");
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 

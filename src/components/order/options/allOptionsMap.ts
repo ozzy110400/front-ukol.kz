@@ -1,3 +1,4 @@
+import Injection from "components/services/Injection";
 import DaysForNurse from "./DaysForNurse";
 import DoctorsAppointment from "./DoctorsAppointment";
 import Dressing from "./Dressing";
@@ -112,6 +113,23 @@ import WithMaterialsPoisoning from "./WithMaterialsPoisoning";
 
 
   export const serviceOptionsMap = {
+    injection: [
+      {
+        component: DoctorsAppointment,
+      },
+      {
+        component: IsChild,
+      },
+      {
+        component: NeedWoman,
+      },
+      {
+        component: NeedPharmacy,
+      },
+      {
+        component: Message,
+      }
+    ],
     intramuscularly: [
       {
         component: DoctorsAppointment,
@@ -181,6 +199,26 @@ import WithMaterialsPoisoning from "./WithMaterialsPoisoning";
         component: Message,
       },
     ],
+    drip: [
+      {
+        component: DoctorsAppointment,
+      },
+      {
+        component: IsChild,
+      },
+      {
+        component: NeedWoman,
+      },
+      {
+        component: NeedInjection,
+      },
+      {
+        component: NeedPharmacy,
+      },
+      {
+        component: Message,
+      },
+    ],
     custom: [
       {
         component: DoctorsAppointment,
@@ -217,6 +255,14 @@ import WithMaterialsPoisoning from "./WithMaterialsPoisoning";
         component: Message,
       }
     ],   
+    detox: [
+      {
+      component: PremiumIntoxication,
+      },
+      {
+        component: Message,
+      }
+  ],
     regular: [
         {
         component: Dressing,

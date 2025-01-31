@@ -3,7 +3,7 @@ import FAQ from '../components/FAQ';
 import Header from 'components/Header';
 import Experts from 'components/main/Experts';
 import LastPhrase from 'components/main/LastPhrase';
-import Review from 'components/main/Reviews';
+import Review from 'components/Reviews';
 import Service from 'components/main/Service';
 import Footer from 'components/Footer';
 import Head from 'preact-head';
@@ -12,6 +12,8 @@ import Order from 'components/Order';
 import dayjs from 'dayjs';
 import currentOrderAtom from '../atoms/currentOrder';
 import { useAtom } from 'jotai';
+import Certification from 'components/Certificates';
+import OrderShort from 'components/main/OrderShort';
 
 const faqItems = [
   {
@@ -85,7 +87,7 @@ export default function Main() {
 
     };
     setServiceDetails();
-  }, );
+  }, []);
 
 
   useEffect(() => {
@@ -138,15 +140,18 @@ export default function Main() {
       document.head.removeChild(linkCanonical);
     };
   }, []);
+
   return (
     <main>
       <Header />
       <MainPhrase />
+      <OrderShort />
       <Experts />
       <Service/>
       <Review/>
       <Order/>
       <FAQ faqItems={faqItems} />
+      <Certification/>
       <LastPhrase />
       <Footer />
 

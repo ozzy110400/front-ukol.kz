@@ -10,6 +10,8 @@ import Injections from 'pages/services/Injections';
 import Drips from 'pages/services/Drips';
 import Detox from 'pages/services/Detox';
 import Nurse from 'pages/services/Nurse';
+import PrivacyDoc from 'pages/PrivacyDoc';
+import OfferDoc from 'pages/OfferDoc';
 //import Service from 'pages/Service';
 
 declare global {
@@ -74,6 +76,8 @@ export default function () {
           <Route path="/services/:type/:code" component={Order} />
           <Route path="/waiting" component={Waiting} />
           <Route path="/rating/:id" component={Raiting} />
+          <Route path="/privacy" component={PrivacyDoc} />
+          <Route path="/offer" component={OfferDoc} />
           <Route path="*" component={NotFound} />
         </Switch>
       </Suspense>    

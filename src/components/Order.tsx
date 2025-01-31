@@ -10,7 +10,7 @@ import OrderFooter from 'components/order/OrderFooter';
 import LoginModal from 'components/order/LoginModal';
 import dayjs from 'dayjs';
 import { serviceMapping } from 'helpers/servicesValue';
-import { useState } from 'preact/hooks';
+import { useMemo, useState } from 'preact/hooks';
 
 
 
@@ -18,7 +18,6 @@ export default function Order() {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
   const [location] = useLocation();
   const [currentSelection, setCurrentSelection] = useState('')
-
   
   const currentPath = location;
   let selectOptions: Array<{ value: string; label: string, price: number }> = [];
@@ -26,7 +25,7 @@ export default function Order() {
   if (currentPath === '/' || currentPath === '/services') {
     selectOptions = Object.entries(serviceMapping).flatMap(([category, services]) =>
       Object.entries(services).map(([subCode, service]) => ({
-        value: `${subCode}`,
+        value: subCode,
         label: service.title,
         price: service.price
       }))
@@ -42,8 +41,8 @@ export default function Order() {
     }
   }
 
-
   const handleSelect = (value: string, title: string) => {
+
     setCurrentSelection(value)
 
     setCurrentOrder((prevOrder) => ({
@@ -70,21 +69,26 @@ export default function Order() {
         isNearestHour: true,
         date: dayjs().format('YYYY-MM-DD'),
       },
+
+      
     }));
   };
-  const getOptions = () => {
-    const options = currentSelection ? serviceOptionsMap[currentSelection as keyof typeof serviceOptionsMap]: []
-    return (
+  const OptionsRenderer = useMemo(() => {
+    const options = currentSelection 
+      ? serviceOptionsMap[currentSelection as keyof typeof serviceOptionsMap]
+      : [];
+    
+    return () => (
       <div>
-        {options.map(({ component: Component }, index: number) => (
+        {options.map(({ component: Component }, index) => (
           <Component key={index} />
         ))}
       </div>
     );
-  };
+  }, [currentSelection]);
 
   return (
-    <div className="pt-4 bg-black/10 mx-4 rounded-lg">
+    <div className="pt-4 my-4 bg-black/10 mx-4 rounded-lg">
       <p className="text-2xl text-center font-bold text-black mb-4 text-black">Оформление заказа</p>
 
       <PhoneInput />
@@ -114,14 +118,13 @@ export default function Order() {
               <span className="text-md font-medium">{option.label}</span>
               <span className="text-md font-bold select-none">
               {new Intl.NumberFormat('en-US').format(option.price)}₸
-
               </span>
             </div>
           </li>
         ))}
       </ul>
     </div>
-      {getOptions()}
+      {OptionsRenderer()}
       <ArrivalTime />
       <OrderFooter />
       <LoginModal />

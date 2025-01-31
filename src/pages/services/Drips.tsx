@@ -1,4 +1,4 @@
-import Head from 'preact-head';
+import Review from 'components/Reviews';
 import DripImg from '../../../img/services/drips/drip.svg';
 import PoisonImg from '../../../img/services/drips/poison.svg';
 import Header from 'components/Header';
@@ -9,6 +9,8 @@ import dayjs from 'dayjs';
 import currentOrderAtom from 'atoms/currentOrder';
 import { useAtom } from 'jotai';
 import { useEffect } from 'preact/hooks';
+import Certification from 'components/Certificates';
+import Breadcrumbs from 'components/Breadcrumbs';
 
 const faq = [
   {
@@ -114,10 +116,12 @@ export default function Drips() {
 
     };
     setServiceDetails();
-  }, );
+  }, []);
   return (
     <main>
       <Header/>
+      <Breadcrumbs/>
+  
 
       {/* Hero Section */}
       <section className="mb-6 mt-2 px-4">
@@ -132,6 +136,7 @@ export default function Drips() {
           </div>
         </div>
       </section>
+      <Order/> 
 
       {/* Секции для каждого типа капельниц */}
       <section className="space-y-16 px-4 text-black">
@@ -212,7 +217,7 @@ export default function Drips() {
 
         </section>
 
-        <Order/> 
+       
 
       {/* Преимущества */}
       <div className="space-y-16 px-4 text-black">
@@ -287,8 +292,9 @@ export default function Drips() {
   </div>
 </div>
 
-     
+      <Review/> 
       <FAQ faqItems={faq}/>
+      <Certification/>
       <Footer/>
     </main>
   );

@@ -2,21 +2,21 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import c1 from "../../../img/certificates/c1.webp";
-import c2 from "../../../img/certificates/c2.webp";
-import c3 from "../../../img/certificates/c3.webp";
-import c4 from "../../../img/certificates/c4.webp";
-import c5 from "../../../img/certificates/c5.webp";
-import c6 from "../../../img/certificates/c6.webp";
-import c7 from "../../../img/certificates/c7.webp";
-import c8 from "../../../img/certificates/c8.webp";
-import c9 from "../../../img/certificates/c9.webp";
-import c10 from "../../../img/certificates/c10.webp";
-import c11 from "../../../img/certificates/c11.webp";
-import c12 from "../../../img/certificates/c12.webp";
-import c13 from "../../../img/certificates/c13.webp";
-import c14 from "../../../img/certificates/c14.webp";
-import c15 from "../../../img/certificates/c15.webp";
+import c1 from "../../img/certificates/c1.webp";
+import c2 from "../../img/certificates/c2.webp";
+import c3 from "../../img/certificates/c3.webp";
+import c4 from "../../img/certificates/c4.webp";
+import c5 from "../../img/certificates/c5.webp";
+import c6 from "../../img/certificates/c6.webp";
+import c7 from "../../img/certificates/c7.webp";
+import c8 from "../../img/certificates/c8.webp";
+import c9 from "../../img/certificates/c9.webp";
+import c10 from "../../img/certificates/c10.webp";
+import c11 from "../../img/certificates/c11.webp";
+import c12 from "../../img/certificates/c12.webp";
+import c13 from "../../img/certificates/c13.webp";
+import c14 from "../../img/certificates/c14.webp";
+import c15 from "../../img/certificates/c15.webp";
 
 import { EffectCoverflow, Pagination } from "swiper/modules";
 import { useState } from "preact/hooks";
@@ -56,7 +56,7 @@ export default function Certification() {
   };
 
   return (
-    <section id="reviews" className="py-4 px-4 bg-transparent">
+    <section id="reviews" className="pb-4 px-4 bg-transparent">
       <div className="text-center">
         <p className="mt-10 mb-6 text-3xl font-bold uppercase text-black">
           Сертификаты специалистов

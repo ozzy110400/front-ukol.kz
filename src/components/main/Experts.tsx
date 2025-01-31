@@ -21,7 +21,7 @@ export default function Experts() {
             <div 
               role="region"
               aria-labelledby="professionalism-heading"
-              className="chat-bubble bg-transparent text-black text-lg font-semibold 
+              className="chat-bubble bg-white text-black text-lg font-semibold 
                 border-2 border-solid border-black rounded-bl-lg mr-16 ml-4"
             >
               <h3 id="professionalism-heading" className="underline decoration-my-green decoration-4 uppercase mb-2">
@@ -48,7 +48,7 @@ export default function Experts() {
             <div 
               role="region"
               aria-labelledby="comfort-heading"
-              className="chat-bubble bg-transparent text-black text-lg font-semibold 
+              className="chat-bubble bg-white text-black text-lg font-semibold 
                 border-2 border-solid border-black rounded-bl-lg ml-16 mr-4"
             >
               <h3 id="comfort-heading" className="underline decoration-my-green decoration-4 uppercase mb-2">
@@ -75,7 +75,7 @@ export default function Experts() {
             <div 
               role="region"
               aria-labelledby="anonymity-heading"
-              className="chat-bubble bg-transparent text-black text-lg font-semibold 
+              className="chat-bubble bg-white text-black text-lg font-semibold 
                 border-2 border-solid border-black rounded-bl-lg mr-16 ml-4"
             >
               <h3 id="anonymity-heading" className="underline decoration-my-green decoration-4 uppercase mb-2">

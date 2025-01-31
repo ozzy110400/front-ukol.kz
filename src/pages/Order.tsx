@@ -14,10 +14,12 @@ import Footer from 'components/Footer';
 import dayjs from 'dayjs';
 import Head from 'preact-head';
 import FAQ from 'components/FAQ';
-import Certification from 'components/order/Certificates';
+import Certification from 'components/Certificates';
 import Doctor1Img from '/img/experts/doctorNN1.webp';
 import Doctor2Img from '/img/experts/doctor2N.webp';
 import { serviceMapping } from 'helpers/servicesValue';
+import Review from 'components/Reviews';
+import Breadcrumbs from 'components/Breadcrumbs';
 
 
 export default function Order() {
@@ -110,6 +112,8 @@ export default function Order() {
     <div className="bg-transparent">
 
       <Header/>
+      <Breadcrumbs/>
+
       <section className="mb-6 mt-4 px-4">
         <div className="flex flex-col md:flex-row items-center gap-8 bg-my-green/30 rounded-xl p-6">
           <div className="flex-1">
@@ -163,7 +167,7 @@ export default function Order() {
                     <div className="text-sm text-black">Средняя оценка по отзывам</div>
                   </div>
               </div>
-           </div>
+      </div>
 
            <div className="flex items-center mb-10">         
            <div 
@@ -188,11 +192,9 @@ export default function Order() {
               />
            </div>
 
-
-
-
-      <Certification/>
+      <Review/>
       <FAQ faqItems={serviceDetails?.faq}/>
+      <Certification/>
       <Footer/>
       <LoginModal /> 
     </div>

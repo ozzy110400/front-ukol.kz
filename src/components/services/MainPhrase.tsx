@@ -10,9 +10,6 @@ export default function MainPhrase() {
                Мы предлагаем профессиональные медицинские услуги на дому: быстро, удобно и безопасно. Наши опытные специалисты готовы помочь вам в любое время.
             </p> 
         </div>
-        <h1 className="font-bold text-center text-3xl text-black mb-2">
-          Наши услуги на дом
-        </h1>
     </section>
   );
 };

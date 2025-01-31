@@ -102,6 +102,7 @@ const OrderFooter = () => {
     let basePrice = 0;
 
     switch (currentOrder.title) {
+      case 'Укол':
       case 'Внутримышечный укол':
       case 'Внутривенный укол':
       case 'Подкожный укол':
@@ -191,7 +192,7 @@ const OrderFooter = () => {
           {amount ? amount.toLocaleString('en-US') : '0'}₸
         </div>
         {isPriceBoost && (
-          <small className="text-gray-600">цена повышена из-за времени заказа</small>
+          <small className="text-gray-600">цена повышена из-за времени</small>
         )}
         
       </div>
