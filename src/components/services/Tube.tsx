@@ -46,7 +46,7 @@ export default function Tube() {
                         console.log("Заказано: Внутривенные уколы");
                       }}
                     >
-                      <span className="text-black font-semibold">Заказать</span>
+                      <span className="text-black font-semibold">Перейти</span>
                     </button>
                   </div>
                 </a>

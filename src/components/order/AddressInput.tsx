@@ -30,7 +30,7 @@ export default function AddressInput() {
       {/* Address Field */}
       <div className="form-control w-full">
         <label className="label">
-          <span className="label-text text-black">Адрес, квартира и этаж</span>
+          <span className="label-text text-black">Адрес, квартира и этаж*</span>
         </label>
         <input
           type="text"
@@ -44,14 +44,10 @@ export default function AddressInput() {
               setCurrentOrder((prev) => ({ ...prev, address: newAddress }));
             }
           }}
-          className={`input border-2 bg-transparent text-black w-full border-black focus:border-black`}
+          className={`input border-2 bg-white text-black w-full border-black focus:border-black`}
           placeholder="Введите адрес"
         />
-         {!isAddressValid && (
-        <div className="label">
-          <span className="label-text-alt text-error">Обязательное поле</span>
-        </div>
-        )}  
+ 
       </div>
     </div>
   );

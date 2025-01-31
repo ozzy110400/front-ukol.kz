@@ -2,10 +2,14 @@ import Head from 'preact-head';
 import OldImg from '../../../img/services/nurse/old.svg';
 import BedImg from '../../../img/services/nurse/bed.svg';
 import BagImg from '../../../img/services/nurse/bag.svg';
-import Header from 'components/services/Header';
+import Header from 'components/Header';
 import Footer from 'components/Footer';
 import FAQ from 'components/FAQ';
-import { navigate } from 'wouter-preact/use-browser-location';
+import Order from 'components/Order';
+import dayjs from 'dayjs';
+import { useEffect } from 'preact/hooks';
+import { useAtom } from 'jotai';
+import currentOrderAtom from 'atoms/currentOrder';
 
 const faq = [
   {
@@ -36,19 +40,99 @@ const faq = [
 ];
 
 export default function NurseServices() {
+  const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
+  useEffect(() => {
+    // Динамически обновляем содержимое <head>
+    document.title = "Медсестры на дом - ukol.kz";
+
+    const metaDescription = document.createElement('meta');
+    metaDescription.name = "description";
+    metaDescription.content = "ukol.kz - услуги профессиональных медсестер на дому. Капельницы, инъекции, перевязки, уход за пациентами. Квалифицированные специалисты, безопасность и комфорт.";
+    document.head.appendChild(metaDescription);
+
+    const metaKeywords = document.createElement('meta');
+    metaKeywords.name = "keywords";
+    metaKeywords.content = "медсестра на дом, услуги медсестры, уход за больными, капельницы на дому, инъекции, перевязки, патронажная медсестра, медицинская помощь на дому";
+    document.head.appendChild(metaKeywords);
+
+    const metaOgTitle = document.createElement('meta');
+    metaOgTitle.setAttribute('property', 'og:title');
+    metaOgTitle.content = "ukol.kz - Медсестры на дом";
+    document.head.appendChild(metaOgTitle);
+
+    const metaOgDescription = document.createElement('meta');
+    metaOgDescription.setAttribute('property', 'og:description');
+    metaOgDescription.content = "Профессиональные услуги медсестер на дому от ukol.kz. Инъекции, капельницы, перевязки и уход за больными. Опытные специалисты, гарантия качества.";
+    document.head.appendChild(metaOgDescription);
+
+    const metaOgUrl = document.createElement('meta');
+    metaOgUrl.setAttribute('property', 'og:url');
+    metaOgUrl.content = "https://ukol.kz/services/nurse";
+    document.head.appendChild(metaOgUrl);
+
+    const metaOgImage = document.createElement('meta');
+    metaOgImage.setAttribute('property', 'og:image');
+    metaOgImage.content = "https://ukol.kz/images/nurse-preview.jpg";
+    document.head.appendChild(metaOgImage);
+
+    const linkCanonical = document.createElement('link');
+    linkCanonical.rel = "canonical";
+    linkCanonical.href = "https://ukol.kz/services/nurse";
+    document.head.appendChild(linkCanonical);
+
+    // Очистка при размонтировании компонента
+    return () => {
+      document.head.removeChild(metaDescription);
+      document.head.removeChild(metaKeywords);
+      document.head.removeChild(metaOgTitle);
+      document.head.removeChild(metaOgDescription);
+      document.head.removeChild(metaOgUrl);
+      document.head.removeChild(metaOgImage);
+      document.head.removeChild(linkCanonical);
+    };
+  }, []);
+
+  useEffect(() => {
+    const setServiceDetails = async () => {
+      setCurrentOrder({
+        _id: '',
+        title: '',
+        address: '',
+        flat: '',
+        floor: '',
+        amount: 0,
+        phone: '',
+        options: {
+          isChild: false,
+          isNeedInjection: false,
+          isNeedWoman: false,
+          isNeedPharmacy: false,
+          isHaveDoctorsAppointment: false,
+          isWithDrugsCocktail: false,
+          isPremiumIntoxication: false,
+          isWithDressingMaterial: false,
+          isWithMaterialsPoisoning: false,
+          photoURL: '',
+          photo: undefined,
+          daysForNurse: 0,
+          message: '',
+        },
+        arrivalTime: {
+          hours: dayjs().add(1, 'hour').format('HH'),
+          minutes: dayjs().format('mm'),
+          date: dayjs().format('YYYY-MM-DD'),
+          isNearestHour: true
+        },
+        status: '',
+      });
+
+
+    };
+    setServiceDetails();
+  },[]);
   return (
     <main>
-      <Head>
-        <title>Услуги медицинской сестры на дому | Уход за лежачими и пожилыми</title>
-        <meta 
-          name="description" 
-          content="Профессиональный медицинский уход на дому: квалифицированные медсестры для лежачих больных, пожилых людей, дежурство на мероприятиях. Круглосуточная помощь." 
-        />
-        <meta 
-          name="keywords" 
-          content="уход за лежачим больным, уход за пожилым на дому, медицинская сестра на время, сиделка с медицинским образованием, дежурная медсестра на мероприятия" 
-        />
-      </Head>
+
       <Header/>
 
       {/* Hero Section */}
@@ -65,22 +149,6 @@ export default function NurseServices() {
           </div>
         </div>
       </section>
-
-      {/* Навигация по услугам */}
-      <nav className="mb-12 text-black grid md:grid-cols-3 gap-4 px-4">
-        <a href="#bedridden" className="border-2 border-black p-4 rounded-lg flex items-center gap-3 hover:border-blue-400 transition">
-          <img src={BedImg} alt="Лежачие больные" className="w-10 h-10" />
-          <span className="font-semibold">Уход за лежачим человеком</span>
-        </a>
-        <a href="#elderly" className="border-2 border-black p-4 rounded-lg flex items-center gap-3 hover:border-blue-400 transition">
-          <img src={OldImg} alt="Пожилые люди" className="w-10 h-10" />
-          <span className="font-semibold">Уход за пожилым человеком</span>
-        </a>
-        <a href="#events" className="border-2 border-black p-4 rounded-lg flex items-center gap-3 hover:border-blue-400 transition">
-          <img src={BagImg} alt="Мероприятия" className="w-10 h-10" />
-          <span className="font-semibold">Дежурство на мероприятиях</span>
-        </a>
-      </nav>
 
       {/* Секции услуг */}
       <section className="space-y-16 px-4 text-black">
@@ -116,13 +184,12 @@ export default function NurseServices() {
             <div className="flex justify-between items-center mt-6 border-t-2 border-black pt-4">
               <div>
                 <span className="text-xl font-bold block">20,000₸/8 часов</span>
-                <small className="text-gray-600">+500₸/час при превышении времени</small>
               </div>
-              <button 
+              <a 
                 className="bg-my-green text-black font-semibold px-6 py-2 rounded-lg "
-                onClick={() => {navigate('/services/nurse/bed')}}>
-                Заказать
-              </button>
+                href='/services/nurse/bed'>
+                Перейти
+              </a>
             </div>
           </div>
         </div>
@@ -159,14 +226,12 @@ export default function NurseServices() {
             <div className="flex justify-between items-center mt-6 border-t-2 border-black pt-4">
               <div>
                 <span className="text-xl font-bold block">20,000₸/8 часов</span>
-                <small className="text-gray-600">Минимальный заказ 4 часа</small>
               </div>
-              <button 
+              <a 
                 className="bg-my-green  text-black font-semibold px-6 py-2 rounded-lg "
-                onClick={() => {navigate('/services/nurse/old')}}>
-
-                Заказать
-              </button>
+                href='/services/nurse/old'>
+                Перейти
+              </a>
             </div>
           </div>
         </div>
@@ -203,17 +268,19 @@ export default function NurseServices() {
             <div className="flex justify-between items-center mt-6 border-t-2 border-black pt-4">
               <div>
                 <span className="text-xl font-bold block">20,000₸ / 8 часов</span>
-                <small className="text-gray-600">+2 медсестры за 35,000₸</small>
               </div>
-              <button 
+              <a 
                 className="bg-my-green  text-black font-semibold px-6 py-2 rounded-lg"
-                onClick={() => {navigate('/services/nurse/event')}}>
-                Заказать
-              </button>
+                href='/services/nurse/event'>
+                Перейти
+              </a>
             </div>
           </div>
         </div>
       </section>
+
+      <Order/> 
+
 
       {/* Преимущества */}
       <div className="space-y-16 px-4 text-black">

@@ -8,6 +8,7 @@ import { uploadPhoto, createOrder } from '../../helpers/api/apiClient';
 import dayjs from 'dayjs';
 import { trackClarityEvent } from 'App';
 import { navigate } from 'wouter-preact/use-browser-location';
+import { isValidatePhone } from './PhoneInput';
 
 const OrderFooter = () => {
   const [auth, setAuth] = useAtom(authAtom);
@@ -15,6 +16,7 @@ const OrderFooter = () => {
   const [amount, setAmount] = useState(currentOrder.amount);
   const [modalsOpen, setModalsOpen] = useAtom(modalsOpenAtom);
   const [isPendingOrder, setIsPendingOrder] = useState(false);
+  const [isPriceBoost, setIsPriceBoost] = useState(false);
   const [loading, setLoading] = useState(false); // State to handle loading
 
   const handleSubmit = async () => {
@@ -23,6 +25,12 @@ const OrderFooter = () => {
     // Validate essential fields
     if (!currentOrder.address) {
       alert('Пожалуйста, введите адрес');
+      setLoading(false);
+      return;
+    }
+
+    if (currentOrder.phone.length != 11) {
+      alert('Пожалуйста, введите корректный номер телефона');
       setLoading(false);
       return;
     }
@@ -100,29 +108,41 @@ const OrderFooter = () => {
         basePrice = currentHour >= 7 && currentHour < 20 ? 5000 
                   : currentHour >= 20 && currentHour < 23 ? 6000 
                   : 10000;
+         
+          setIsPriceBoost(basePrice!=5000)        
         break;
     
       case 'Капельница':
+        
         basePrice = currentHour >= 7 && currentHour < 20 ? 7000 
                   : currentHour >= 20 && currentHour < 23 ? 8000 
                   : 14000;
+          
+          setIsPriceBoost(basePrice!=7000)        
+          
         break;
     
       case 'Капельница от отравления':
         basePrice = currentHour >= 7 && currentHour < 20 ? 15000 
                   : currentHour >= 20 && currentHour < 23 ? 17000 
                   : 20000;
+          
+          setIsPriceBoost(basePrice!=15000)        
+        
         break;
     
       case 'Алкогольная детоксикация':
       case 'Наркотическая детоксикация':
         basePrice = currentHour >= 7 && currentHour < 20 ? 25000 : 30000;
+        setIsPriceBoost(basePrice!=25000)        
+
         break;
     
       case 'Перевязка':
         basePrice = currentHour >= 7 && currentHour < 20 ? 7000 
                   : currentHour >= 20 && currentHour < 23 ? 9000 
                   : 15000;
+        setIsPriceBoost(basePrice!=7000)        
         break;
     
       case 'Уход за пожилым человеком':
@@ -144,9 +164,9 @@ const OrderFooter = () => {
     if (currentOrder.options.isWithMaterialsPoisoning) {
       basePrice += 5000; 
     }
-    if (currentOrder.options.isWithDrugsCocktail) {
-      basePrice += currentHour >= 7 && currentHour < 20 ? 8000 : 10000;
-    }
+    // if (currentOrder.options.isWithDrugsCocktail) {
+    //   basePrice += currentHour >= 7 && currentHour < 20 ? 8000 : 10000;
+    // }
     if (currentOrder.options.isPremiumIntoxication) {
       basePrice += 30000;
     }
@@ -170,6 +190,10 @@ const OrderFooter = () => {
         <div className="text-lg font-bold text-black">
           {amount ? amount.toLocaleString('en-US') : '0'}₸
         </div>
+        {isPriceBoost && (
+          <small className="text-gray-600">цена повышена из-за времени заказа</small>
+        )}
+        
       </div>
       
       <button

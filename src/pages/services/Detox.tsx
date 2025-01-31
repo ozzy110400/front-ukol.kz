@@ -1,10 +1,14 @@
 import Head from 'preact-head';
 import AlcoholDetoxImg from '../../../img/services/detox/alcohol.svg';
 import DrugDetoxImg from '../../../img/services/detox/drug.svg';
-import Header from 'components/services/Header';
+import Header from 'components/Header';
 import Footer from 'components/Footer';
 import FAQ from 'components/FAQ';
-import { navigate } from 'wouter-preact/use-browser-location';
+import Order from 'components/Order';
+import dayjs from 'dayjs';
+import { useAtom } from 'jotai';
+import currentOrderAtom from 'atoms/currentOrder';
+import { useEffect } from 'preact/hooks';
 
 const faq = [
   {
@@ -41,19 +45,97 @@ const faq = [
 ];
 
 export default function Detox() {
+  const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
+  useEffect(() => {
+    // Динамически обновляем содержимое <head>
+    document.title = "Детоксикация на дому - ukol.kz";
+
+    const metaDescription = document.createElement('meta');
+    metaDescription.name = "description";
+    metaDescription.content = "ukol.kz - профессиональная детоксикация на дому. Очищение организма от токсинов, капельницы для детоксикации, помощь при отравлениях и похмелье. Быстро, анонимно и качественно.";
+    document.head.appendChild(metaDescription);
+
+    const metaKeywords = document.createElement('meta');
+    metaKeywords.name = "keywords";
+    metaKeywords.content = "детоксикация на дому, капельницы для детоксикации, очищение организма, вывод токсинов, помощь при отравлении, лечение похмелья, детокс на дому";
+    document.head.appendChild(metaKeywords);
+
+    const metaOgTitle = document.createElement('meta');
+    metaOgTitle.setAttribute('property', 'og:title');
+    metaOgTitle.content = "ukol.kz - Детоксикация на дому";
+    document.head.appendChild(metaOgTitle);
+
+    const metaOgDescription = document.createElement('meta');
+    metaOgDescription.setAttribute('property', 'og:description');
+    metaOgDescription.content = "Профессиональная детоксикация на дому от ukol.kz. Очищение организма от токсинов, помощь при отравлениях и похмелье. Доверьтесь нашим сертифицированным специалистам.";
+    document.head.appendChild(metaOgDescription);
+
+    const metaOgUrl = document.createElement('meta');
+    metaOgUrl.setAttribute('property', 'og:url');
+    metaOgUrl.content = "https://ukol.kz/services/detox";
+    document.head.appendChild(metaOgUrl);
+
+    const metaOgImage = document.createElement('meta');
+    metaOgImage.setAttribute('property', 'og:image');
+    metaOgImage.content = "https://ukol.kz/images/detox-preview.jpg";
+    document.head.appendChild(metaOgImage);
+
+    const linkCanonical = document.createElement('link');
+    linkCanonical.rel = "canonical";
+    linkCanonical.href = "https://ukol.kz/services/detox";
+    document.head.appendChild(linkCanonical);
+
+    // Очистка при размонтировании компонента
+    return () => {
+      document.head.removeChild(metaDescription);
+      document.head.removeChild(metaKeywords);
+      document.head.removeChild(metaOgTitle);
+      document.head.removeChild(metaOgDescription);
+      document.head.removeChild(metaOgUrl);
+      document.head.removeChild(metaOgImage);
+      document.head.removeChild(linkCanonical);
+    };
+  }, []);
+  useEffect(() => {
+    const setServiceDetails = async () => {
+      setCurrentOrder({
+        _id: '',
+        title: '',
+        address: '',
+        flat: '',
+        floor: '',
+        amount: 0,
+        phone: '',
+        options: {
+          isChild: false,
+          isNeedInjection: false,
+          isNeedWoman: false,
+          isNeedPharmacy: false,
+          isHaveDoctorsAppointment: false,
+          isWithDrugsCocktail: false,
+          isPremiumIntoxication: false,
+          isWithDressingMaterial: false,
+          isWithMaterialsPoisoning: false,
+          photoURL: '',
+          photo: undefined,
+          daysForNurse: 0,
+          message: '',
+        },
+        arrivalTime: {
+          hours: dayjs().add(1, 'hour').format('HH'),
+          minutes: dayjs().format('mm'),
+          date: dayjs().format('YYYY-MM-DD'),
+          isNearestHour: true
+        },
+        status: '',
+      });
+
+
+    };
+    setServiceDetails();
+  }, []); 
   return (
     <main>
-      <Head>
-        <title>Детоксикация на дому | Экстренное вытрезвление и вывод из запоя</title>
-        <meta 
-          name="description" 
-          content="Профессиональная детоксикация на дому: алкогольная и наркотическая. Круглосуточный выезд нарколога, анонимно, безопасные методики очищения организма." 
-        />
-        <meta 
-          name="keywords" 
-          content="детоксикация на дому, вывод из запоя, экстренное вытрезвление, наркотическая детоксикация, скорая наркологическая помощь, капельница от запоя" 
-        />
-      </Head>
       <Header/>
 
       {/* Hero Section */}
@@ -70,21 +152,6 @@ export default function Detox() {
           </div>
         </div>
       </section>
-
-      {/* Навигация по типам детоксикации */}
-      <nav className="mb-12 text-black grid md:grid-cols-3 gap-4 px-4">
-        <p className="text-xl font-bold">
-          Виды детоксикации:
-        </p>
-        <a href="#alcohol" className="border-2 border-black p-4 rounded-lg flex items-center gap-3">
-          <img src={AlcoholDetoxImg} alt="Алкогольная" className="w-8 h-8" />
-          <span className="font-semibold">Алкогольная детоксикация</span>
-        </a>
-        <a href="#drug" className="border-2 border-black p-4 rounded-lg flex items-center gap-3">
-          <img src={DrugDetoxImg} alt="Наркотическая" className="w-8 h-8" />
-          <span className="font-semibold">Наркотическая детоксикация</span>
-        </a>
-      </nav>
 
       {/* Секции детоксикации */}
       <section className="space-y-16 px-4 text-black">
@@ -119,12 +186,12 @@ export default function Detox() {
             </div>
             <div className="flex justify-between items-center mt-6 border-t-2 border-black pt-4">
               <span className="text-xl font-bold">25,000₸</span>
-              <button 
+              <a 
                 className="bg-my-green text-black font-semibold px-6 py-2 rounded-lg hover:bg-my-green-dark transition"
-                onClick={() => {navigate('/services/detox/alcohol')}}
+                href='/services/detox/alcohol'
                     >
-                Заказать
-              </button>
+                Перейти
+              </a>
             </div>
           </div>
         </div>
@@ -160,16 +227,18 @@ export default function Detox() {
             </div>
             <div className="flex justify-between items-center mt-6 border-t-2 border-black pt-4">
               <span className="text-xl font-bold">25,000₸</span>
-              <button 
+              <a 
                 className="bg-my-green text-black font-semibold px-6 py-2 rounded-lg"
-                onClick={() => {navigate('/services/detox/drug')}}
+               href='/services/detox/drug'
                 >
-                Заказать
-              </button>
+                Перейти
+              </a>
             </div>
           </div>
         </div>
       </section>
+
+      <Order/> 
 
       {/* Преимущества */}
       <div className="space-y-16 px-4 text-black">

@@ -1,9 +1,8 @@
-import { navigate } from 'wouter-preact/use-browser-location';
 import InjectionImg from '/img/service/injection.svg';
 
 export default function Injection() {
   return (
-    <section className="mx-auto px-2 pb-2">
+    <section className=" mx-4 pb-2">
       {/* Компонент collapse с правильной структурой */}
       <div tabIndex={0} className="collapse collapse-arrow border-2 border-black rounded-lg">
         {/* Заголовок collapse */}
@@ -38,12 +37,12 @@ export default function Injection() {
                   <span className="text-black font-semibold mb-2">Внутривенный укол</span>
                   <div className="flex justify-between w-full">
                     <span className="text-black font-semibold py-1">5,000₸</span>
-                    <button
+                    <a
                       className="bg-my-green rounded-lg px-2 py-1"
-                      onClick={() => {navigate('/services/injection/intravenous')}}
+                      href='/services/injections/intravenous'
                     >
-                      <span className="text-black font-semibold">Заказать</span>
-                    </button>
+                      <span className="text-black font-semibold">Перейти</span>
+                    </a>
                   </div>
                 </div>
               </li>
@@ -52,13 +51,13 @@ export default function Injection() {
                   <span className="text-black font-semibold mb-2">Внутримышечный укол</span>
                   <div className="flex justify-between w-full">
                     <span className="text-black font-semibold py-1">5,000₸</span>
-                    <button
+                    <a
                       className="bg-my-green rounded-lg px-2 py-1"
-                      onClick={() => {navigate('/services/injection/intramuscularly')}}
+                      href='/services/injections/intramuscularly'
 
                     >
-                      <span className="text-black font-semibold">Заказать</span>
-                    </button>
+                      <span className="text-black font-semibold">Перейти</span>
+                    </a>
                   </div>
                 </div>
               </li>
@@ -68,13 +67,12 @@ export default function Injection() {
                   <span className="text-black font-semibold mb-2">Подкожный укол</span>
                   <div className="flex justify-between w-full">
                     <span className="text-black font-semibold py-1">5,000₸</span>
-                    <button
+                    <a
                       className="bg-my-green rounded-lg px-2 py-1"
-                      onClick={() => {navigate('/services/injection/subcutaneous')}}
-
+                      href='/services/injections/subcutaneous'
                     >
-                      <span className="text-black font-semibold">Заказать</span>
-                    </button>
+                      <span className="text-black font-semibold">Перейти</span>
+                    </a>
                   </div>
                 </div>
               </li>

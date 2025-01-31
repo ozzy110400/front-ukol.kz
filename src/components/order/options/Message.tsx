@@ -24,7 +24,7 @@ const Message= ( props: MessageProps) => {
         Что-то еще что должен знать специалист?
       </label>
       <textarea
-        className="textarea textarea-bordered mt-2 bg-transparent w-full border-2 border-black p-2 resize-none focus:border-black text-black"
+        className="textarea textarea-bordered mt-2 bg-white w-full border-2 border-black p-2 resize-none focus:border-black text-black"
         placeholder="Введите ваше сообщение"
         value={currentOrder.options.message || ''}
         onChange={handleMessageChange}

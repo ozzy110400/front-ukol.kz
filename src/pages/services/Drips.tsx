@@ -1,12 +1,14 @@
 import Head from 'preact-head';
 import DripImg from '../../../img/services/drips/drip.svg';
-import PaperImg from '../../../img/services/drips/paper.svg';
-import HeadacheImg from '../../../img/services/drips/headache.svg';
 import PoisonImg from '../../../img/services/drips/poison.svg';
-import Header from 'components/services/Header';
+import Header from 'components/Header';
 import Footer from 'components/Footer';
 import FAQ from 'components/FAQ';
-import { navigate } from 'wouter-preact/use-browser-location';
+import Order from 'components/Order';
+import dayjs from 'dayjs';
+import currentOrderAtom from 'atoms/currentOrder';
+import { useAtom } from 'jotai';
+import { useEffect } from 'preact/hooks';
 
 const faq = [
   {
@@ -22,19 +24,99 @@ const faq = [
 ];
 
 export default function Drips() {
+  const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
+  useEffect(() => {
+    // Динамически обновляем содержимое <head>
+    document.title = "Капельницы на дому - ukol.kz";
+
+    const metaDescription = document.createElement('meta');
+    metaDescription.name = "description";
+    metaDescription.content = "ukol.kz - профессиональные капельницы на дому. Лечение похмелья, восстановление после болезни, поддержка организма, выведение токсинов. Безопасно, качественно, анонимно.";
+    document.head.appendChild(metaDescription);
+
+    const metaKeywords = document.createElement('meta');
+    metaKeywords.name = "keywords";
+    metaKeywords.content = "капельницы на дому, капельницы от похмелья, восстановительные капельницы, очищение организма, инфузионная терапия, вывод токсинов, капельница при отравлении";
+    document.head.appendChild(metaKeywords);
+
+    const metaOgTitle = document.createElement('meta');
+    metaOgTitle.setAttribute('property', 'og:title');
+    metaOgTitle.content = "ukol.kz - Капельницы на дому";
+    document.head.appendChild(metaOgTitle);
+
+    const metaOgDescription = document.createElement('meta');
+    metaOgDescription.setAttribute('property', 'og:description');
+    metaOgDescription.content = "Профессиональные капельницы на дому от ukol.kz. Восстановление, выведение токсинов и поддержка здоровья под контролем специалистов.";
+    document.head.appendChild(metaOgDescription);
+
+    const metaOgUrl = document.createElement('meta');
+    metaOgUrl.setAttribute('property', 'og:url');
+    metaOgUrl.content = "https://ukol.kz/services/drips";
+    document.head.appendChild(metaOgUrl);
+
+    const metaOgImage = document.createElement('meta');
+    metaOgImage.setAttribute('property', 'og:image');
+    metaOgImage.content = "https://ukol.kz/images/drips-preview.jpg";
+    document.head.appendChild(metaOgImage);
+
+    const linkCanonical = document.createElement('link');
+    linkCanonical.rel = "canonical";
+    linkCanonical.href = "https://ukol.kz/services/drips";
+    document.head.appendChild(linkCanonical);
+
+    // Очистка при размонтировании компонента
+    return () => {
+      document.head.removeChild(metaDescription);
+      document.head.removeChild(metaKeywords);
+      document.head.removeChild(metaOgTitle);
+      document.head.removeChild(metaOgDescription);
+      document.head.removeChild(metaOgUrl);
+      document.head.removeChild(metaOgImage);
+      document.head.removeChild(linkCanonical);
+    };
+  }, []);
+
+
+  useEffect(() => {
+    const setServiceDetails = async () => {
+      setCurrentOrder({
+        _id: '',
+        title: '',
+        address: '',
+        flat: '',
+        floor: '',
+        amount: 0,
+        phone: '',
+        options: {
+          isChild: false,
+          isNeedInjection: false,
+          isNeedWoman: false,
+          isNeedPharmacy: false,
+          isHaveDoctorsAppointment: false,
+          isWithDrugsCocktail: false,
+          isPremiumIntoxication: false,
+          isWithDressingMaterial: false,
+          isWithMaterialsPoisoning: false,
+          photoURL: '',
+          photo: undefined,
+          daysForNurse: 0,
+          message: '',
+        },
+        arrivalTime: {
+          hours: dayjs().add(1, 'hour').format('HH'),
+          minutes: dayjs().format('mm'),
+          date: dayjs().format('YYYY-MM-DD'),
+          isNearestHour: true
+        },
+        status: '',
+      });
+
+
+    };
+    setServiceDetails();
+  }, );
   return (
     <main>
-      <Head>
-        <title>Капельницы на дому | Инфузионная терапия с выездом</title>
-        <meta 
-          name="description" 
-          content="Профессиональная постановка капельниц на дому: детокс, витаминные коктейли. Квалифицированные медсестры с сертифицированными препаратами." 
-        />
-        <meta 
-          name="keywords" 
-          content="капельница на дому алматы, инфузионная терапия, детокс капельница, витаминные капельницы" 
-        />
-      </Head>
       <Header/>
 
       {/* Hero Section */}
@@ -50,19 +132,6 @@ export default function Drips() {
           </div>
         </div>
       </section>
-
-      {/* Навигация по типам капельниц */}
-      <nav className="mb-12 text-black grid md:grid-cols-3 gap-4 px-4">
-        <p className="text-xl text-black font-bold">Виды капельниц:</p>
-        <a href="#custom" className="border-2 border-black p-4 rounded-lg flex items-center gap-3">
-          <img src={DripImg} alt="Индивидуальные" className="w-8 h-8" />
-          <span className="font-semibold">Капельница</span>
-        </a>
-        <a href="#poisoning" className="border-2 border-black p-4 rounded-lg flex items-center gap-3">
-          <img src={PoisonImg} alt="Отравление" className="w-8 h-8" />
-          <span className="font-semibold">Капельница при отравлении</span>
-        </a>
-      </nav>
 
       {/* Секции для каждого типа капельниц */}
       <section className="space-y-16 px-4 text-black">
@@ -95,11 +164,11 @@ export default function Drips() {
             </div>
             <div className="flex justify-between items-center mt-6 border-t-2 border-black pt-4">
                 <span className="text-xl font-bold">7,000₸</span>
-                <button 
+                <a 
                    className="bg-my-green text-black font-semibold px-6 py-2 rounded-lg hover:bg-my-green-dark transition"
-                   onClick={() => {navigate('/services/drip/custom')}}>
-                Заказать
-                </button>
+                   href='/services/drips/custom'>
+                Перейти
+                </a>
             </div>
             </div>
         </div>
@@ -132,16 +201,18 @@ export default function Drips() {
             </div>
             <div className="flex justify-between items-center mt-6 border-t-2 border-black pt-4">
                 <span className="text-xl font-bold">15,000₸</span>
-                <button 
+                <a 
                 className="bg-my-green text-black font-semibold px-6 py-2 rounded-lg hover:bg-my-green-dark transition"
-                onClick={() => {navigate('/services/drip/poisoning')}}>
-                Заказать
-                </button>
+                href='/services/drips/poisoning'>
+                Перейти
+                </a>
             </div>
             </div>
         </div>
 
         </section>
+
+        <Order/> 
 
       {/* Преимущества */}
       <div className="space-y-16 px-4 text-black">
@@ -216,6 +287,7 @@ export default function Drips() {
   </div>
 </div>
 
+     
       <FAQ faqItems={faq}/>
       <Footer/>
     </main>

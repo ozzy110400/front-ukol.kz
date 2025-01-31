@@ -2,10 +2,14 @@ import  Head  from 'preact-head';
 import VeinImg from '../../../img/services/injections/vein.svg';
 import MuscleImg from '../../../img/services/injections/muscle.svg';
 import SkinImg from '../../../img/services/injections/skin.svg';
-import Header from 'components/services/Header';
+import Header from 'components/Header';
 import Footer from 'components/Footer';
 import FAQ from 'components/FAQ';
-import { navigate } from 'wouter-preact/use-browser-location';
+import Order from 'components/Order';
+import dayjs from 'dayjs';
+import { useEffect } from 'preact/hooks';
+import { useAtom } from 'jotai';
+import currentOrderAtom from 'atoms/currentOrder';
 
 const faq = [
   {
@@ -47,19 +51,100 @@ const faq = [
 
 
 export default function Injections() {
+  const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
+  
+  useEffect(() => {
+    // Динамически обновляем содержимое <head>
+    document.title = "Уколы на дому - ukol.kz";
+
+    const metaDescription = document.createElement('meta');
+    metaDescription.name = "description";
+    metaDescription.content = "ukol.kz - профессиональные медицинские услуги по выполнению уколов на дому. Внутримышечные, внутривенные, подкожные инъекции. Быстро, безопасно и без боли.";
+    document.head.appendChild(metaDescription);
+
+    const metaKeywords = document.createElement('meta');
+    metaKeywords.name = "keywords";
+    metaKeywords.content = "уколы на дому, внутримышечные уколы, внутривенные инъекции, подкожные инъекции, медицинские уколы, вызов медсестры на дом, уколы на дому недорого";
+    document.head.appendChild(metaKeywords);
+
+    const metaOgTitle = document.createElement('meta');
+    metaOgTitle.setAttribute('property', 'og:title');
+    metaOgTitle.content = "ukol.kz - Уколы на дому";
+    document.head.appendChild(metaOgTitle);
+
+    const metaOgDescription = document.createElement('meta');
+    metaOgDescription.setAttribute('property', 'og:description');
+    metaOgDescription.content = "Профессиональные медицинские услуги по выполнению уколов на дому от ukol.kz. Внутримышечные, внутривенные и подкожные инъекции. Быстро, безопасно и без боли.";
+    document.head.appendChild(metaOgDescription);
+
+    const metaOgUrl = document.createElement('meta');
+    metaOgUrl.setAttribute('property', 'og:url');
+    metaOgUrl.content = "https://ukol.kz/services/injections";
+    document.head.appendChild(metaOgUrl);
+
+    const metaOgImage = document.createElement('meta');
+    metaOgImage.setAttribute('property', 'og:image');
+    metaOgImage.content = "https://ukol.kz/images/injections-preview.jpg";
+    document.head.appendChild(metaOgImage);
+
+    const linkCanonical = document.createElement('link');
+    linkCanonical.rel = "canonical";
+    linkCanonical.href = "https://ukol.kz/services/injections";
+    document.head.appendChild(linkCanonical);
+
+    // Очистка при размонтировании компонента
+    return () => {
+      document.head.removeChild(metaDescription);
+      document.head.removeChild(metaKeywords);
+      document.head.removeChild(metaOgTitle);
+      document.head.removeChild(metaOgDescription);
+      document.head.removeChild(metaOgUrl);
+      document.head.removeChild(metaOgImage);
+      document.head.removeChild(linkCanonical);
+    };
+  }, []);
+
+  useEffect(() => {
+    const setServiceDetails = async () => {
+      setCurrentOrder({
+        _id: '',
+        title: '',
+        address: '',
+        flat: '',
+        floor: '',
+        amount: 0,
+        phone: '',
+        options: {
+          isChild: false,
+          isNeedInjection: false,
+          isNeedWoman: false,
+          isNeedPharmacy: false,
+          isHaveDoctorsAppointment: false,
+          isWithDrugsCocktail: false,
+          isPremiumIntoxication: false,
+          isWithDressingMaterial: false,
+          isWithMaterialsPoisoning: false,
+          photoURL: '',
+          photo: undefined,
+          daysForNurse: 0,
+          message: '',
+        },
+        arrivalTime: {
+          hours: dayjs().add(1, 'hour').format('HH'),
+          minutes: dayjs().format('mm'),
+          date: dayjs().format('YYYY-MM-DD'),
+          isNearestHour: true
+        },
+        status: '',
+      });
+
+
+    };
+    setServiceDetails();
+  }, []);
   return (
     <main>
-      <Head>
-        <title>Укол на дому | Профессиональные медсестры</title>
-        <meta 
-          name="description" 
-          content="Полный спектр инъекционных услуг на дому: внутривенные, внутримышечные и подкожные уколы. Квалифицированные медсестры с выездом на дом." 
-        />
-        <meta 
-          name="keywords" 
-          content="уколы на дому, внутривенные инъекции, внутримышечные уколы, подкожные инъекции, вызов медсестры" 
-        />
-      </Head>
+
       <Header/>
 
       {/* Hero Section */}
@@ -77,25 +162,6 @@ export default function Injections() {
 
         </div>
       </section>
-
-      {/* Навигация по типам инъекций */}
-      <nav className="mb-12  text-black grid md:grid-cols-3 gap-4 px-4">
-        <p className="text-xl text-black font-bold ">
-             Виды уколов:
-        </p>
-        <a href="#intravenous" className="border-2 border-black p-4 rounded-lg flex items-center gap-3">
-          <img src={VeinImg} alt="Внутривенные" className="w-8 h-8" />
-          <span className="font-semibold">Внутривенный укол</span>
-        </a>
-        <a href="#intramuscular" className="border-2 border-black p-4 rounded-lg  flex items-center gap-3">
-          <img src={MuscleImg} alt="Внутримышечные" className="w-8 h-8" />
-          <span className="font-semibold">Внутримышечный укол</span>
-        </a>
-        <a href="#subcutaneous" className="border-2 border-black p-4 rounded-lg  flex items-center gap-3">
-          <img src={SkinImg} alt="Подкожные" className="w-8 h-8" />
-          <span className="font-semibold">Подкожный укол</span>
-        </a>
-      </nav>
 
       {/* Секция для каждого типа инъекций */}
       <section className="space-y-16 px-4 text-black">
@@ -130,11 +196,11 @@ export default function Injections() {
             </div>
             <div className="flex justify-between items-center mt-6 border-t-2 border-black pt-4">
               <span className="text-xl font-bold">5,000₸</span>
-              <button 
+              <a 
                 className="bg-my-green text-black font-semibold px-6 py-2 rounded-lg hover:bg-my-green-dark transition"
-                onClick={() => {navigate('/services/injection/intravenous')}}>
-                Заказать
-              </button>
+                href='/services/injections/intravenous'>
+                Перейти
+              </a>
             </div>
           </div>
         </div>
@@ -170,15 +236,15 @@ export default function Injections() {
             </div>
             <div className="flex justify-between items-center mt-6 border-t-2 border-black pt-4">
               <span className="text-xl font-bold">5,000₸</span>
-              <button 
+              <a 
                 className="bg-my-green text-black font-semibold px-6 py-2 rounded-lg hover:bg-my-green-dark transition"
-                onClick={() => {navigate('/services/injection/intramuscularly')}}>
-              
-                Заказать
-              </button>
+                href='/services/injections/intramuscularly'>
+                Перейти
+              </a>
             </div>
           </div>
         </div>
+        
 
         {/* Подкожные */}
         <div id="subcutaneous" className="scroll-mt-16">
@@ -211,16 +277,17 @@ export default function Injections() {
             </div>
             <div className="flex justify-between items-center mt-6 border-t-2 border-black pt-4">
               <span className="text-xl font-bold">5,000₸</span>
-              <button 
+              <a 
                 className="bg-my-green text-black font-semibold px-6 py-2 rounded-lg hover:bg-my-green-dark transition"
-                onClick={() => {navigate('/services/injection/subcutaneous')}}>
-
-                Заказать
-              </button>
+                href='/services/injections/subcutaneous'>
+                Перейти
+              </a>
             </div>
           </div>
         </div>
       </section>
+
+      <Order/> 
 
       <div className="space-y-16 px-4 text-black">
         <div className="rounded-lg p-6 my-8 bg-my-green/30">
@@ -277,6 +344,7 @@ export default function Injections() {
           </table>
         </div>
       </div>
+
 
       <FAQ faqItems={faq}/>
       <Footer/>

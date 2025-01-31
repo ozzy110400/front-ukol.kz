@@ -10,6 +10,11 @@ const formatPhone = (rawPhone: string): string => {
   return `+7 (${cleaned.slice(1, 4)}) ${cleaned.slice(4, 7)}-${cleaned.slice(7, 9)}-${cleaned.slice(9, 11)}`;
 };
 
+export const isValidatePhone = (phone: string): boolean => {
+  const phoneRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
+  return phoneRegex.test(phone);
+};
+
 export default function PhoneInput() {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
   
@@ -21,12 +26,8 @@ export default function PhoneInput() {
     setPhone(formatPhone(currentOrder.phone));
   }, [currentOrder.phone]);
 
-  const validatePhone = (phone: string): boolean => {
-    const phoneRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
-    return phoneRegex.test(phone);
-  };
 
-  const [isPhoneValid, setIsPhoneValid] = useState<boolean>(validatePhone(phone));
+  const [isPhoneValid, setIsPhoneValid] = useState<boolean>(isValidatePhone(phone));
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement; // Приведение типа к HTMLInputElement
@@ -39,14 +40,14 @@ export default function PhoneInput() {
   };
 
   useEffect(() => {
-    setIsPhoneValid(validatePhone(phone));
+    setIsPhoneValid(isValidatePhone(phone));
   }, [phone]);
 
   return (
     <div className="p-2 mx-2">
       <div className="form-control w-full">
         <label className="label">
-          <span className="label-text text-black">Номер телефона</span>
+          <span className="label-text text-black required">Номер телефона*</span>
         </label>
         <InputMask
           required
@@ -58,16 +59,10 @@ export default function PhoneInput() {
             <input
               type="text"
               placeholder="Введите номер телефона"
-              className={`input border-2 bg-transparent text-black w-full border-black focus:border-black`}
+              className={`input border-2  bg-white text-black w-full border-black focus:border-black`}
             />
           )}
         </InputMask>
-
-        {!isPhoneValid && (
-          <div className="label m-0 p-0">
-            <span className="label-text-alt text-error">Неверный формат номера</span>
-          </div>
-        )}
       </div>
     </div>
   );

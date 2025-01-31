@@ -27,7 +27,7 @@ const DaysForNurse = () => {
         <select
           value={currentOrder.options.daysForNurse ?? ''}
           onChange={handleDaysChange}
-          className="select select-bordered w-full text-lg text-black bg-transparent border-black border-2 focus:border-black"
+          className="select select-bordered w-full text-lg text-black bg-white border-black border-2 focus:border-black"
         >
           <option disabled value="">Выберите количество</option>
           {[1, 2, 3, 4, 5, 6, 7].map((day) => (

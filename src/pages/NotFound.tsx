@@ -14,12 +14,12 @@ export default function NotFound() {
         <h1 className="text-6xl font-bold text-black">404</h1>
         <h5 className="text-2xl font-medium text-gray-700">страница не найдена</h5>
       </div>
-      <button
-        onClick={() => navigate('/')}
+      <a
+       href='/'
         className="bg-my-green py-2 px-6 rounded-lg"
       >
         <span className="text-lg text-black  font-semibold text-text-black">на главную</span>
-      </button>
+      </a>
     </div>
   );
 }

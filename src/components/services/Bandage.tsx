@@ -1,9 +1,8 @@
-import { navigate } from 'wouter-preact/use-browser-location';
 import BandageImg from '/img/service/bandage.svg';
 
 export default function Bandage() {
   return (
-    <section className="mx-auto px-2 py-2">
+    <section className="mx-4 mb-4 py-2">
       {/* Компонент collapse с правильной структурой */}
       <div tabIndex={0} className="collapse collapse-arrow border-2 border-black rounded-lg">
         {/* Заголовок collapse */}
@@ -38,12 +37,12 @@ export default function Bandage() {
                   <span className="text-black font-semibold mb-2">Перевязка</span>
                   <div className="flex justify-between w-full">
                     <span className="text-black font-semibold py-1">8,000₸</span>
-                    <button
+                    <a
                       className="bg-my-green rounded-lg px-2 py-1"
-                      onClick={() => {navigate('/services/bandage/regular')}}
+                      href='/services/bandage/regular'
                     >
-                      <span className="text-black font-semibold">Заказать</span>
-                    </button>
+                      <span className="text-black font-semibold">Перейти</span>
+                    </a>
                   </div>
                 </div>
               </li>   

@@ -116,59 +116,79 @@ export const services = [
   //   icon: DropletIcon
   // },
 ];
+
 export default function Service() {
-  const [, navigate] = useLocation();
-
-  const handleCardClick = (code: string) => {  
-    trackClarityEvent('redirect_from_lending_we_help');
-    navigate(`/services/${code}`);
-  };
-
   return (
-    <section id="services" className="py-8">
+    <section 
+      id="services" 
+      aria-labelledby="services-heading"
+      className="py-8"
+    >
       <div className="text-center mb-5">
-        <p className="text-3xl text-black font-bold uppercase">
+        <h2 id="services-heading" className="text-3xl text-black font-bold uppercase">
           Вот с чем мы можем помочь
-        </p>
+        </h2>
+        <p className="sr-only">Список медицинских услуг, предоставляемых на дому</p>
       </div>
 
-      <div className="flex flex-wrap justify-center gap-2">
-        {services.map((service, index) => (
-          <div
-            key={index}
-            onClick={() => handleCardClick(service.code)}
-            className="bg-transparent border-2 border-black rounded-lg text-start mx-2 p-4 w-[400px]"
+      <ul className="flex flex-wrap justify-center gap-2 list-none p-0">
+        {services.map((service) => (
+          <li 
+            key={service.code}
+            className="mx-2 w-[400px]"
+            itemScope
+            itemType="http://schema.org/Service"
           >
-            <div className="flex items-center gap-4 mb-4">
-              <img
-                src={service.icon}
-                alt={service.title}
-                className="w-10 h-10"
-              />
-              <h2 className="text-2xl text-black font-semibold">
-                {service.title}
-              </h2>
-            </div>
-            <p className="text-base font-semibold text-gray-600 mb-4">
-              {service.description}
-            </p>
-            <div className="flex justify-between items-end ">
-              <span className="text-xl sm:text-xl text-black font-bold py-2">
-                от {new Intl.NumberFormat('en-US').format(service.price)}₸
-              </span>
-              <button
-                onClick={() => handleCardClick(service.code)}
-                className="bg-my-green rounded-lg px-6 py-2"
+            <article 
+              className="bg-transparent border-2 border-black rounded-lg text-start p-4 cursor-pointer hover:shadow-lg transition-shadow"
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <img
+                  src={service.icon}
+                  alt={`Иконка услуги ${service.title}`}
+                  className="w-10 h-10"
+                  loading="lazy"
+                  itemProp="image"
+                />
+                <h3 
+                  id={`service-${service.code}-title`}
+                  className="text-2xl text-black font-semibold"
+                  itemProp="name"
+                >
+                  {service.title}
+                </h3>
+              </div>
+              <p 
+                className="text-base font-semibold text-gray-600 mb-4"
+                itemProp="description"
               >
-                <span className="text-lg text-black font-semibold sm:text-xl">
-                  выбрать
+                {service.description}
+              </p>
+              <div className="flex justify-between items-end">
+                <span 
+                  className="text-xl sm:text-xl text-black font-bold py-2"
+                  itemProp="offers"
+                  itemScope
+                  itemType="http://schema.org/Offer"
+                >
+                  от <span itemProp="price">{new Intl.NumberFormat('en-US').format(service.price)}</span>
+                  <meta itemProp="priceCurrency" content="KZT" />
+                  <span aria-hidden="true">₸</span>
                 </span>
-              </button>
-            </div>
-          </div>
+                <a
+                  href={`/services/${service.code}`}
+                  className="bg-my-green rounded-lg px-6 py-2 text-lg text-black font-semibold sm:text-xl"
+                  aria-label={`Заказать услугу: ${service.title}`}
+                  itemProp="url"
+                >
+                  выбрать
+                </a>
+              </div>
+            </article>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
-};
+}
 

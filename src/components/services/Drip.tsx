@@ -1,9 +1,8 @@
-import { navigate } from 'wouter-preact/use-browser-location';
 import DripImg from '/img/service/drip.svg';
 
 export default function Drip() {
   return (
-    <section className="mx-auto px-2 py-2">
+    <section className="mx-4 py-2">
       {/* Компонент collapse с правильной структурой */}
       <div tabIndex={0} className="collapse collapse-arrow border-2 border-black rounded-lg">
         {/* Заголовок collapse */}
@@ -39,13 +38,13 @@ export default function Drip() {
                   <span className="text-black font-semibold mb-2">Капельница</span>
                   <div className="flex justify-between w-full">
                     <span className="text-black font-semibold py-1">7,000₸</span>
-                    <button
+                    <a
                       className="bg-my-green rounded-lg px-2 py-1"
-                      onClick={() => {navigate('/services/drip/custom')}}
+                      href='/services/drips/custom'
 
                     >
-                      <span className="text-black font-semibold">Заказать</span>
-                    </button>
+                      <span className="text-black font-semibold">Перейти</span>
+                    </a>
                   </div>
                 </div>
               </li>
@@ -58,13 +57,13 @@ export default function Drip() {
                   <span className="text-black font-semibold mb-2">Капельница от отравления</span>
                   <div className="flex justify-between w-full">
                     <span className="text-black font-semibold py-1">15,000₸</span>
-                    <button
-                      className="bg-my-green rounded-lg px-2 py-1"
-                      onClick={() => {navigate('/services/drip/poisoning')}}
+                    <a
+                    className="bg-my-green rounded-lg px-2 py-1"
+                     href='/services/drips/poisoning'
 
                     >
-                      <span className="text-black font-semibold">Заказать</span>
-                    </button>
+                      <span className="text-black font-semibold">Перейти</span>
+                    </a>
                   </div>
                 </div>
               </li>

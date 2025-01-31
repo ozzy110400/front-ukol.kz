@@ -1,9 +1,8 @@
-import { navigate } from 'wouter-preact/use-browser-location';
 import PillsImg from '/img/service/pills.svg';
 
 export default function Detox() {
   return (
-    <section className="mx-auto px-2 py-2">
+    <section className="mx-4 py-2">
       {/* Компонент collapse с правильной структурой */}
       <div tabIndex={0} className="collapse collapse-arrow border-2 border-black rounded-lg">
         {/* Заголовок collapse */}
@@ -39,13 +38,13 @@ export default function Detox() {
                   <span className="text-black font-semibold mb-2">Алкогольная детоксикация</span>
                   <div className="flex justify-between w-full">
                     <span className="text-black font-semibold py-1">30,000₸</span>
-                    <button
+                    <a
                       className="bg-my-green rounded-lg px-2 py-1"
-                      onClick={() => {navigate('/services/detox/alcohol')}}
+                      href='/services/detox/alcohol'
 
                     >
-                      <span className="text-black font-semibold">Заказать</span>
-                    </button>
+                      <span className="text-black font-semibold">Перейти</span>
+                    </a>
                   </div>
                 </div>
               </li>
@@ -55,12 +54,12 @@ export default function Detox() {
                   <span className="text-black font-semibold mb-2">Наркотическая детоксикация</span>
                   <div className="flex justify-between w-full">
                     <span className="text-black font-semibold py-1">30,000₸</span>
-                    <button
+                    <a
                       className="bg-my-green rounded-lg px-2 py-1"
-                      onClick={() => {navigate('/services/detox/drug')}}
+                     href='/services/detox/drug'
                     >
-                      <span className="text-black font-semibold">Заказать</span>
-                    </button>
+                      <span className="text-black font-semibold">Перейти</span>
+                    </a>
                   </div>
                 </div>
               </li>

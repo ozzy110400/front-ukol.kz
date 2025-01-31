@@ -85,9 +85,9 @@ export default function ArrivalTime() {
             activeOption === 'ASAP' ? 'bg-my-green' : 'bg-transparent'
           }`}
         >
-          <h3 className="text-sm sm:text-base md:text-lg">
+          <p className="text-sm sm:text-base md:text-lg">
             Приехать как можно раньше
-          </h3>
+          </p>
         </button>
         
         <button
@@ -96,9 +96,9 @@ export default function ArrivalTime() {
             activeOption === 'TIME' ? 'bg-my-green' : 'bg-transparent'
           }`}
         >
-          <h3 className="text-sm sm:text-base md:text-lg">
+          <p className="text-sm sm:text-base md:text-lg">
             Выбрать время
-          </h3>
+          </p>
         </button>
       </div>
 

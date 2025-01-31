@@ -21,7 +21,6 @@ const SpecState = () => {
       try {
         const { order } = await checkOpenOrder();
         if (!order) {
-          console.log('we are here');
           navigate('/');
         }
         if (order.status === 'taken' && !isOrderTaken) {
