@@ -21,7 +21,7 @@ export default function LoginModal() {
   const [modalsOpen, setModalsOpen] = useAtom(modalsOpenAtom);
   const [authValue, setAuthValue] = useAtom(authAtom);
   const [phone, setPhone] = useState<string>(formatPhone(currentOrder.phone));
-  const [isPolicyChecked, setIsPolicyChecked] = useState(false);
+  const [isPolicyChecked, setIsPolicyChecked] = useState(true);
   const [codeMessage, setCodeMessage] = useState({
     message: 'Код отправлен на WhatsApp по указаному номеру',
     hasError: false,
