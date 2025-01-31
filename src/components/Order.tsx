@@ -84,7 +84,7 @@ export default function Order() {
   };
 
   return (
-    <div className="bg-transparent pt-4 bg-black/10 mx-4 rounded-lg">
+    <div className="pt-4 bg-black/10 mx-4 rounded-lg">
       <p className="text-2xl text-center font-bold text-black mb-4 text-black">Оформление заказа</p>
 
       <PhoneInput />
