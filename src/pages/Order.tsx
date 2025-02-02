@@ -30,19 +30,28 @@ export default function Order() {
     ? serviceMapping[type]?.[code] 
     : null;
 
+  
     useEffect(() => {
+      // Динамически обновляем содержимое <head>
       if (!serviceDetails) return;
-      document.title = serviceDetails.title || "Ukol KZ - Медицинские услуги";
-      const metaDescription = document.querySelector('meta[name="description"]');
-      if (metaDescription) {
-        metaDescription.setAttribute("content", serviceDetails.description || "");
-      } else {
-        const newMeta = document.createElement("meta");
-        newMeta.name = "description";
-        newMeta.content = serviceDetails.description || "";
-        document.head.appendChild(newMeta);
-      }
-    }, [serviceDetails]);
+      document.title = serviceDetails.seoTitle
+  
+      const metaDescription = document.createElement('meta');
+      metaDescription.name = "description";
+      metaDescription.content = serviceDetails.seoDescription
+      document.head.appendChild(metaDescription);
+  
+      const linkCanonical = document.createElement('link');
+      linkCanonical.rel = "canonical";
+      linkCanonical.href = `https://ukol.kz/services/${type}/${code}`;
+      document.head.appendChild(linkCanonical);
+  
+      // Очистка при размонтировании компонента
+      return () => {
+        document.head.removeChild(metaDescription);
+        document.head.removeChild(linkCanonical);
+      };
+    }, []);
 
   useEffect(() => {
     const setServiceDetails = async () => {
@@ -118,7 +127,7 @@ export default function Order() {
         <div className="flex flex-col md:flex-row items-center gap-8 bg-my-green/30 rounded-xl p-6">
           <div className="flex-1">
             <h1 className="text-4xl font-bold text-black mb-4">
-            {serviceDetails?.title}
+            {serviceDetails?.seoH1}
             </h1>
             <p className="text-lg text-black mb-6">
                 {serviceDetails?.description}

@@ -45,37 +45,13 @@ export default function NurseServices() {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
   useEffect(() => {
     // Динамически обновляем содержимое <head>
-    document.title = "Медсестры на дом - ukol.kz";
+    document.title = "Вызов медсестры на дом в Алматы: платные услуги частной медсестры";
 
     const metaDescription = document.createElement('meta');
     metaDescription.name = "description";
-    metaDescription.content = "ukol.kz - услуги профессиональных медсестер на дому. Капельницы, инъекции, перевязки, уход за пациентами. Квалифицированные специалисты, безопасность и комфорт.";
+    metaDescription.content = "Платный вызов медсестры на дом в Алматы от ukol.kz. Уколы, капельницы, перевязки, дежурства на мероприятии – профессиональные услуги частной медсестры. Срочный выезд, доступные цены. Весь персонал с медицинским образованием";
     document.head.appendChild(metaDescription);
 
-    const metaKeywords = document.createElement('meta');
-    metaKeywords.name = "keywords";
-    metaKeywords.content = "медсестра на дом, услуги медсестры, уход за больными, капельницы на дому, инъекции, перевязки, патронажная медсестра, медицинская помощь на дому";
-    document.head.appendChild(metaKeywords);
-
-    const metaOgTitle = document.createElement('meta');
-    metaOgTitle.setAttribute('property', 'og:title');
-    metaOgTitle.content = "ukol.kz - Медсестры на дом";
-    document.head.appendChild(metaOgTitle);
-
-    const metaOgDescription = document.createElement('meta');
-    metaOgDescription.setAttribute('property', 'og:description');
-    metaOgDescription.content = "Профессиональные услуги медсестер на дому от ukol.kz. Инъекции, капельницы, перевязки и уход за больными. Опытные специалисты, гарантия качества.";
-    document.head.appendChild(metaOgDescription);
-
-    const metaOgUrl = document.createElement('meta');
-    metaOgUrl.setAttribute('property', 'og:url');
-    metaOgUrl.content = "https://ukol.kz/services/nurse";
-    document.head.appendChild(metaOgUrl);
-
-    const metaOgImage = document.createElement('meta');
-    metaOgImage.setAttribute('property', 'og:image');
-    metaOgImage.content = "https://ukol.kz/images/nurse-preview.jpg";
-    document.head.appendChild(metaOgImage);
 
     const linkCanonical = document.createElement('link');
     linkCanonical.rel = "canonical";
@@ -85,11 +61,6 @@ export default function NurseServices() {
     // Очистка при размонтировании компонента
     return () => {
       document.head.removeChild(metaDescription);
-      document.head.removeChild(metaKeywords);
-      document.head.removeChild(metaOgTitle);
-      document.head.removeChild(metaOgDescription);
-      document.head.removeChild(metaOgUrl);
-      document.head.removeChild(metaOgImage);
       document.head.removeChild(linkCanonical);
     };
   }, []);
@@ -144,7 +115,7 @@ export default function NurseServices() {
         <div className="flex flex-col md:flex-row items-center gap-8 bg-my-green/30 rounded-xl p-6">
           <div className="flex-1">
             <h1 className="text-4xl font-bold text-black mb-4">
-               Опытный медицинский уход от профильных медсестер
+                Услуги платной медсестры на дому в Алматы
             </h1>
             <p className="text-lg text-black mb-6">
                 Круглосуточные услуги по медицинскому уходу на дому. Опытные специалисты 

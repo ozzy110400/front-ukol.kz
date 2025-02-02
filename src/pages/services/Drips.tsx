@@ -29,37 +29,12 @@ export default function Drips() {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
   useEffect(() => {
     // Динамически обновляем содержимое <head>
-    document.title = "Капельницы на дому - ukol.kz";
+    document.title = "Капельницы на дому в Алматы — услуги медсестры поставить капельницу, низкие цены";
 
     const metaDescription = document.createElement('meta');
     metaDescription.name = "description";
-    metaDescription.content = "ukol.kz - профессиональные капельницы на дому. Лечение похмелья, восстановление после болезни, поддержка организма, выведение токсинов. Безопасно, качественно, анонимно.";
+    metaDescription.content = "Вызов медсестры на дом для постановки капельницы в Алматы. Только сертифицированный медицинский персонал: срочный выезд, капельницы на дому по доступной цене. Платные медицинские услуги, срочный выезд, работаем круглосуточно";
     document.head.appendChild(metaDescription);
-
-    const metaKeywords = document.createElement('meta');
-    metaKeywords.name = "keywords";
-    metaKeywords.content = "капельницы на дому, капельницы от похмелья, восстановительные капельницы, очищение организма, инфузионная терапия, вывод токсинов, капельница при отравлении";
-    document.head.appendChild(metaKeywords);
-
-    const metaOgTitle = document.createElement('meta');
-    metaOgTitle.setAttribute('property', 'og:title');
-    metaOgTitle.content = "ukol.kz - Капельницы на дому";
-    document.head.appendChild(metaOgTitle);
-
-    const metaOgDescription = document.createElement('meta');
-    metaOgDescription.setAttribute('property', 'og:description');
-    metaOgDescription.content = "Профессиональные капельницы на дому от ukol.kz. Восстановление, выведение токсинов и поддержка здоровья под контролем специалистов.";
-    document.head.appendChild(metaOgDescription);
-
-    const metaOgUrl = document.createElement('meta');
-    metaOgUrl.setAttribute('property', 'og:url');
-    metaOgUrl.content = "https://ukol.kz/services/drips";
-    document.head.appendChild(metaOgUrl);
-
-    const metaOgImage = document.createElement('meta');
-    metaOgImage.setAttribute('property', 'og:image');
-    metaOgImage.content = "https://ukol.kz/images/drips-preview.jpg";
-    document.head.appendChild(metaOgImage);
 
     const linkCanonical = document.createElement('link');
     linkCanonical.rel = "canonical";
@@ -69,11 +44,6 @@ export default function Drips() {
     // Очистка при размонтировании компонента
     return () => {
       document.head.removeChild(metaDescription);
-      document.head.removeChild(metaKeywords);
-      document.head.removeChild(metaOgTitle);
-      document.head.removeChild(metaOgDescription);
-      document.head.removeChild(metaOgUrl);
-      document.head.removeChild(metaOgImage);
       document.head.removeChild(linkCanonical);
     };
   }, []);
@@ -128,7 +98,7 @@ export default function Drips() {
         <div className="flex flex-col md:flex-row items-center gap-8 bg-my-green/30 rounded-xl p-6">
           <div className="flex-1">
             <h1 className="text-4xl font-bold text-black mb-4">
-              Все виды капельниц на дому
+               Капельницы на дому в Алматы
             </h1>
             <p className="text-lg text-black mb-6">
               Профессиональная помощь при проведении капельниц любой сложности. Квалифицированные медсестры выполнят процедуру в комфортных домашних условиях с использованием современных и безопасных медицинских препаратов.

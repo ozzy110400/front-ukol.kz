@@ -46,7 +46,7 @@ const faqItems = [
   {
     question: 'Какие специалисты оказывают медицинские услуги на дому?',
     answer:
-      'В Ukol.kz работают только квалифицированные и сертифицированные медсестры и врачи с опытом работы. Каждый специалист проходит обязательное обучение и аттестацию перед началом работы. После оказания услуги вы сможете оставить отзыв и оценку, что помогает нам поддерживать высокий уровень сервиса.',
+      'В Ukol.kz работают только квалифицированные и сертифицированные медсестры и врачи с опытом работы.',
   },
 ];
 
@@ -54,37 +54,12 @@ export default function Services() {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
   useEffect(() => {
     // Динамически обновляем содержимое <head>
-    document.title = "Все медицинские услуги на дому - ukol.kz";
+    document.title = "Список платных услуг на дому в Алматы от сервиса Ukol.kz";
 
     const metaDescription = document.createElement('meta');
     metaDescription.name = "description";
-    metaDescription.content = "ukol.kz - полный перечень медицинских услуг на дому. Капельницы, уколы, перевязки, уход за больными, вызов врача и многое другое. Профессионально, анонимно и качественно.";
+    metaDescription.content = "Список платных медицинских услуг на дому в Алматы от ukol.kz: вызов медсестры, уколы, капельницы и другие процедуры. Профессиональные медработники, доступные цены, срочный выезд";
     document.head.appendChild(metaDescription);
-
-    const metaKeywords = document.createElement('meta');
-    metaKeywords.name = "keywords";
-    metaKeywords.content = "все медицинские услуги на дому, уколы на дому, капельницы на дому, медсестра на дом, уход за больными, перевязки, вызов врача на дом, полный список услуг";
-    document.head.appendChild(metaKeywords);
-
-    const metaOgTitle = document.createElement('meta');
-    metaOgTitle.setAttribute('property', 'og:title');
-    metaOgTitle.content = "Укол.kz - Все медицинские услуги на дому";
-    document.head.appendChild(metaOgTitle);
-
-    const metaOgDescription = document.createElement('meta');
-    metaOgDescription.setAttribute('property', 'og:description');
-    metaOgDescription.content = "Полный список медицинских услуг на дому от ukol.kz. Мы гарантируем профессионализм, анонимность и комфорт. Доверьтесь нашим сертифицированным специалистам.";
-    document.head.appendChild(metaOgDescription);
-
-    const metaOgUrl = document.createElement('meta');
-    metaOgUrl.setAttribute('property', 'og:url');
-    metaOgUrl.content = "https://ukol.kz/services";
-    document.head.appendChild(metaOgUrl);
-
-    const metaOgImage = document.createElement('meta');
-    metaOgImage.setAttribute('property', 'og:image');
-    metaOgImage.content = "https://ukol.kz/images/services-preview.jpg";
-    document.head.appendChild(metaOgImage);
 
     const linkCanonical = document.createElement('link');
     linkCanonical.rel = "canonical";
@@ -94,11 +69,6 @@ export default function Services() {
     // Очистка при размонтировании компонента
     return () => {
       document.head.removeChild(metaDescription);
-      document.head.removeChild(metaKeywords);
-      document.head.removeChild(metaOgTitle);
-      document.head.removeChild(metaOgDescription);
-      document.head.removeChild(metaOgUrl);
-      document.head.removeChild(metaOgImage);
       document.head.removeChild(linkCanonical);
     };
   }, []);
@@ -152,7 +122,7 @@ export default function Services() {
 
      <Order/>
       <h1 className="font-bold text-center text-3xl text-black mb-2">
-          Наши услуги на дом
+           Наши услуги и цены в Алматы
         </h1>
       <Injection/>
       <Drip/>

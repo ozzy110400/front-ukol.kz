@@ -1,12 +1,37 @@
 import Header from 'components/Header';
+import { useEffect } from 'preact/hooks';
 
 
 export default function PrivacyDoc() {
+
+  useEffect(() => {
+    // Динамически обновляем содержимое <head>
+    document.title = "Политика конфиденциальности — ukol.kz";
+
+    const metaDescription = document.createElement('meta');
+    metaDescription.name = "description";
+    metaDescription.content = "Политика конфиденциальности сервиса — ukol.kz";
+    document.head.appendChild(metaDescription);
+
+    const linkCanonical = document.createElement('link');
+    linkCanonical.rel = "canonical";
+    linkCanonical.href = "https://ukol.kz/privacy";
+    document.head.appendChild(linkCanonical);
+
+    // Очистка при размонтировании компонента
+    return () => {
+      document.head.removeChild(metaDescription);
+      document.head.removeChild(linkCanonical);
+    };
+  }, []);
+
 
   return (
     <>
     <Header/>
     <div className="text-black m-4">
+    <h1>Политика конфиденциальности</h1>
+
     <p><strong>Политика конфиденциальности</strong> </p>
     <p><strong>Дата вступления в силу:</strong> 1.06.2024</p>
       <p>1. Введение</p>

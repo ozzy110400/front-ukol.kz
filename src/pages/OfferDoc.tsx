@@ -1,12 +1,35 @@
 import Header from 'components/Header';
+import { useEffect } from 'preact/hooks';
 
 
 export default function OfferDoc() {
+
+  useEffect(() => {
+    // Динамически обновляем содержимое <head>
+    document.title = "Договор оферты — ukol.kz";
+
+    const metaDescription = document.createElement('meta');
+    metaDescription.name = "description";
+    metaDescription.content = "Договор оферты сервиса — ukol.kz";
+    document.head.appendChild(metaDescription);
+
+    const linkCanonical = document.createElement('link');
+    linkCanonical.rel = "canonical";
+    linkCanonical.href = "https://ukol.kz/offer";
+    document.head.appendChild(linkCanonical);
+
+    // Очистка при размонтировании компонента
+    return () => {
+      document.head.removeChild(metaDescription);
+      document.head.removeChild(linkCanonical);
+    };
+  }, []);
 
   return (
     <>
     <Header/>
     <div className="text-black m-4">
+      <h1>Договор оферты</h1>
       <p><strong>Дата вступления в силу:</strong> 01.06.2024</p>
         <p>1. Общие положения</p>
         <p>1.1. Настоящий Договор публичной оферты (далее – "Договор") регулирует условия предоставления услуг через платформу Ukol.kz (далее – "Сайт"), расположенную на территории Республики Казахстан.</p>

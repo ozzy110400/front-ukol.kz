@@ -44,7 +44,7 @@ const faqItems = [
   {
     question: 'Какие специалисты оказывают медицинские услуги на дому?',
     answer:
-      'В Ukol.kz работают только квалифицированные и сертифицированные медсестры и врачи с опытом работы. Каждый специалист проходит обязательное обучение и аттестацию перед началом работы. После оказания услуги вы сможете оставить отзыв и оценку, что помогает нам поддерживать высокий уровень сервиса.',
+      'В Ukol.kz работают только квалифицированные и сертифицированные медсестры и врачи с опытом работы. ',
   },
 ];
 
@@ -92,37 +92,12 @@ export default function Main() {
 
   useEffect(() => {
     // Динамически обновляем содержимое <head>
-    document.title = "Медицинские услуги на дому - ukol.kz";
+    document.title = "Платные медицинские услуги на дому в Алматы: капельницы, уколы, вызов медсестры";
 
     const metaDescription = document.createElement('meta');
     metaDescription.name = "description";
-    metaDescription.content = "ukol.kz - предоставляем профессиональные медицинские услуги на дому в вашем городе. Капельницы, уколы, перевязки, уход за больными и многое другое. Быстро, анонимно и качественно.";
+    metaDescription.content = "Вызов медсестры, уколы и капельницы на дому в Алматы. Профессиональное оказание медицинских услуг на дому по доступным ценам. Все специалисты с медицинским образованием. Приезжаем в течение часа, работает круглосуточно — ukol.kz";
     document.head.appendChild(metaDescription);
-
-    const metaKeywords = document.createElement('meta');
-    metaKeywords.name = "keywords";
-    metaKeywords.content = "медицинские услуги на дому, уколы на дому, капельницы на дому, медсестра на дом, уход за больными, перевязки, вызов врача на дом";
-    document.head.appendChild(metaKeywords);
-
-    const metaOgTitle = document.createElement('meta');
-    metaOgTitle.setAttribute('property', 'og:title');
-    metaOgTitle.content = "ukol.kz - Медицинские услуги на дому";
-    document.head.appendChild(metaOgTitle);
-
-    const metaOgDescription = document.createElement('meta');
-    metaOgDescription.setAttribute('property', 'og:description');
-    metaOgDescription.content = "Закажите медицинские услуги на дому от ukol.kz. Мы гарантируем профессионализм, анонимность и комфорт. Доверьтесь нашим сертифицированным специалистам.";
-    document.head.appendChild(metaOgDescription);
-
-    const metaOgUrl = document.createElement('meta');
-    metaOgUrl.setAttribute('property', 'og:url');
-    metaOgUrl.content = "https://ukol.kz";
-    document.head.appendChild(metaOgUrl);
-
-    const metaOgImage = document.createElement('meta');
-    metaOgImage.setAttribute('property', 'og:image');
-    metaOgImage.content = "https://ukol.kz/images/preview.jpg";
-    document.head.appendChild(metaOgImage);
 
     const linkCanonical = document.createElement('link');
     linkCanonical.rel = "canonical";
@@ -132,11 +107,6 @@ export default function Main() {
     // Очистка при размонтировании компонента
     return () => {
       document.head.removeChild(metaDescription);
-      document.head.removeChild(metaKeywords);
-      document.head.removeChild(metaOgTitle);
-      document.head.removeChild(metaOgDescription);
-      document.head.removeChild(metaOgUrl);
-      document.head.removeChild(metaOgImage);
       document.head.removeChild(linkCanonical);
     };
   }, []);
@@ -154,30 +124,6 @@ export default function Main() {
       <Certification/>
       <LastPhrase />
       <Footer />
-
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "MedicalClinic",
-            "name": "Лучшие медицинские услуги на дому",
-            "description": "Профессиональные медицинские услуги на дому: уколы, капельницы, перевязки и уход за пациентами",
-            "medicalSpecialty": "Домашняя медицинская помощь",
-            "openingHours": "Mo-Su 00:00-23:59",
-            "makesOffer": {
-              "@type": "Offer",
-              "name": "Медицинские услуги на дому",
-              "description": "Услуги включают: выполнение уколов, установка капельниц, перевязки, уход за лежачими больными",
-              "availability": "InStock"
-            },
-            "areaServed": {
-              "@type": "City",
-              "name": "Алматы"
-            }
-          })
-        }}
-      />
     </main>
   );
 }

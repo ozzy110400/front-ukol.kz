@@ -57,37 +57,13 @@ export default function Injections() {
   
   useEffect(() => {
     // Динамически обновляем содержимое <head>
-    document.title = "Уколы на дому - ukol.kz";
+    document.title = "Уколы и инъекции на дому в Алматы платно: цена вызова медсестры";
 
     const metaDescription = document.createElement('meta');
     metaDescription.name = "description";
-    metaDescription.content = "ukol.kz - профессиональные медицинские услуги по выполнению уколов на дому. Внутримышечные, внутривенные, подкожные инъекции. Быстро, безопасно и без боли.";
+    metaDescription.content = "Уколы и инъекции на дому в Алматы от ukol.kz. Узнайте, сколько стоит поставить уколы платно: внутримышечные, внутривенные, витаминные. Срочный вызов медсестры, доступные цены, анонимно. Все специалисты с медицинским образованием. ";
     document.head.appendChild(metaDescription);
 
-    const metaKeywords = document.createElement('meta');
-    metaKeywords.name = "keywords";
-    metaKeywords.content = "уколы на дому, внутримышечные уколы, внутривенные инъекции, подкожные инъекции, медицинские уколы, вызов медсестры на дом, уколы на дому недорого";
-    document.head.appendChild(metaKeywords);
-
-    const metaOgTitle = document.createElement('meta');
-    metaOgTitle.setAttribute('property', 'og:title');
-    metaOgTitle.content = "ukol.kz - Уколы на дому";
-    document.head.appendChild(metaOgTitle);
-
-    const metaOgDescription = document.createElement('meta');
-    metaOgDescription.setAttribute('property', 'og:description');
-    metaOgDescription.content = "Профессиональные медицинские услуги по выполнению уколов на дому от ukol.kz. Внутримышечные, внутривенные и подкожные инъекции. Быстро, безопасно и без боли.";
-    document.head.appendChild(metaOgDescription);
-
-    const metaOgUrl = document.createElement('meta');
-    metaOgUrl.setAttribute('property', 'og:url');
-    metaOgUrl.content = "https://ukol.kz/services/injections";
-    document.head.appendChild(metaOgUrl);
-
-    const metaOgImage = document.createElement('meta');
-    metaOgImage.setAttribute('property', 'og:image');
-    metaOgImage.content = "https://ukol.kz/images/injections-preview.jpg";
-    document.head.appendChild(metaOgImage);
 
     const linkCanonical = document.createElement('link');
     linkCanonical.rel = "canonical";
@@ -97,11 +73,6 @@ export default function Injections() {
     // Очистка при размонтировании компонента
     return () => {
       document.head.removeChild(metaDescription);
-      document.head.removeChild(metaKeywords);
-      document.head.removeChild(metaOgTitle);
-      document.head.removeChild(metaOgDescription);
-      document.head.removeChild(metaOgUrl);
-      document.head.removeChild(metaOgImage);
       document.head.removeChild(linkCanonical);
     };
   }, []);
@@ -156,7 +127,7 @@ export default function Injections() {
         <div className="flex flex-col md:flex-row items-center gap-8 bg-my-green/30 rounded-xl p-6">
           <div className="flex-1">
             <h1 className="text-4xl font-bold text-black mb-4">
-              Все виды уколов на дому
+              Уколы и инъекции на дому в Алматы
             </h1>
             <p className="text-lg text-black mb-6">
               Профессиональное выполнение уколов любой сложности квалифицированными 

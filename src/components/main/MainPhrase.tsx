@@ -19,7 +19,7 @@ export default function MainPhrase() {
                 className="font-bold mb-8 text-4xl text-black"
                 itemProp="name"
               >
-                Лучшие медицинские услуги на дому
+                Платные медицинские услуги на дому в Алматы
               </h1>
             </header>
 
@@ -61,7 +61,7 @@ export default function MainPhrase() {
                 className="font-bold text-2xl text-black p-1"
                 itemProp="description"
               >
-                Заказ в 4 клика
+                Заказ в 3 клика
               </li>
               <li 
                 className="font-bold text-2xl text-black p-1"

@@ -50,37 +50,12 @@ export default function Detox() {
   const [currentOrder, setCurrentOrder] = useAtom(currentOrderAtom);
   useEffect(() => {
     // Динамически обновляем содержимое <head>
-    document.title = "Детоксикация на дому - ukol.kz";
+    document.title = "Детоксикация на дому в Алматы: вызов нарколога, срочный выезд круглосуточно";
 
     const metaDescription = document.createElement('meta');
     metaDescription.name = "description";
-    metaDescription.content = "ukol.kz - профессиональная детоксикация на дому. Очищение организма от токсинов, капельницы для детоксикации, помощь при отравлениях и похмелье. Быстро, анонимно и качественно.";
+    metaDescription.content = "Профессиональная детоксикация на дому в Алматы от ukol.kz. Вызов нарколога, капельницы, срочная помощь при интоксикации. Доступные цены, круглосуточный выезд медработников";
     document.head.appendChild(metaDescription);
-
-    const metaKeywords = document.createElement('meta');
-    metaKeywords.name = "keywords";
-    metaKeywords.content = "детоксикация на дому, капельницы для детоксикации, очищение организма, вывод токсинов, помощь при отравлении, лечение похмелья, детокс на дому";
-    document.head.appendChild(metaKeywords);
-
-    const metaOgTitle = document.createElement('meta');
-    metaOgTitle.setAttribute('property', 'og:title');
-    metaOgTitle.content = "ukol.kz - Детоксикация на дому";
-    document.head.appendChild(metaOgTitle);
-
-    const metaOgDescription = document.createElement('meta');
-    metaOgDescription.setAttribute('property', 'og:description');
-    metaOgDescription.content = "Профессиональная детоксикация на дому от ukol.kz. Очищение организма от токсинов, помощь при отравлениях и похмелье. Доверьтесь нашим сертифицированным специалистам.";
-    document.head.appendChild(metaOgDescription);
-
-    const metaOgUrl = document.createElement('meta');
-    metaOgUrl.setAttribute('property', 'og:url');
-    metaOgUrl.content = "https://ukol.kz/services/detox";
-    document.head.appendChild(metaOgUrl);
-
-    const metaOgImage = document.createElement('meta');
-    metaOgImage.setAttribute('property', 'og:image');
-    metaOgImage.content = "https://ukol.kz/images/detox-preview.jpg";
-    document.head.appendChild(metaOgImage);
 
     const linkCanonical = document.createElement('link');
     linkCanonical.rel = "canonical";
@@ -90,11 +65,6 @@ export default function Detox() {
     // Очистка при размонтировании компонента
     return () => {
       document.head.removeChild(metaDescription);
-      document.head.removeChild(metaKeywords);
-      document.head.removeChild(metaOgTitle);
-      document.head.removeChild(metaOgDescription);
-      document.head.removeChild(metaOgUrl);
-      document.head.removeChild(metaOgImage);
       document.head.removeChild(linkCanonical);
     };
   }, []);
@@ -147,7 +117,7 @@ export default function Detox() {
         <div className="flex flex-col md:flex-row items-center gap-8 bg-my-green/30 rounded-xl p-6">
           <div className="flex-1">
             <h1 className="text-4xl font-bold text-black mb-4">
-              Экстренная детоксикация на дому
+              Экстренная детоксикация на дому в Алматы
             </h1>
             <p className="text-lg text-black mb-6">
               Круглосуточный выезд опытного специалиста для быстрого очищения организма 
