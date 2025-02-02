@@ -67,7 +67,6 @@ export default function () {
        <Suspense fallback={<p>Loading...</p>}>
         <Switch>
           <Route path="/" component={Main} />
-          <Route path="/order" component={Order} />
           <Route path="/services" component={Services} />
           <Route path="/services/injections" component={Injections} />
           <Route path="/services/drips" component={Drips} />
