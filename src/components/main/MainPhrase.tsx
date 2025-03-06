@@ -19,7 +19,7 @@ export default function MainPhrase() {
                 className="font-bold mb-8 text-4xl text-black"
                 itemProp="name"
               >
-                Платные медицинские услуги на дому в Алматы
+                Профессиональные медицинские услуги на дому в Алматы
               </h1>
             </header>
 
