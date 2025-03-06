@@ -94,7 +94,7 @@ export default function MainPhrase() {
           </nav>
 
           <figure 
-            className="max-w-full h-[550px] object-cover rounded-2xl md:block hidden ml-12"
+            className="max-w-full object-cover rounded-2xl md:block hidden ml-12"
             itemProp="image"
           >
             <img

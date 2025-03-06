@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
+import 'swiper/css'
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import r1 from "../../img/reviews/r11.webp";
@@ -10,6 +10,7 @@ import r5 from "../../img/reviews/r55.webp";
 import r6 from "../../img/reviews/r66.webp";
 import r7 from "../../img/reviews/r77.webp";
 import r8 from "../../img/reviews/r88.webp";
+import r9 from "../../img/reviews/r9.webp";
 
 import { EffectCoverflow, Pagination } from "swiper/modules";
 import { useState } from "preact/hooks";
@@ -45,7 +46,11 @@ const reviewImages = [
   },
   {
     image: r8,
-    text: "Спасибо обслуживание нормальное, сестра приехала даже раньше назначенного времени. Капельницу поставила хорошо.",
+    text: 'Спасибо обслуживание нормальное, сестра приехала даже раньше назначенного времени. Капельницу поставила хорошо.',
+  },
+  {
+    image: r9,
+    text: "Впервые делаю капельницу на дому. Это так удобно, оказывается. У меня сложные вены, но ваш специалист Айсулу легко и безболезненно мне все сделала. Спасибо ей огромное!",
   },
 ];
 
