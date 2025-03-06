@@ -92,7 +92,7 @@ export default function Main() {
 
   useEffect(() => {
     // Динамически обновляем содержимое <head>
-    document.title = "Платные медицинские услуги на дому в Алматы: капельницы, уколы, вызов медсестры";
+    document.title = "Профессиональные медицинские услуги на дому в Алматы: капельницы, уколы, вызов медсестры";
 
     const metaDescription = document.createElement('meta');
     metaDescription.name = "description";
